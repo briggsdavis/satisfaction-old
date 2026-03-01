@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Phone, MapPin, MessageSquare, ChevronDown } from 'lucide-react';
 import { DeBlurText } from '../components/DeBlurText';
-import { TextReveal } from '../components/TextReveal';
+import { useDynamicText } from '../components/DynamicBackground';
 
 const faqs = [
   { q: "What is your typical project timeline?", a: "Most projects range from 4 to 12 weeks depending on complexity and scope." },
@@ -19,16 +19,17 @@ const faqs = [
 
 export const Contact = () => {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const { textColor, textColorMuted } = useDynamicText();
 
   return (
-    <div className="pt-40 px-8 pb-32 min-h-screen text-white">
-      <div className="mb-32 mix-blend-difference text-white">
-        <DeBlurText className="text-[12vw] leading-none text-white">Contact</DeBlurText>
+    <motion.div className="pt-40 px-8 pb-32 min-h-screen" style={{ color: textColor }}>
+      <div className="mb-32">
+        <DeBlurText className="text-[12vw] leading-none">Contact</DeBlurText>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-48">
         {/* Contact Info */}
-        <div className="space-y-16 mix-blend-difference text-white">
+        <div className="space-y-16">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div className="space-y-4">
               <Mail className="text-neon-pink w-6 h-6" />
@@ -54,8 +55,8 @@ export const Contact = () => {
         </div>
 
         {/* Inquiry Form */}
-        <div className="mix-blend-difference text-white">
-          <h3 className="text-4xl massive-text mb-12 text-white">Inquiry Form</h3>
+        <div>
+          <h3 className="text-4xl massive-text mb-12">Inquiry Form</h3>
           <form className="space-y-8">
             {[
               { label: 'Name', type: 'text' },
@@ -66,18 +67,20 @@ export const Contact = () => {
               { label: 'Timeline', type: 'text' },
             ].map((field) => (
               <div key={field.label} className="relative group">
-                <input 
+                <input
                   type={field.type}
                   placeholder={field.label}
-                  className="w-full bg-transparent border-b border-white/20 py-4 focus:outline-none focus:border-neon-pink transition-colors placeholder:uppercase placeholder:text-[10px] placeholder:tracking-widest placeholder:font-bold text-white"
+                  className="w-full bg-transparent border-b border-current/20 py-4 focus:outline-none focus:border-neon-pink transition-colors placeholder:uppercase placeholder:text-[10px] placeholder:tracking-widest placeholder:font-bold"
+                  style={{ color: 'inherit' }}
                 />
               </div>
             ))}
             <div className="relative group">
-              <textarea 
+              <textarea
                 placeholder="Further Messages"
                 rows={4}
-                className="w-full bg-transparent border-b border-white/20 py-4 focus:outline-none focus:border-neon-pink transition-colors placeholder:uppercase placeholder:text-[10px] placeholder:tracking-widest placeholder:font-bold resize-none text-white"
+                className="w-full bg-transparent border-b border-current/20 py-4 focus:outline-none focus:border-neon-pink transition-colors placeholder:uppercase placeholder:text-[10px] placeholder:tracking-widest placeholder:font-bold resize-none"
+                style={{ color: 'inherit' }}
               />
             </div>
             <button type="submit" className="btn-industrial w-full mt-8">
@@ -88,24 +91,21 @@ export const Contact = () => {
       </div>
 
       {/* FAQ Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-24 border-t border-white/10 pt-24 mix-blend-difference text-white">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-24 border-t border-current/10 pt-24">
         <div>
-          <h2 className="text-8xl massive-text leading-none text-white">FAQ</h2>
+          <h2 className="text-8xl massive-text leading-none">FAQ</h2>
         </div>
         <div className="lg:col-span-2 space-y-0">
           {faqs.map((faq, i) => (
-            <div key={i} className="border-b border-white/10 last:border-b-0">
-              <button 
+            <div key={i} className="border-b border-current/10 last:border-b-0">
+              <button
                 onClick={() => setOpenFaq(openFaq === i ? null : i)}
                 className="w-full py-8 flex justify-between items-center group text-left"
               >
-                <span className="text-xl font-bold uppercase tracking-tight group-hover:text-neon-pink transition-colors text-white">
+                <span className="text-xl font-bold uppercase tracking-tight group-hover:text-neon-pink transition-colors">
                   {faq.q}
                 </span>
-                <ChevronDown className={cn(
-                  "w-5 h-5 transition-transform duration-500 text-white",
-                  openFaq === i && "rotate-180"
-                )} />
+                <ChevronDown className={`w-5 h-5 transition-transform duration-500 ${openFaq === i ? 'rotate-180' : ''}`} />
               </button>
               <AnimatePresence>
                 {openFaq === i && (
@@ -116,9 +116,12 @@ export const Contact = () => {
                     transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                     className="overflow-hidden"
                   >
-                    <p className="pb-8 text-white/60 text-lg leading-relaxed max-w-2xl">
+                    <motion.p
+                      style={{ color: textColorMuted }}
+                      className="pb-8 text-lg leading-relaxed max-w-2xl"
+                    >
                       {faq.a}
-                    </p>
+                    </motion.p>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -126,10 +129,6 @@ export const Contact = () => {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
-
-function cn(...inputs: any[]) {
-  return inputs.filter(Boolean).join(' ');
-}

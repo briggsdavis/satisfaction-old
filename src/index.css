@@ -67,7 +67,10 @@ button, .card, .project-card, .btn, .rounded-full, .rounded-xl, .rounded-2xl {
   bottom: 0;
   width: 1px;
   background-color: rgba(255,255,255,0.1);
-  z-index: 50;
+  /* z-index 1: above the background (-z-20) and grid (z-auto), but below
+     page content — SmoothScroll is z-[2] so images and all painted content
+     sit above the column lines and are never obscured by them. */
+  z-index: 1;
   pointer-events: none;
 }
 

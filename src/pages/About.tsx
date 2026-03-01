@@ -4,6 +4,7 @@ import { DeBlurText } from '../components/DeBlurText';
 import { TextReveal } from '../components/TextReveal';
 import { AsymmetricalSection } from '../components/AsymmetricalSection';
 import { useSmoothScroll } from '../components/SmoothScroll';
+import { useDynamicText } from '../components/DynamicBackground';
 
 export const About = () => {
   const timeline = [
@@ -24,8 +25,6 @@ export const About = () => {
   const fallbackY = useMotionValue(0);
   const activeY = smoothY ?? fallbackY;
 
-  // Refs so the useTransform mappers always read the latest values without
-  // needing the function reference to change.
   const wrapperTopRef = useRef(0);
   const scrollDistanceRef = useRef(0);
 
@@ -33,7 +32,6 @@ export const About = () => {
     const measure = () => {
       if (wrapperRef.current) {
         const rect = wrapperRef.current.getBoundingClientRect();
-        // Absolute position in scroll-space = screen position + current smoothY offset
         wrapperTopRef.current = rect.top + (smoothY?.get() ?? 0);
       }
       if (horizontalRef.current) {
@@ -48,22 +46,15 @@ export const About = () => {
     return () => window.removeEventListener('resize', measure);
   }, [smoothY]);
 
-  // Counter-translate to keep the pinned section at the top of the viewport
-  // while smoothY is moving through the horizontal scroll range.
-  //
-  // Math: SmoothScroll applies translateY(-smoothY) to the whole content.
-  // An element at natural position T appears at screen-Y = T - smoothY.
-  // Adding pinY = smoothY - T gives screen-Y = 0 (pinned at top).
   const pinY = useTransform(activeY, (y: number) => {
     const T = wrapperTopRef.current;
     const D = scrollDistanceRef.current;
     if (D === 0) return 0;
-    if (y <= T) return 0;                // before: flow normally
-    if (y >= T + D) return D;            // after: release, scroll off upward
-    return y - T;                        // during: stay pinned at screen top
+    if (y <= T) return 0;
+    if (y >= T + D) return D;
+    return y - T;
   });
 
-  // Drive horizontal movement 1-to-1 with vertical scroll progress
   const x = useTransform(activeY, (y: number) => {
     const T = wrapperTopRef.current;
     const D = scrollDistanceRef.current;
@@ -73,10 +64,12 @@ export const About = () => {
     return -(y - T);
   });
 
+  const { textColor, textColorMuted } = useDynamicText();
+
   return (
-    <div className="pt-40">
+    <motion.div className="pt-40" style={{ color: textColor }}>
       <div className="px-8 mb-32">
-        <DeBlurText className="text-[12vw] mb-8 leading-none mix-blend-difference">
+        <DeBlurText className="text-[12vw] mb-8 leading-none">
           Devon<br /><span className="text-neon-pink">Colebank</span>
         </DeBlurText>
 
@@ -85,33 +78,31 @@ export const About = () => {
             <TextReveal
               as="p"
               text="Devon Colebank is a visionary visual engineer whose work exists at the intersection of industrial architecture and digital precision. With over a decade of experience in Berlin's creative scene, he has pioneered a style known as 'Industrial Brutalism'—a design philosophy that celebrates raw materials, structural honesty, and high-impact spatial logic."
-              className="text-2xl font-light leading-relaxed text-white/80 mix-blend-difference"
+              className="text-2xl font-light leading-relaxed"
             />
           </div>
-          <div className="space-y-8 text-white/40 leading-relaxed mix-blend-difference">
-            <p className="text-white/60">
+          <div className="space-y-8 leading-relaxed">
+            <motion.p style={{ color: textColorMuted }}>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-            </p>
-            <p className="text-white/60">
+            </motion.p>
+            <motion.p style={{ color: textColorMuted }}>
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
-            </p>
+            </motion.p>
             <div className="pt-8 flex gap-12">
               <div>
                 <h4 className="text-neon-pink text-[10px] uppercase tracking-widest font-bold mb-2">Location</h4>
-                <p className="text-white">Berlin, Germany</p>
+                <p>Berlin, Germany</p>
               </div>
               <div>
                 <h4 className="text-neon-pink text-[10px] uppercase tracking-widest font-bold mb-2">Focus</h4>
-                <p className="text-white">Visual Engineering</p>
+                <p>Visual Engineering</p>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Horizontal Timeline Section
-          Height = scrollDistance + 100vh so the section enters naturally,
-          pins for the full horizontal scroll, then releases and exits. */}
+      {/* Horizontal Timeline Section */}
       <div
         ref={wrapperRef}
         className="relative"
@@ -133,11 +124,11 @@ export const About = () => {
                     <span className="text-8xl font-black massive-text text-neon-pink drop-shadow-2xl">{item.year}</span>
                   </div>
                 </div>
-                <div className="mt-12 pr-12 mix-blend-difference">
+                <div className="mt-12 pr-12">
                   <TextReveal text={item.event} className="text-4xl font-bold uppercase tracking-tight" />
-                  <p className="mt-6 text-white/60 text-lg leading-relaxed max-w-md">
+                  <motion.p style={{ color: textColorMuted }} className="mt-6 text-lg leading-relaxed max-w-md">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
-                  </p>
+                  </motion.p>
                 </div>
               </div>
             ))}
@@ -158,6 +149,6 @@ export const About = () => {
         subtitle="Visual Engineering"
         align="left"
       />
-    </div>
+    </motion.div>
   );
 };

@@ -7,9 +7,10 @@ interface TextRevealProps {
   className?: string;
   as?: 'h1' | 'h2' | 'h3' | 'p' | 'span';
   delay?: number;
+  nowrap?: boolean;
 }
 
-export const TextReveal = ({ text, className, as: Component = 'p', delay = 0 }: TextRevealProps) => {
+export const TextReveal = ({ text, className, as: Component = 'p', delay = 0, nowrap = false }: TextRevealProps) => {
   const characters = text.split('');
 
   const container = {
@@ -43,7 +44,7 @@ export const TextReveal = ({ text, className, as: Component = 'p', delay = 0 }: 
 
   return (
     <motion.div
-      style={{ display: "flex", flexWrap: "wrap" }}
+      style={{ display: "flex", flexWrap: nowrap ? "nowrap" : "wrap" }}
       variants={container}
       initial="hidden"
       whileInView="visible"

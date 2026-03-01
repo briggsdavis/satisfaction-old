@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { DeBlurText } from '../components/DeBlurText';
 import { TextReveal } from '../components/TextReveal';
 import { AsymmetricalSection } from '../components/AsymmetricalSection';
+import { useDynamicText } from '../components/DynamicBackground';
 
 export const Hero = () => {
   const { scrollY } = useScroll();
@@ -11,20 +12,21 @@ export const Hero = () => {
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <motion.div 
+        <motion.div
           style={{ y: useTransform(scrollY, [0, 1000], [0, 200]) }}
           className="w-full h-full bg-[url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent" />
       </div>
 
-      <div className="relative z-10 text-center px-4 mix-blend-difference text-white">
+      {/* Hero is always at scroll=0 (dark background) — keep explicit white */}
+      <div className="relative z-10 text-center px-4 text-white">
         <motion.div style={{ y }}>
-          <h1 className="text-[15vw] md:text-[12vw] massive-text leading-none flex flex-col items-center text-white">
+          <h1 className="text-[15vw] md:text-[12vw] massive-text leading-none flex flex-col items-center">
             <TextReveal text="DEVON COLEB" className="text-white" />
             <TextReveal text="ANK" className="text-neon-pink" delay={0.5} />
           </h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}
@@ -37,7 +39,7 @@ export const Hero = () => {
 
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
         <div className="w-[1px] h-24 bg-gradient-to-b from-white/0 via-white/50 to-white/0" />
-        <span className="text-[10px] uppercase tracking-widest opacity-40 mix-blend-difference">Scroll</span>
+        <span className="text-[10px] uppercase tracking-widest text-white opacity-40">Scroll</span>
       </div>
     </section>
   );
@@ -52,8 +54,8 @@ export const ProjectShowcase = () => {
 
   return (
     <div className="space-y-0">
-      {projects.map((project, i) => (
-        <AsymmetricalSection 
+      {projects.map((project) => (
+        <AsymmetricalSection
           key={project.title}
           img={project.img}
           title={project.title}
@@ -68,7 +70,8 @@ export const ProjectShowcase = () => {
 
 export const BrandMarquee = () => {
   const logos = ['NIKE', 'APPLE', 'TESLA', 'SONY', 'ADIDAS', 'BMW', 'AUDI', 'NASA'];
-  
+  const { textColor } = useDynamicText();
+
   return (
     <div className="py-24 border-y border-white/10 overflow-hidden bg-white/5 backdrop-blur-sm">
       <motion.div
@@ -77,9 +80,13 @@ export const BrandMarquee = () => {
         className="flex gap-24 whitespace-nowrap"
       >
         {[...logos, ...logos].map((logo, i) => (
-          <span key={i} className="text-6xl font-black massive-text opacity-10 hover:opacity-100 transition-opacity text-white">
+          <motion.span
+            key={i}
+            style={{ color: textColor }}
+            className="text-6xl font-black massive-text opacity-10 hover:opacity-100 transition-opacity"
+          >
             {logo}
-          </span>
+          </motion.span>
         ))}
       </motion.div>
     </div>
@@ -93,9 +100,11 @@ export const ServiceTrinity = () => {
     { title: 'Graphic Design', video: 'https://assets.mixkit.co/videos/preview/mixkit-mechanical-parts-of-a-clock-4041-large.mp4' },
   ];
 
+  const { textColor } = useDynamicText();
+
   return (
-    <section className="flex flex-col md:flex-row h-[150vh] md:h-screen border-t border-white/10 mix-blend-difference text-white">
-      {services.map((service, i) => (
+    <section className="flex flex-col md:flex-row h-[150vh] md:h-screen border-t border-white/10">
+      {services.map((service) => (
         <motion.div
           key={service.title}
           className="relative flex-1 group overflow-hidden border-r border-white/10 last:border-r-0"
@@ -110,11 +119,15 @@ export const ServiceTrinity = () => {
               src={service.video}
             />
           </div>
-          <div className="relative z-10 h-full flex items-center justify-center p-12">
-            <TextReveal 
-              text={service.title} 
-              className="text-6xl md:text-8xl massive-text text-center group-hover:scale-110 transition-transform duration-700 text-white"
-            />
+          <div className="relative z-10 h-full flex items-center justify-center p-6">
+            {/* nowrap + clamp font-size ensures "Graphic Design" stays on one line */}
+            <motion.div style={{ color: textColor }} className="group-hover:scale-110 transition-transform duration-700">
+              <TextReveal
+                text={service.title}
+                nowrap
+                className="text-[clamp(2rem,_4vw,_4.5rem)] massive-text text-center"
+              />
+            </motion.div>
           </div>
         </motion.div>
       ))}
