@@ -77,14 +77,26 @@ export const Portfolio = () => {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project, index) => {
+              // Row & column within a 3-col grid. Even rows pan from left, odd from right.
+              const colCount = 3;
+              const rowIndex = Math.floor(index / colCount);
+              const colIndex = index % colCount;
+              const panX = rowIndex % 2 === 0 ? -80 : 80;
+
+              return (
               <motion.div
                 layout
                 key={project.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: panX }}
+                whileInView={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{
+                  duration: 0.7,
+                  delay: colIndex * 0.09,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="relative group aspect-[4/5] overflow-hidden cursor-pointer"
                 onClick={() => setSelectedProject(project)}
               >
@@ -103,7 +115,8 @@ export const Portfolio = () => {
                   <div className="mt-6 w-12 h-[1px] bg-white/40" />
                 </div>
               </motion.div>
-            ))}
+              );
+            })}
           </AnimatePresence>
         </motion.div>
       </div>
