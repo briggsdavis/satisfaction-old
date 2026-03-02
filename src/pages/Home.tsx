@@ -45,27 +45,80 @@ export const Hero = () => {
   );
 };
 
+// ─── Word-by-word scroll reveal ───────────────────────────────────────────────
+const WordReveal = ({
+  text,
+  motionStyle,
+  className,
+  startDelay = 0,
+}: {
+  text: string;
+  motionStyle?: any;
+  className?: string;
+  startDelay?: number;
+}) => (
+  <motion.p className={className} style={motionStyle}>
+    {text.split(' ').map((word, i) => (
+      <span key={i} className="inline-block overflow-hidden" style={{ marginRight: '0.3em' }}>
+        <motion.span
+          className="inline-block"
+          initial={{ y: '115%' }}
+          whileInView={{ y: '0%' }}
+          viewport={{ once: true, margin: '-30px' }}
+          transition={{
+            duration: 0.55,
+            delay: startDelay + i * 0.028,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+        >
+          {word}
+        </motion.span>
+      </span>
+    ))}
+  </motion.p>
+);
+
 // ─── Intro Text ───────────────────────────────────────────────────────────────
 export const IntroText = () => {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'center center'] });
-  const opacity = useTransform(scrollYProgress, [0, 0.55], [0, 1]);
-  const y = useTransform(scrollYProgress, [0, 0.55], [80, 0]);
   const { textColor, textColorMuted } = useDynamicText();
 
+  const para1 =
+    "Design isn't something I do — it's how I see the world. From the golden light that hits a subject at dusk, to the precise geometry of a well-crafted brand mark, I've spent my career chasing the moments where craft becomes meaning.";
+  const para2 =
+    "Based in Pittsburgh, Pennsylvania, I work at the intersection of videography, photography, and graphic design — telling stories that don't just look good, but feel undeniably true. Every project begins with a single question: what do you want people to feel?";
+
   return (
-    <section ref={ref} className="py-48 px-8 md:px-24 border-t border-current/10">
-      <motion.div style={{ opacity, y }} className="max-w-5xl mx-auto space-y-10">
-        <span className="text-neon-pink text-xs uppercase tracking-[0.4em] font-bold block">
-          The Philosophy
-        </span>
-        <motion.p style={{ color: textColor }} className="text-3xl md:text-4xl lg:text-[2.6rem] font-light leading-[1.35]">
-          Design isn't something I do — it's how I see the world. From the golden light that hits a subject at dusk, to the precise geometry of a well-crafted brand mark, I've spent my career chasing the moments where craft becomes meaning.
-        </motion.p>
-        <motion.p style={{ color: textColorMuted }} className="text-lg font-light leading-relaxed max-w-3xl">
-          Based in Berlin, I work at the intersection of videography, photography, and graphic design — telling stories that don't just look good, but feel undeniably true. Every project begins with a single question: what do you want people to feel?
-        </motion.p>
-      </motion.div>
+    <section className="py-48 px-8 md:px-24 border-t border-current/10">
+      <div className="max-w-5xl mx-auto space-y-10">
+        {/* Label — single line clip reveal */}
+        <div className="overflow-hidden">
+          <motion.span
+            className="text-neon-pink text-xs uppercase tracking-[0.4em] font-bold block"
+            initial={{ y: '110%' }}
+            whileInView={{ y: '0%' }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            The Philosophy
+          </motion.span>
+        </div>
+
+        {/* Large paragraph — word by word */}
+        <WordReveal
+          text={para1}
+          motionStyle={{ color: textColor }}
+          className="text-3xl md:text-4xl lg:text-[2.6rem] font-light leading-[1.35]"
+          startDelay={0.05}
+        />
+
+        {/* Smaller paragraph — word by word, slightly offset start */}
+        <WordReveal
+          text={para2}
+          motionStyle={{ color: textColorMuted }}
+          className="text-lg font-light leading-relaxed max-w-3xl"
+          startDelay={0.12}
+        />
+      </div>
     </section>
   );
 };

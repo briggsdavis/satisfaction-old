@@ -11,6 +11,7 @@ const SERVICE_DATA = [
     desc: "Cinematic storytelling from documentary portraits to brand films — crafted with a director's eye and a photographer's instinct for light.",
     expertise:
       "Over a decade of motion work across Europe and beyond. Devon brings a director's precision and a documentarian's patience to every brief — whether it's a high-concept brand film or an intimate character portrait shot in a single afternoon.",
+    img: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=1000',
     capabilities: [
       { label: 'Brand & Commercial Films', note: 'Full-production narratives for forward-thinking brands' },
       { label: 'Documentary & Long-Form', note: 'Authentic stories told with patience and craft' },
@@ -28,6 +29,7 @@ const SERVICE_DATA = [
     desc: "Editorial, commercial, and fine-art photography that captures the decisive moment — authentic, precise, and deeply considered.",
     expertise:
       "Devon's photographic practice spans editorial portraiture, commercial campaigns, and personal fine-art projects. The approach never changes: get close, stay patient, and trust the light to do what it always does.",
+    img: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?auto=format&fit=crop&q=80&w=1000',
     capabilities: [
       { label: 'Editorial & Portrait', note: 'Magazine, press, and talent portraiture' },
       { label: 'Commercial & Product', note: 'Campaign photography for global brands' },
@@ -45,6 +47,7 @@ const SERVICE_DATA = [
     desc: "Visual identity systems, art direction, and typographic design that give brands a distinctive, lasting presence.",
     expertise:
       "From startup identity builds to established brand resets, Devon designs with both strategy and soul. Every mark, typeface, and colour decision is rooted in the brand's truth — not the trend of the moment.",
+    img: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?auto=format&fit=crop&q=80&w=1000',
     capabilities: [
       { label: 'Brand Identity Systems', note: 'Logo, type, colour, and usage guidelines' },
       { label: 'Art Direction', note: 'Creative direction across print and digital' },
@@ -198,7 +201,7 @@ export const Services = () => {
                           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                         />
 
-                        {/* Expertise paragraph */}
+                        {/* Expertise paragraph — full width */}
                         <motion.p
                           style={{ color: textColorMuted }}
                           className="max-w-2xl text-lg leading-relaxed mb-10"
@@ -209,34 +212,65 @@ export const Services = () => {
                           {service.expertise}
                         </motion.p>
 
-                        {/* Capability rows — each line reveals with a clip-mask slide-up */}
-                        <div className="border-t border-current/10">
-                          {service.capabilities.map((cap, j) => (
-                            <CapabilityRow key={cap.label} cap={cap} index={j} />
-                          ))}
-                        </div>
+                        {/* Two-column: capabilities list + slide-in image */}
+                        <div className="flex flex-col lg:flex-row gap-12 items-start">
 
-                        {/* Stats */}
-                        <motion.div
-                          className="flex gap-16 pt-12 mt-2"
-                          initial={{ opacity: 0, y: 16 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.48, duration: 0.5 }}
-                        >
-                          {service.stats.map((stat) => (
-                            <div key={stat.label}>
-                              <div className="text-5xl md:text-6xl massive-text text-neon-pink leading-none">
-                                {stat.value}
-                              </div>
-                              <div
-                                className="text-[10px] uppercase tracking-widest mt-3"
-                                style={{ color: textColorMuted as any }}
-                              >
-                                {stat.label}
-                              </div>
+                          {/* Left: capabilities + stats */}
+                          <div className="flex-1 min-w-0">
+                            <div className="border-t border-current/10">
+                              {service.capabilities.map((cap, j) => (
+                                <CapabilityRow key={cap.label} cap={cap} index={j} />
+                              ))}
                             </div>
-                          ))}
-                        </motion.div>
+
+                            {/* Stats */}
+                            <motion.div
+                              className="flex gap-16 pt-12 mt-2"
+                              initial={{ opacity: 0, y: 16 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.48, duration: 0.5 }}
+                            >
+                              {service.stats.map((stat) => (
+                                <div key={stat.label}>
+                                  <div className="text-5xl md:text-6xl massive-text text-neon-pink leading-none">
+                                    {stat.value}
+                                  </div>
+                                  <div
+                                    className="text-[10px] uppercase tracking-widest mt-3"
+                                    style={{ color: textColorMuted as any }}
+                                  >
+                                    {stat.label}
+                                  </div>
+                                </div>
+                              ))}
+                            </motion.div>
+                          </div>
+
+                          {/* Right: image — wipe in from the right, image pans left simultaneously */}
+                          <motion.div
+                            className="w-full lg:w-[38%] overflow-hidden flex-shrink-0"
+                            initial={{ clipPath: 'inset(0 100% 0 0)' }}
+                            animate={{ clipPath: 'inset(0 0% 0 0)' }}
+                            transition={{ duration: 0.75, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                          >
+                            <motion.div
+                              className="relative aspect-[3/4]"
+                              initial={{ x: 48 }}
+                              animate={{ x: 0 }}
+                              transition={{ duration: 0.95, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                              <img
+                                src={service.img}
+                                alt={service.title}
+                                className="w-full h-full object-cover"
+                                referrerPolicy="no-referrer"
+                              />
+                              {/* Subtle neon tint overlay */}
+                              <div className="absolute inset-0 bg-neon-pink/[0.06] mix-blend-screen pointer-events-none" />
+                            </motion.div>
+                          </motion.div>
+
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
