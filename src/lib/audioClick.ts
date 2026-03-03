@@ -5,28 +5,61 @@
  * playClick()    — short, crisp noise burst for any button hover
  * playNavClick() — weighted mid-range click for nav link hovers (no sub-bass)
  *
- * AudioContext is created lazily on first call (satisfies browser autoplay policy).
+ * Root cause of "silent first few hovers":
+ *   AudioContext starts in 'suspended' state until a trusted user gesture
+ *   (pointerdown / keydown). Previously, resume() was fire-and-forget, so
+ *   audio nodes started while the context was still suspended and were silently
+ *   dropped. Fix: eagerly unlock on first pointerdown/keydown, AND await the
+ *   resume promise before creating any nodes.
  */
 
 let ctx: AudioContext | null = null;
+let resumePromise: Promise<void> | null = null;
 
-function getCtx(): AudioContext | null {
-  if (typeof window === 'undefined') return null;
-  const AudioCtx = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-  if (!AudioCtx) return null;
-  if (!ctx) ctx = new AudioCtx();
+function buildCtx(): void {
+  if (ctx || typeof window === 'undefined') return;
+  const AudioCtx =
+    window.AudioContext ??
+    (window as unknown as { webkitAudioContext: typeof AudioContext })
+      .webkitAudioContext;
+  if (!AudioCtx) return;
+  ctx = new AudioCtx();
+  if (ctx.state !== 'running') {
+    resumePromise = ctx.resume();
+  }
+}
+
+// Unlock on the first real user gesture so the context is already running
+// by the time hover sounds fire.  pointerdown fires before mousedown/click;
+// keydown covers keyboard users.
+if (typeof window !== 'undefined') {
+  const prime = () => buildCtx();
+  window.addEventListener('pointerdown', prime, { once: true });
+  window.addEventListener('keydown', prime, { once: true });
+}
+
+async function getReadyCtx(): Promise<AudioContext | null> {
+  buildCtx(); // no-op if already built
+  if (!ctx) return null;
+
+  // Await any pending resume from buildCtx()
+  if (resumePromise) {
+    await resumePromise;
+    resumePromise = null;
+  }
+
+  // Safety net: if somehow still suspended, await a fresh resume
+  if (ctx.state !== 'running') {
+    await ctx.resume();
+  }
+
   return ctx;
 }
 
-function maybeResume(ac: AudioContext): void {
-  if (ac.state === 'suspended') ac.resume();
-}
-
 /** Short tactile click — bandpass-filtered white noise, ~35 ms */
-export function playClick(): void {
-  const ac = getCtx();
+export async function playClick(): Promise<void> {
+  const ac = await getReadyCtx();
   if (!ac) return;
-  maybeResume(ac);
 
   const now = ac.currentTime;
   const bufLen = Math.floor(ac.sampleRate * 0.035);
@@ -37,7 +70,6 @@ export function playClick(): void {
   const src = ac.createBufferSource();
   src.buffer = buf;
 
-  // Shape the noise as a crisp, high-register click
   const bp = ac.createBiquadFilter();
   bp.type = 'bandpass';
   bp.frequency.value = 3200;
@@ -61,10 +93,9 @@ export function playClick(): void {
  * Layer 1 (~1100 Hz, Q=3)  — the body: rounded mechanical press
  * Layer 2 (~2400 Hz, Q=1)  — the crack: crisp tactile edge
  */
-export function playNavClick(): void {
-  const ac = getCtx();
+export async function playNavClick(): Promise<void> {
+  const ac = await getReadyCtx();
   if (!ac) return;
-  maybeResume(ac);
 
   const now = ac.currentTime;
 
@@ -81,7 +112,7 @@ export function playNavClick(): void {
   const bp1 = ac.createBiquadFilter();
   bp1.type = 'bandpass';
   bp1.frequency.value = 1100;
-  bp1.Q.value = 3.0; // resonant enough to sound like a key press
+  bp1.Q.value = 3.0;
 
   const gain1 = ac.createGain();
   gain1.gain.setValueAtTime(0.32, now);
@@ -94,7 +125,7 @@ export function playNavClick(): void {
 
   // ── Layer 2: high crack (~2400 Hz) ───────────────────────────────────────
   const src2 = ac.createBufferSource();
-  src2.buffer = buf; // reuse same buffer — different filter, different sound
+  src2.buffer = buf;
 
   const bp2 = ac.createBiquadFilter();
   bp2.type = 'bandpass';

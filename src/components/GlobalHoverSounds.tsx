@@ -14,7 +14,7 @@ export const GlobalHoverSounds = () => {
   const lastButton = useRef<Element | null>(null);
 
   useEffect(() => {
-    const handleMouseOver = (e: MouseEvent) => {
+    const handleMouseOver = async (e: MouseEvent) => {
       const target = e.target as Element;
 
       // Resolve the nearest interactive surface
