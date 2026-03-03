@@ -22,13 +22,14 @@ export const Navbar = () => {
       <nav className="fixed top-0 left-0 z-1000 grid w-full grid-cols-2 items-center px-4 py-6 md:grid-cols-3 md:px-8">
         <Link
           to="/"
-          className="massive-text group text-xl font-black tracking-tighter text-white md:text-2xl"
+          className="block"
           onClick={handleLinkClick}
         >
-          DEVON{" "}
-          <span className="text-neon-pink transition-colors group-hover:text-white">
-            COLEBANK
-          </span>
+          <img
+            src="/Untitled design (7) (1).png"
+            alt="Devon Cole Bank"
+            className="h-10 w-auto md:h-12"
+          />
         </Link>
 
         <div className="hidden items-center justify-center gap-6 md:flex">
