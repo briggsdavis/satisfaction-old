@@ -107,7 +107,7 @@ export const About = () => {
           <span className="text-neon-pink">Colebank</span>
         </DeBlurText>
 
-        <div className="mt-24 grid grid-cols-1 gap-16 md:grid-cols-2">
+        <div className="mt-24 grid grid-cols-1 gap-8 md:gap-16 md:grid-cols-2">
           <div className="space-y-8">
             {/* stagger={0.003} makes the character animation significantly faster */}
             <TextReveal
@@ -180,7 +180,7 @@ export const About = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   <div className="absolute bottom-8 left-8">
-                    <span className="massive-text text-neon-pink text-8xl font-black drop-shadow-2xl">
+                    <span className="massive-text text-neon-pink text-5xl md:text-8xl font-black drop-shadow-2xl">
                       {item.year}
                     </span>
                   </div>

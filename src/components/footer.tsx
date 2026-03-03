@@ -12,9 +12,9 @@ export const Footer = () => {
     <footer className="relative overflow-hidden border-t border-white/10 bg-black px-8 pt-32 pb-12">
       <div className="via-neon-pink/30 absolute top-0 left-0 h-1 w-full bg-gradient-to-r from-transparent to-transparent" />
 
-      <div className="relative z-10 grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-4">
+      <div className="relative z-10 grid grid-cols-1 gap-8 md:gap-12 md:grid-cols-2 lg:gap-16 lg:grid-cols-4">
         <div className="space-y-8">
-          <h2 className="massive-text text-6xl leading-none">
+          <h2 className="massive-text text-4xl md:text-6xl leading-none">
             Devon
             <br />
             Colebank

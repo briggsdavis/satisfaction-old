@@ -82,13 +82,13 @@ export const Portfolio = () => {
           </DeBlurText>
         </div>
 
-        <div className="mb-24 flex justify-center gap-4 border-b border-current/10 pb-8">
+        <div className="mb-24 grid grid-cols-2 justify-items-center gap-3 border-b border-current/10 pb-8 md:flex md:justify-center md:gap-4">
           {categories.map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
               className={cn(
-                "btn-industrial",
+                "btn-industrial w-full md:w-auto",
                 filter === f && "btn-industrial-active",
               )}
             >
@@ -99,7 +99,7 @@ export const Portfolio = () => {
 
         <motion.div
           layout
-          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+          className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => {
@@ -169,8 +169,15 @@ export const Portfolio = () => {
                   className="fixed inset-0 z-[5000] bg-black"
                 />
 
-                {/* Content container — no opacity animation so layoutId morph is visible */}
-                <div className="fixed inset-0 z-[5001] flex items-center justify-center overflow-hidden p-4 md:p-12">
+                {/* Content container */}
+                <motion.div
+                  key="content"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="fixed inset-0 z-[5001] flex items-center justify-center overflow-hidden p-4 md:p-12"
+                >
                   <button
                     onClick={() => setSelectedProject(null)}
                     className="absolute top-8 right-8 z-50 text-white/40 transition-colors hover:text-white"
@@ -234,7 +241,7 @@ export const Portfolio = () => {
                       </motion.div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </>
             )}
           </AnimatePresence>,

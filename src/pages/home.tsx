@@ -12,14 +12,17 @@ import { TextReveal } from "../components/text-reveal"
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 export const Hero = () => {
-  const { scrollY } = useScroll()
-  const y = useTransform(scrollY, [0, 500], [0, 250])
+  const smoothY = useSmoothScroll()
+  const fallbackY = useMotionValue(0)
+  const activeY = smoothY ?? fallbackY
+  const y = useTransform(activeY, [0, 1000], [0, 150])
+  const bgY = useTransform(activeY, [0, 1000], [0, 200])
 
   return (
     <section className="relative flex h-screen items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
         <motion.div
-          style={{ y: useTransform(scrollY, [0, 1000], [0, 200]) }}
+          style={{ y: bgY }}
           className="h-full w-full bg-[url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center opacity-60"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent" />
@@ -327,9 +330,9 @@ const UVPPanel = ({
   )
 
   return (
-    <motion.div style={{ opacity }} className="absolute inset-0 flex h-full">
-      {/* Image — left half */}
-      <div className="relative h-full w-1/2 overflow-hidden">
+    <motion.div style={{ opacity }} className="absolute inset-0 flex h-full flex-col md:flex-row">
+      {/* Image */}
+      <div className="relative h-1/2 w-full overflow-hidden md:h-full md:w-1/2">
         <motion.img
           style={{ x: imgX }}
           src={uvp.img}
@@ -340,10 +343,10 @@ const UVPPanel = ({
         <div className="absolute inset-0 bg-black/25" />
       </div>
 
-      {/* Text — right half */}
+      {/* Text */}
       <motion.div
         style={{ y: textY }}
-        className="flex h-full w-1/2 flex-col justify-center space-y-6 px-12 md:px-16"
+        className="flex h-1/2 w-full flex-col justify-center space-y-4 px-6 md:h-full md:w-1/2 md:space-y-6 md:px-16"
       >
         <span className="text-neon-pink text-xs font-bold tracking-[0.4em] uppercase">
           0{index + 1} / 0{total}

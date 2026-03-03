@@ -40,7 +40,7 @@ export const AsymmetricalSection = ({
           : "md:w-2/5"
 
   return (
-    <section ref={ref} className={cn("py-48 px-8", className)}>
+    <section ref={ref} className={cn("py-24 md:py-48 px-8", className)}>
       <div
         className={cn(
           "flex flex-col gap-12 items-center max-w-7xl mx-auto",
@@ -76,7 +76,7 @@ export const AsymmetricalSection = ({
           </motion.span>
           <TextReveal
             text={title}
-            className="massive-text text-6xl leading-none md:text-8xl"
+            className="massive-text text-4xl leading-none md:text-6xl lg:text-8xl"
           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
