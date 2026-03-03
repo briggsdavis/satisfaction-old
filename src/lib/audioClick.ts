@@ -3,7 +3,7 @@
  * Web Audio API sound generators for tactile button hover feedback.
  *
  * playClick()    — short, crisp noise burst for any button hover
- * playNavClick() — deeper low-frequency thump + snap for nav link hovers
+ * playNavClick() — weighted mid-range click for nav link hovers (no sub-bass)
  *
  * AudioContext is created lazily on first call (satisfies browser autoplay policy).
  */
@@ -53,7 +53,14 @@ export function playClick(): void {
   src.start(now);
 }
 
-/** Deeper nav click — low-frequency pitch-drop + high-passed snap transient */
+/**
+ * Nav tactile click — two bandpass noise layers, no sub-bass.
+ * Sits lower than playClick() (mid-range vs high-register) giving it
+ * more weight while staying firmly in "click" territory, not "thump".
+ *
+ * Layer 1 (~1100 Hz, Q=3)  — the body: rounded mechanical press
+ * Layer 2 (~2400 Hz, Q=1)  — the crack: crisp tactile edge
+ */
 export function playNavClick(): void {
   const ac = getCtx();
   if (!ac) return;
@@ -61,40 +68,45 @@ export function playNavClick(): void {
 
   const now = ac.currentTime;
 
-  // ── Layer 1: deep thump (sine, 110 Hz → 42 Hz over 90 ms) ────────────────
-  const osc = ac.createOscillator();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(110, now);
-  osc.frequency.exponentialRampToValueAtTime(42, now + 0.09);
+  // Shared noise buffer (45 ms is enough for both layers)
+  const bufLen = Math.floor(ac.sampleRate * 0.045);
+  const buf = ac.createBuffer(1, bufLen, ac.sampleRate);
+  const data = buf.getChannelData(0);
+  for (let i = 0; i < bufLen; i++) data[i] = Math.random() * 2 - 1;
 
-  const thumpGain = ac.createGain();
-  thumpGain.gain.setValueAtTime(0.45, now);
-  thumpGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+  // ── Layer 1: mid-range body (~1100 Hz) ───────────────────────────────────
+  const src1 = ac.createBufferSource();
+  src1.buffer = buf;
 
-  osc.connect(thumpGain);
-  thumpGain.connect(ac.destination);
-  osc.start(now);
-  osc.stop(now + 0.09);
+  const bp1 = ac.createBiquadFilter();
+  bp1.type = 'bandpass';
+  bp1.frequency.value = 1100;
+  bp1.Q.value = 3.0; // resonant enough to sound like a key press
 
-  // ── Layer 2: snap transient (highpass noise, ~18 ms) ─────────────────────
-  const snapLen = Math.floor(ac.sampleRate * 0.018);
-  const snapBuf = ac.createBuffer(1, snapLen, ac.sampleRate);
-  const snapData = snapBuf.getChannelData(0);
-  for (let i = 0; i < snapLen; i++) snapData[i] = Math.random() * 2 - 1;
+  const gain1 = ac.createGain();
+  gain1.gain.setValueAtTime(0.32, now);
+  gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.042);
 
-  const snapSrc = ac.createBufferSource();
-  snapSrc.buffer = snapBuf;
+  src1.connect(bp1);
+  bp1.connect(gain1);
+  gain1.connect(ac.destination);
+  src1.start(now);
 
-  const hp = ac.createBiquadFilter();
-  hp.type = 'highpass';
-  hp.frequency.value = 1800;
+  // ── Layer 2: high crack (~2400 Hz) ───────────────────────────────────────
+  const src2 = ac.createBufferSource();
+  src2.buffer = buf; // reuse same buffer — different filter, different sound
 
-  const snapGain = ac.createGain();
-  snapGain.gain.setValueAtTime(0.14, now);
-  snapGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.018);
+  const bp2 = ac.createBiquadFilter();
+  bp2.type = 'bandpass';
+  bp2.frequency.value = 2400;
+  bp2.Q.value = 1.0;
 
-  snapSrc.connect(hp);
-  hp.connect(snapGain);
-  snapGain.connect(ac.destination);
-  snapSrc.start(now);
+  const gain2 = ac.createGain();
+  gain2.gain.setValueAtTime(0.16, now);
+  gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.022);
+
+  src2.connect(bp2);
+  bp2.connect(gain2);
+  gain2.connect(ac.destination);
+  src2.start(now);
 }
