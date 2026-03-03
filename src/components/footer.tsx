@@ -90,6 +90,17 @@ export const Footer = () => {
             Terms of Service
           </span>
         </div>
+        <p className="text-[10px] tracking-widest text-white/20 uppercase">
+          Made by{" "}
+          <a
+            href="https://www.briggsdavis.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-neon-pink transition-colors"
+          >
+            BriggsDavis
+          </a>
+        </p>
       </div>
 
       {/* Large background text */}
