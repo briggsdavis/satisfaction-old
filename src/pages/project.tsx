@@ -118,6 +118,12 @@ const Lightbox = ({
   onPrev: () => void
   onNext: () => void
 }) => {
+  // Lock body scroll while lightbox is open
+  useEffect(() => {
+    document.body.style.overflow = "hidden"
+    return () => { document.body.style.overflow = "" }
+  }, [])
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose()
@@ -228,7 +234,7 @@ export const ProjectPage = () => {
           style={{ y: heroImgY }}
           src={project.heroImg}
           alt={project.title}
-          className="absolute inset-0 h-[120%] w-full object-cover grayscale"
+          className="absolute inset-0 h-[120%] w-full object-cover"
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black" />

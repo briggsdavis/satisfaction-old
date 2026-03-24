@@ -590,7 +590,7 @@ const UVPPanel = ({
           style={{ x: imgX }}
           src={uvp.img}
           alt={uvp.title}
-          className="h-full w-full scale-105 object-cover grayscale"
+          className="h-full w-full scale-105 object-cover"
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-black/40" />
@@ -734,7 +734,7 @@ const ServiceCard = ({
           src={service.img}
           alt={service.title}
           loading="lazy"
-          className="absolute w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
+          className="absolute w-full object-cover transition-transform duration-700 group-hover:scale-105"
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-black/30 transition-colors duration-500 group-hover:bg-black/10" />
