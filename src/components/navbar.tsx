@@ -76,7 +76,7 @@ export const Navbar = () => {
                   <Link
                     to={`/${item.toLowerCase()}`}
                     onClick={handleLinkClick}
-                    className="massive-text hover:text-neon-pink text-5xl text-white transition-colors"
+                    className="massive-text text-5xl text-white transition-opacity hover:opacity-60"
                   >
                     {item}
                   </Link>

@@ -11,6 +11,7 @@ import {
   Hero,
   IntroText,
   ServiceTrinity,
+  Ticker,
   ValuePropositions,
 } from "./pages/home"
 import { NotFound } from "./pages/not-found"
@@ -20,6 +21,7 @@ import { Services } from "./pages/services"
 const Home = () => (
   <>
     <Hero />
+    <Ticker />
     <IntroText />
     <FeaturedProjects />
     <ValuePropositions />
@@ -31,8 +33,6 @@ export default function App() {
   return (
     <Router>
       <CustomCursor />
-      <div className="industrial-grid pointer-events-none fixed inset-0 opacity-20" />
-
       {/* Column Lines — z-[1] keeps them above the background but below page content (z-[2]) */}
       {[...Array(7)].map((_, i) => (
         <div

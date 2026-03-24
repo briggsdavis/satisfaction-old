@@ -15,55 +15,96 @@ export const Hero = () => {
   const smoothY = useSmoothScroll()
   const fallbackY = useMotionValue(0)
   const activeY = smoothY ?? fallbackY
-  const y = useTransform(activeY, [0, 1000], [0, 150])
-  const bgY = useTransform(activeY, [0, 1000], [0, 200])
+  const y = useTransform(activeY, [0, 1000], [0, 120])
 
   return (
-    <section className="relative flex h-screen items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <motion.div
-          style={{ y: bgY }}
-          className="h-full w-full bg-[url('https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-center opacity-60"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent" />
+    <section className="relative flex h-screen flex-col justify-end overflow-hidden bg-black pb-0">
+      {/* Top metadata bar */}
+      <div className="absolute top-0 left-0 right-0 flex items-start justify-between px-8 pt-32 pointer-events-none z-10">
+        <div className="text-[9px] font-bold tracking-[0.35em] text-white/30 uppercase leading-relaxed">
+          Creative Director<br />Brand Strategist
+        </div>
+        <div className="text-[9px] font-bold tracking-[0.35em] text-white/30 uppercase leading-relaxed text-right">
+          Devon Colebank<br />Pittsburgh, PA
+        </div>
       </div>
 
-      <div className="relative z-10 px-4 text-center text-white">
-        <motion.div style={{ y }}>
-          <h1 className="massive-text flex flex-col items-center text-[15vw] leading-none md:text-[12vw]">
-            <TextReveal text="DEVON" className="text-white" />
-            <TextReveal
-              text="COLEBANK"
-              className="text-neon-pink"
-              delay={0.5}
-            />
-          </h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.8 }}
-            className="mt-8 text-xs font-medium tracking-[0.5em] text-white/60 uppercase"
-          >
+      {/* Main stacked headline */}
+      <motion.div style={{ y }} className="relative z-10">
+        {/* DEVON */}
+        <div className="border-t border-white/20 px-6 py-2 md:px-8">
+          <TextReveal
+            text="DEVON"
+            className="massive-text text-[22vw] leading-none md:text-[18vw]"
+          />
+        </div>
+
+        {/* ↓ separator row */}
+        <div className="border-t border-white/20 px-8 py-2 flex items-center gap-6">
+          <span className="font-display text-[4vw] text-white/40 leading-none">↓</span>
+          <span className="text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
             Creative Director & Brand Strategist
-          </motion.p>
-        </motion.div>
-      </div>
+          </span>
+        </div>
 
-      <div className="absolute bottom-12 left-1/2 flex -translate-x-1/2 flex-col items-center gap-4">
-        <div className="h-24 w-[1px] bg-gradient-to-b from-white/0 via-white/50 to-white/0" />
-        <span className="text-[10px] tracking-widest text-white uppercase opacity-40">
-          Scroll
+        {/* COLEBANK */}
+        <div className="border-t border-white/20 px-6 py-2 md:px-8">
+          <TextReveal
+            text="COLEBANK"
+            className="massive-text text-[22vw] leading-none md:text-[18vw]"
+            delay={0.3}
+          />
+        </div>
+
+        {/* Bottom border */}
+        <div className="border-t border-white/20" />
+      </motion.div>
+
+      {/* Bottom metadata */}
+      <div className="relative z-10 flex items-center justify-between px-8 py-4 border-t border-white/10">
+        <span className="text-[9px] font-bold tracking-[0.35em] text-white/20 uppercase">
+          Est. 2017
+        </span>
+        <span className="text-[9px] font-bold tracking-[0.35em] text-white/20 uppercase">
+          Scroll ↓
         </span>
       </div>
     </section>
   )
 }
 
+// ─── Marquee ticker ────────────────────────────────────────────────────────────
+const TICKER_ITEMS = [
+  "Creative Direction",
+  "—",
+  "Brand Strategy",
+  "—",
+  "Videography",
+  "—",
+  "Photography",
+  "—",
+  "Graphic Design",
+  "—",
+  "Pittsburgh, PA",
+  "—",
+]
+
+export const Ticker = () => (
+  <div className="border-t border-b border-white/10 overflow-hidden py-3">
+    <div className="marquee-track">
+      {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
+        <span
+          key={i}
+          className="mx-6 text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase whitespace-nowrap"
+        >
+          {item}
+        </span>
+      ))}
+    </div>
+  </div>
+)
+
 // ─── Word-by-word scroll reveal ───────────────────────────────────────────────
-// whileInView lives on the parent <motion.p> so IntersectionObserver targets
-// the full paragraph (which IS in the layout flow and never clipped).
-// Child variants animate from within their overflow-hidden mask once the
-// parent enters the viewport.
 const wordVariant = {
   hidden: { y: "115%" },
   visible: {
@@ -118,12 +159,11 @@ export const IntroText = () => {
     "Based in Pittsburgh, Pennsylvania, I work at the intersection of videography, photography, and graphic design. From Coors Light to Red Bull to Maker's Mark, every project starts with one question: what do you want people to feel?"
 
   return (
-    <section className="border-t border-current/10 px-8 py-48 md:px-24">
+    <section className="border-t border-white/10 px-8 py-48 md:px-24">
       <div className="mx-auto max-w-5xl space-y-10">
-        {/* Label — single line clip reveal */}
         <div className="overflow-hidden">
           <motion.span
-            className="text-neon-pink block text-xs font-bold tracking-[0.4em] uppercase"
+            className="block text-[9px] font-bold tracking-[0.4em] text-white/40 uppercase"
             initial={{ y: "110%" }}
             whileInView={{ y: "0%" }}
             viewport={{ once: true }}
@@ -133,17 +173,15 @@ export const IntroText = () => {
           </motion.span>
         </div>
 
-        {/* Large paragraph — word by word */}
         <WordReveal
           text={para1}
           className="text-3xl leading-[1.35] font-light md:text-4xl lg:text-[2.6rem]"
           startDelay={0.05}
         />
 
-        {/* Smaller paragraph — word by word, slightly offset start */}
         <WordReveal
           text={para2}
-          className="max-w-3xl text-lg leading-relaxed font-light text-white/60"
+          className="max-w-3xl text-lg leading-relaxed font-light text-white/50"
           startDelay={0.12}
         />
       </div>
@@ -192,7 +230,7 @@ const FeaturedProjectCard = ({
   return (
     <section
       ref={ref}
-      className="border-t border-current/10 px-8 py-32 md:px-16"
+      className="border-t border-white/10 px-8 py-32 md:px-16"
     >
       <div
         className={`mx-auto flex max-w-7xl flex-col items-center gap-12 ${
@@ -210,7 +248,7 @@ const FeaturedProjectCard = ({
             className="absolute w-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 bg-black/20" />
         </div>
 
         {/* Text */}
@@ -219,7 +257,7 @@ const FeaturedProjectCard = ({
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="border-neon-pink/50 text-neon-pink border px-3 py-1 text-[10px] font-bold tracking-[0.35em] uppercase"
+                className="border border-white/30 px-3 py-1 text-[10px] font-bold tracking-[0.35em] uppercase"
               >
                 {tag}
               </span>
@@ -229,7 +267,7 @@ const FeaturedProjectCard = ({
             text={project.title}
             className="massive-text text-5xl md:text-7xl"
           />
-          <p className="max-w-xs text-base leading-relaxed text-white/60">
+          <p className="max-w-xs text-base leading-relaxed text-white/50">
             A focused exploration of form, light, and intention. Crafted with
             precision and purpose.
           </p>
@@ -242,20 +280,30 @@ const FeaturedProjectCard = ({
 export const FeaturedProjects = () => {
   return (
     <section>
-      <div className="border-t border-current/10 px-8 pt-32 pb-12 md:px-16">
-        <TextReveal text="Featured" className="massive-text text-[9vw]" />
-        <TextReveal
-          text="Projects"
-          className="massive-text text-neon-pink text-[9vw]"
-          delay={0.15}
-        />
+      <div className="border-t border-white/10 px-8 pt-32 pb-0 md:px-16">
+        {/* Stacked heading with dividers */}
+        <div className="border-b border-white/10 pb-2">
+          <TextReveal text="Featured" className="massive-text text-[9vw]" />
+        </div>
+        <div className="border-b border-white/10 pb-2 pt-2">
+          <TextReveal
+            text="Projects"
+            className="massive-text text-[9vw]"
+            delay={0.15}
+          />
+        </div>
+        <div className="pt-2 pb-8">
+          <span className="text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+            Selected Work
+          </span>
+        </div>
       </div>
 
       {FEATURED.map((project) => (
         <FeaturedProjectCard key={project.title} project={project} />
       ))}
 
-      <div className="flex justify-center border-t border-current/10 py-24">
+      <div className="flex justify-center border-t border-white/10 py-24">
         <Link to="/portfolio" className="btn-industrial">
           See Portfolio
         </Link>
@@ -296,7 +344,6 @@ const UVPPanel = ({
 }) => {
   const crossWidth = 0.13
 
-  // Build keyframe arrays without conditionals so hook call order is always stable
   const fadeInStart = index === 0 ? 0 : index / total - crossWidth + 0.01
   const fadeInEnd = index === 0 ? 0.01 : index / total
   const fadeOutStart =
@@ -337,10 +384,10 @@ const UVPPanel = ({
           style={{ x: imgX }}
           src={uvp.img}
           alt={uvp.title}
-          className="h-full w-full scale-105 object-cover"
+          className="h-full w-full scale-105 object-cover grayscale"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-black/25" />
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Text */}
@@ -348,14 +395,14 @@ const UVPPanel = ({
         style={{ y: textY }}
         className="flex h-1/2 w-full flex-col justify-center space-y-4 px-6 md:h-full md:w-1/2 md:space-y-6 md:px-16"
       >
-        <span className="text-neon-pink text-xs font-bold tracking-[0.4em] uppercase">
+        <span className="text-[9px] font-bold tracking-[0.4em] text-white/40 uppercase">
           0{index + 1} / 0{total}
         </span>
         <TextReveal
           text={uvp.title}
           className="massive-text text-4xl md:text-5xl lg:text-6xl"
         />
-        <p className="max-w-md text-lg leading-relaxed text-white/60">
+        <p className="max-w-md text-lg leading-relaxed text-white/50">
           {uvp.text}
         </p>
       </motion.div>
@@ -410,7 +457,7 @@ export const ValuePropositions = () => {
     <div
       ref={wrapperRef}
       style={{ height: `calc(${pinDistance}px + 100vh)` }}
-      className="relative border-t border-current/10"
+      className="relative border-t border-white/10"
     >
       <motion.div
         style={{ y: pinY }}
@@ -430,7 +477,7 @@ export const ValuePropositions = () => {
   )
 }
 
-// ─── Service Trinity (Redesigned) ─────────────────────────────────────────────
+// ─── Service Trinity ──────────────────────────────────────────────────────────
 const SERVICE_CARDS = [
   {
     title: "Videography",
@@ -481,16 +528,16 @@ const ServiceCard = ({
           src={service.img}
           alt={service.title}
           loading="lazy"
-          className="absolute w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="absolute w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-black/20 transition-colors duration-500 group-hover:bg-black/10" />
+        <div className="absolute inset-0 bg-black/30 transition-colors duration-500 group-hover:bg-black/10" />
       </div>
       <TextReveal
         text={service.title}
         className="massive-text mb-3 text-4xl md:text-5xl"
       />
-      <p className="text-sm leading-relaxed text-white/60">
+      <p className="text-sm leading-relaxed text-white/50">
         {service.description}
       </p>
     </motion.div>
@@ -499,10 +546,17 @@ const ServiceCard = ({
 
 export const ServiceTrinity = () => {
   return (
-    <section className="border-t border-current/10 px-8 py-32 md:px-16">
+    <section className="border-t border-white/10 px-8 py-32 md:px-16">
       <div className="mx-auto max-w-7xl">
-        <div className="mb-20">
-          <TextReveal text="Services" className="massive-text text-[13vw]" />
+        <div className="mb-4">
+          <div className="border-b border-white/10 pb-2">
+            <TextReveal text="Services" className="massive-text text-[13vw]" />
+          </div>
+          <div className="pt-2 pb-16">
+            <span className="text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+              What I Do
+            </span>
+          </div>
         </div>
 
         <div className="flex flex-col items-start gap-10 md:flex-row md:gap-12">
