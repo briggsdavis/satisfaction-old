@@ -7,12 +7,15 @@ import { SmoothScroll } from "./components/smooth-scroll"
 import { About } from "./pages/about"
 import { Contact } from "./pages/contact"
 import {
+  CircleStatement,
   FeaturedProjects,
   Hero,
   IntroText,
+  ScatteredStatement,
   ServiceTrinity,
   Ticker,
   ValuePropositions,
+  WordStatement,
 } from "./pages/home"
 import { NotFound } from "./pages/not-found"
 import { Portfolio } from "./pages/portfolio"
@@ -22,9 +25,12 @@ const Home = () => (
   <>
     <Hero />
     <Ticker />
+    <WordStatement />
     <IntroText />
     <FeaturedProjects />
+    <CircleStatement />
     <ValuePropositions />
+    <ScatteredStatement />
     <ServiceTrinity />
   </>
 )

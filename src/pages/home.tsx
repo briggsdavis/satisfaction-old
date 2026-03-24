@@ -73,6 +73,198 @@ export const Hero = () => {
   )
 }
 
+// ─── Word Statement (screenshot 1 — stacked words + dividers) ────────────────
+const STATEMENT_WORDS = ["SEVEN", "YEARS", "ONE", "GOAL."]
+
+export const WordStatement = () => (
+  <section className="border-t border-white/10 bg-black overflow-hidden">
+    {STATEMENT_WORDS.map((word, i) => (
+      <motion.div
+        key={word}
+        className="border-b border-white/20 px-6 flex items-end"
+        initial={{ opacity: 0, x: -40 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <span className="massive-text text-[18vw] leading-[0.88] select-none">
+          {word}
+        </span>
+      </motion.div>
+    ))}
+
+    {/* Bottom metadata row — mimics the reference exactly */}
+    <div className="flex items-start justify-between px-6 py-4">
+      <div className="font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase leading-snug">
+        <span>2017·2018·2019·2020·2021·2022·2023·2024</span>
+        <br />
+        <span>Pittsburgh, PA</span>
+      </div>
+      <div className="text-right font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase leading-snug">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <span key={i} className="block">Seven Years. One Goal.</span>
+        ))}
+      </div>
+    </div>
+  </section>
+)
+
+// ─── Circle Statement (screenshot 2 — rotating ring + central text) ──────────
+const CIRCLE_RING_TEXT =
+  "Creative Direction · Brand Strategy · Videography · Photography · Graphic Design · "
+
+export const CircleStatement = () => (
+  <section className="flex items-center justify-center border-t border-white/10 bg-black py-32 px-4">
+    <div className="relative" style={{ width: "min(480px, 90vw)", height: "min(480px, 90vw)" }}>
+      {/* Rotating ring text via SVG */}
+      <motion.svg
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 480 480"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+      >
+        <defs>
+          <path
+            id="ring-path"
+            d="M 240 240 m -195 0 a 195 195 0 1 1 390 0 a 195 195 0 1 1 -390 0"
+          />
+        </defs>
+        <text
+          fill="white"
+          fontSize="11"
+          letterSpacing="3.5"
+          fontFamily="Inter Variable, Inter, sans-serif"
+          fontWeight="700"
+          style={{ textTransform: "uppercase" }}
+        >
+          <textPath href="#ring-path">
+            {(CIRCLE_RING_TEXT).repeat(4)}
+          </textPath>
+        </text>
+      </motion.svg>
+
+      {/* Static circle border */}
+      <div className="absolute inset-0 rounded-full border border-white/8" />
+
+      {/* Top + bottom cross markers */}
+      <span className="absolute top-[4%] left-1/2 -translate-x-1/2 text-white/25 text-xs select-none">+</span>
+      <span className="absolute bottom-[4%] left-1/2 -translate-x-1/2 text-white/25 text-xs select-none">+</span>
+
+      {/* Center content */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-center px-8">
+        {/* Small top label */}
+        <div className="font-mono text-[8px] font-bold tracking-[0.35em] text-white/30 uppercase">
+          Devon Colebank
+        </div>
+        {/* Small diamond separator */}
+        <span className="text-white/20 text-[10px] leading-none">◆</span>
+        {/* Main question */}
+        <TextReveal
+          text="WHAT DO YOU WANT PEOPLE TO FEEL?"
+          className="massive-text text-[5vw] leading-none md:text-[3.5vw]"
+        />
+        {/* Small diamond separator */}
+        <span className="text-white/20 text-[10px] leading-none">◆</span>
+        {/* Small bottom label */}
+        <div className="font-mono text-[8px] font-bold tracking-[0.35em] text-white/30 uppercase">
+          Pittsburgh, PA
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
+// ─── Scattered Statement (screenshots 3 & 4 — massive words + floating debris) ─
+export const ScatteredStatement = () => (
+  <section className="relative overflow-hidden border-t border-white/10 bg-black">
+
+    {/* ── ROW A: "BUILD" ── */}
+    <div className="relative border-b border-white/15 px-6 pt-6 pb-0">
+      {/* top-right stacked metadata */}
+      <div className="absolute right-6 top-6 text-right pointer-events-none z-10">
+        <span className="font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase leading-relaxed block">
+          Build to last<br />Build to last
+        </span>
+      </div>
+      <TextReveal text="BUILD" className="massive-text text-[22vw] leading-[0.88]" />
+    </div>
+
+    {/* ── MIDDLE DEBRIS ZONE A ── */}
+    <div className="relative min-h-[28vw] border-b border-white/10">
+      {/* top-left small labels */}
+      <div className="absolute left-6 top-5 flex gap-5 pointer-events-none">
+        <span className="font-mono text-[8px] font-bold tracking-widest text-white/18 uppercase">NO</span>
+        <span className="font-mono text-[8px] font-bold tracking-widest text-white/18 uppercase">NO</span>
+      </div>
+      <span className="absolute right-[8%] top-5 font-mono text-[8px] font-bold tracking-widest text-white/18 uppercase pointer-events-none">NO</span>
+
+      {/* "BOLD." floating top-right */}
+      <span className="massive-text absolute right-6 top-8 text-[4vw] leading-none text-white/85 pointer-events-none">BOLD.</span>
+
+      {/* Center: "Build with intention." + smiley */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
+        <span className="text-[11px] font-bold tracking-[0.3em] text-white/50 uppercase block">
+          Build with intention.
+        </span>
+        <span className="mt-2 block text-white/30 text-lg">☺</span>
+      </div>
+
+      {/* "← ←" arrows — left-centre */}
+      <div className="absolute left-[36%] bottom-5 flex gap-3 pointer-events-none">
+        <span className="font-mono text-xl text-white/55">←</span>
+        <span className="font-mono text-xl text-white/55">←</span>
+      </div>
+
+      {/* Bottom-right: "Devon Colebank / NO SHORTCUTS. / Devon Colebank" */}
+      <div className="absolute right-6 bottom-5 text-right pointer-events-none">
+        <span className="font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase block">Devon Colebank</span>
+        <span className="font-mono text-[12px] font-bold tracking-[0.2em] text-white/55 uppercase block mt-1">NO SHORTCUTS.</span>
+        <span className="font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase block mt-1">Devon Colebank</span>
+      </div>
+
+      {/* Bottom-left: "NO STORY" */}
+      <span className="absolute bottom-5 left-6 font-mono text-[11px] font-bold tracking-[0.3em] text-white/40 uppercase pointer-events-none">
+        NO STORY
+      </span>
+    </div>
+
+    {/* ── ROW B: "WITH" ── */}
+    <div className="border-b border-white/15 px-6 pb-0 pt-0">
+      <TextReveal text="WITH" className="massive-text text-[22vw] leading-[0.88]" delay={0.1} />
+    </div>
+
+    {/* ── MIDDLE DEBRIS ZONE B ── */}
+    <div className="relative min-h-[22vw] border-b border-white/10">
+      {/* "← ←" arrows — centre */}
+      <div className="absolute left-[38%] top-1/2 -translate-y-1/2 flex gap-3 pointer-events-none">
+        <span className="font-mono text-xl text-white/50">←</span>
+        <span className="font-mono text-xl text-white/50">←</span>
+      </div>
+
+      {/* top-right: "Devon Colebank" */}
+      <span className="absolute right-6 top-5 font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase pointer-events-none">
+        Devon Colebank
+      </span>
+
+      {/* "NO RISK." */}
+      <div className="absolute right-6 top-1/2 -translate-y-1/2 text-right pointer-events-none">
+        <span className="font-mono text-[14px] font-bold tracking-[0.2em] text-white/55 uppercase block">NO RISK.</span>
+        <span className="font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase block mt-1">Devon Colebank</span>
+      </div>
+
+      {/* "NO LIMITS." — bottom-left */}
+      <span className="absolute bottom-5 left-6 font-mono text-[11px] font-bold tracking-[0.3em] text-white/40 uppercase pointer-events-none">
+        NO LIMITS.
+      </span>
+    </div>
+
+    {/* ── ROW C: "PURPOSE." ── */}
+    <div className="px-6 pb-8 pt-0">
+      <TextReveal text="PURPOSE." className="massive-text text-[16vw] leading-[0.88]" delay={0.2} />
+    </div>
+  </section>
+)
+
 // ─── Marquee ticker ────────────────────────────────────────────────────────────
 const TICKER_ITEMS = [
   "Creative Direction",
