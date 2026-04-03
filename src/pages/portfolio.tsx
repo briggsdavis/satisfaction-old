@@ -104,14 +104,14 @@ export const Portfolio = () => (
       />
     </section>
 
-    {/* Image grid */}
-    <div className="flex flex-col divide-y divide-white/10">
+    {/* Image grid — px-8 matches navbar margin; gap-8 between every image */}
+    <div className="flex flex-col gap-8 px-4 py-8 md:px-8">
 
       {/* Row 1 — full width */}
       <CategoryCard category={CATEGORIES[0]} className="h-[62vh] md:h-[68vh]" />
 
       {/* Row 2 — 2 columns */}
-      <div className="flex flex-col divide-y divide-white/10 md:flex-row md:divide-x md:divide-y-0">
+      <div className="flex flex-col gap-8 md:flex-row">
         <CategoryCard category={CATEGORIES[1]} className="h-[72vh] flex-1" />
         <CategoryCard category={CATEGORIES[2]} className="h-[72vh] flex-1" />
       </div>
@@ -120,7 +120,7 @@ export const Portfolio = () => (
       <CategoryCard category={CATEGORIES[3]} className="h-[62vh] md:h-[68vh]" />
 
       {/* Row 4 — 2 columns */}
-      <div className="flex flex-col divide-y divide-white/10 md:flex-row md:divide-x md:divide-y-0">
+      <div className="flex flex-col gap-8 md:flex-row">
         <CategoryCard category={CATEGORIES[4]} className="h-[72vh] flex-1" />
         <CategoryCard category={CATEGORIES[5]} className="h-[72vh] flex-1" />
       </div>
@@ -129,7 +129,7 @@ export const Portfolio = () => (
       <CategoryCard category={CATEGORIES[6]} className="h-[62vh] md:h-[68vh]" />
 
       {/* Row 6 — 2 columns */}
-      <div className="flex flex-col divide-y divide-white/10 md:flex-row md:divide-x md:divide-y-0">
+      <div className="flex flex-col gap-8 md:flex-row">
         <CategoryCard category={CATEGORIES[7]} className="h-[72vh] flex-1" />
         <CategoryCard category={CATEGORIES[8]} className="h-[72vh] flex-1" />
       </div>
