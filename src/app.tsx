@@ -7,25 +7,26 @@ import { SmoothScroll } from "./components/smooth-scroll"
 import { About } from "./pages/about"
 import { Contact } from "./pages/contact"
 import {
+  BrandsCarousel,
   CircleStatement,
   FeaturedProjects,
   Hero,
   IntroText,
   ScatteredStatement,
   ServiceTrinity,
-  Ticker,
+  StatsGrid,
   ValuePropositions,
   WordStatement,
 } from "./pages/home"
 import { NotFound } from "./pages/not-found"
 import { Portfolio } from "./pages/portfolio"
-import { ProjectPage } from "./pages/project"
 import { Services } from "./pages/services"
 
 const Home = () => (
   <>
     <Hero />
-    <Ticker />
+    <StatsGrid />
+    <BrandsCarousel />
     <WordStatement />
     <IntroText />
     <FeaturedProjects />
@@ -58,7 +59,6 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/projects/:slug" element={<ProjectPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

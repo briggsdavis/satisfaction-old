@@ -1,9 +1,12 @@
 import {
   motion,
   MotionValue,
+  useAnimationFrame,
   useMotionValue,
   useScroll,
+  useSpring,
   useTransform,
+  useVelocity,
 } from "motion/react"
 import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router"
@@ -32,10 +35,10 @@ export const Hero = () => {
       {/* Top metadata bar — in document flow so it never overlaps */}
       <div className="relative z-10 flex items-start justify-between px-8 pt-28 pb-4">
         <div className="text-[9px] font-bold tracking-[0.35em] text-white/30 uppercase leading-relaxed">
-          Creative Director<br />Brand Strategist
+          Marketing Agency<br />Creative Production
         </div>
         <div className="text-[9px] font-bold tracking-[0.35em] text-white/30 uppercase leading-relaxed text-right">
-          Devon Colebank<br />Pittsburgh, PA
+          Social Satisfaction<br />Full-Service Agency
         </div>
       </div>
 
@@ -46,7 +49,7 @@ export const Hero = () => {
       <motion.div style={{ y }} className="relative z-10">
         <div className="border-t border-white/20 px-6 py-2 md:px-8">
           <TextReveal
-            text="DEVON"
+            text="SOCIAL"
             className="massive-text text-[22vw] leading-none md:text-[18vw]"
           />
         </div>
@@ -54,14 +57,14 @@ export const Hero = () => {
         <div className="border-t border-white/20 px-8 py-2 flex items-center gap-6">
           <span className="font-display text-[4vw] text-white/40 leading-none">↓</span>
           <span className="text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
-            Creative Director & Brand Strategist
+            Strategy · Production · Creative Direction
           </span>
         </div>
 
         <div className="border-t border-white/20 px-6 py-2 md:px-8">
           <TextReveal
-            text="COLEBANK"
-            className="massive-text text-[22vw] leading-none md:text-[18vw]"
+            text="SATISFACTION"
+            className="massive-text text-[14vw] leading-none md:text-[11vw]"
             delay={0.3}
           />
         </div>
@@ -72,7 +75,7 @@ export const Hero = () => {
       {/* Bottom metadata */}
       <div className="relative z-10 flex items-center justify-between px-8 py-4 border-t border-white/10">
         <span className="text-[9px] font-bold tracking-[0.35em] text-white/20 uppercase">
-          Est. 2017
+          Marketing Agency
         </span>
         <span className="text-[9px] font-bold tracking-[0.35em] text-white/20 uppercase">
           Scroll ↓
@@ -82,8 +85,282 @@ export const Hero = () => {
   )
 }
 
+// ─── Services Card Grid ───────────────────────────────────────────────────────
+type ServiceCardDef = {
+  service: string
+  tag?: string
+  inverted: boolean
+  rotate: number
+  delay: number
+  img: string
+}
+
+const SERVICES_ROW1: ServiceCardDef[] = [
+  {
+    service: "Creative Direction",
+    inverted: true,
+    rotate: -2,
+    delay: 0,
+    img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=800",
+  },
+  {
+    service: "Photography",
+    inverted: false,
+    rotate: 1.5,
+    delay: 0.08,
+    img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=800",
+  },
+  {
+    service: "Branding & Visual Identity",
+    tag: "Videography",
+    inverted: true,
+    rotate: -1,
+    delay: 0.16,
+    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800",
+  },
+  {
+    service: "Social Media",
+    tag: "Videography",
+    inverted: false,
+    rotate: 2,
+    delay: 0.24,
+    img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800",
+  },
+]
+
+const SERVICES_ROW2: ServiceCardDef[] = [
+  {
+    service: "Emails",
+    inverted: true,
+    rotate: -1.5,
+    delay: 0.32,
+    img: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?auto=format&fit=crop&q=80&w=800",
+  },
+  {
+    service: "Graphic Design",
+    inverted: false,
+    rotate: 1,
+    delay: 0.4,
+    img: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?auto=format&fit=crop&q=80&w=800",
+  },
+  {
+    service: "Motion Graphics",
+    inverted: true,
+    rotate: -2.5,
+    delay: 0.48,
+    img: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=800",
+  },
+]
+
+const ServicesGridCard = ({ card }: { card: ServiceCardDef }) => (
+  <Link to="/services" className="group block">
+    <motion.div
+      style={{ borderRadius: "1.25rem", rotate: card.rotate }}
+      className="relative aspect-[3/4] overflow-hidden"
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{
+        duration: 0.65,
+        delay: card.delay,
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+      }}
+    >
+      {/* Background image */}
+      <img
+        src={card.img}
+        alt={card.service}
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+      />
+      {/* Overlay */}
+      <div
+        className={`absolute inset-0 transition-opacity duration-500 ${
+          card.inverted
+            ? "bg-white/72 group-hover:bg-white/55"
+            : "bg-black/65 group-hover:bg-black/48"
+        }`}
+      />
+
+      {/* Content */}
+      <div
+        className={`relative z-10 flex h-full flex-col justify-between p-5 md:p-7 ${
+          card.inverted ? "text-black" : "text-white"
+        }`}
+      >
+        {/* Top — discipline tag */}
+        <div>
+          {card.tag ? (
+            <span
+              className={`text-[9px] font-bold tracking-[0.35em] uppercase ${
+                card.inverted ? "text-black/50" : "text-white/60"
+              }`}
+            >
+              {card.tag}
+            </span>
+          ) : (
+            <span className="block h-4" aria-hidden />
+          )}
+        </div>
+
+        {/* Bottom — service name + rule */}
+        <div>
+          <div
+            className={`w-full h-px mb-3 ${
+              card.inverted ? "bg-black/20" : "bg-white/25"
+            }`}
+          />
+          <p className="font-display text-xl md:text-2xl leading-tight uppercase">
+            {card.service}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  </Link>
+)
+
+export const StatsGrid = () => (
+  <section className="bg-black px-6 py-16 md:px-12 overflow-hidden">
+    <p className="mb-10 text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+      Our Services
+    </p>
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {SERVICES_ROW1.map((card, i) => (
+          <ServicesGridCard key={i} card={card} />
+        ))}
+      </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {SERVICES_ROW2.map((card, i) => (
+          <ServicesGridCard key={i} card={card} />
+        ))}
+      </div>
+    </div>
+  </section>
+)
+
+// ─── Brands Carousel ─────────────────────────────────────────────────────────
+const BRANDS = [
+  "Coors Light",
+  "Red Bull",
+  "Maker's Mark",
+  "Heinz",
+  "Under Armour",
+  "Patagonia",
+  "New Balance",
+  "Jack Daniel's",
+  "Vans",
+  "Levi's",
+  "Pittsburgh Steelers",
+  "ESPN",
+]
+
+export const BrandsCarousel = () => {
+  const { scrollY } = useScroll()
+  const scrollVelocity = useVelocity(scrollY)
+  // Low stiffness = slow decay when scrolling stops → weighted momentum feel
+  const smoothVelocity = useSpring(scrollVelocity, { damping: 45, stiffness: 60 })
+
+  // Fast skew transition on direction change
+  const skewAngle = useSpring(-12, { stiffness: 320, damping: 45 })
+  const skewTransform = useTransform(skewAngle, (v) => `skewX(${v}deg)`)
+
+  const baseX = useMotionValue(0)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const copyWidthRef = useRef(0)
+
+  useEffect(() => {
+    const measure = () => {
+      if (trackRef.current) {
+        copyWidthRef.current = trackRef.current.offsetWidth
+      }
+    }
+    requestAnimationFrame(measure)
+    window.addEventListener("resize", measure)
+    return () => window.removeEventListener("resize", measure)
+  }, [])
+
+  // Update skew target when scroll direction changes
+  useEffect(() => {
+    return scrollVelocity.on("change", (v) => {
+      if (v > 20) skewAngle.set(-12)
+      else if (v < -20) skewAngle.set(12)
+    })
+  }, [scrollVelocity, skewAngle])
+
+  useAnimationFrame((_, delta) => {
+    const BASE_SPEED = 60 // px/s
+    const velocityBoost = Math.abs(smoothVelocity.get()) * 0.06
+    const speed = BASE_SPEED + velocityBoost
+    let next = baseX.get() - speed * (delta / 1000)
+    if (copyWidthRef.current > 0 && next < -copyWidthRef.current) {
+      next += copyWidthRef.current
+    }
+    baseX.set(next)
+  })
+
+  return (
+    <section className="border-t border-white/10 bg-black">
+      {/* Header */}
+      <div className="border-b border-white/10 px-8 py-10 md:px-16">
+        <p className="text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase mb-4">
+          Collaborations
+        </p>
+        <h2 className="text-2xl font-light leading-[1.25] md:text-3xl">
+          Brands &amp; creative teams<br />we&apos;ve worked with:
+        </h2>
+      </div>
+
+      {/* Scrolling track */}
+      <div className="overflow-hidden border-b border-white/10 h-40">
+        <motion.div style={{ x: baseX }} className="flex h-full w-max">
+          {/* First copy — measured for wrap */}
+          <div ref={trackRef} className="flex h-full">
+            {BRANDS.map((brand) => (
+              <div key={brand} className="flex items-center h-full shrink-0">
+                {/* Brand name */}
+                <div className="flex items-center px-12 md:px-16 h-full">
+                  <span className="font-display text-xl tracking-wide text-white/40 uppercase whitespace-nowrap">
+                    {brand}
+                  </span>
+                </div>
+                {/* // divider */}
+                <motion.div
+                  className="relative h-full w-9 shrink-0"
+                  style={{ transform: skewTransform }}
+                >
+                  <div className="absolute inset-y-0 w-px bg-white/[0.13]" style={{ left: "8px" }} />
+                  <div className="absolute inset-y-0 w-px bg-white/[0.13]" style={{ left: "24px" }} />
+                </motion.div>
+              </div>
+            ))}
+          </div>
+          {/* Second copy — seamless loop */}
+          <div aria-hidden className="flex h-full">
+            {BRANDS.map((brand) => (
+              <div key={brand} className="flex items-center h-full shrink-0">
+                <div className="flex items-center px-12 md:px-16 h-full">
+                  <span className="font-display text-xl tracking-wide text-white/40 uppercase whitespace-nowrap">
+                    {brand}
+                  </span>
+                </div>
+                <motion.div
+                  className="relative h-full w-9 shrink-0"
+                  style={{ transform: skewTransform }}
+                >
+                  <div className="absolute inset-y-0 w-px bg-white/[0.13]" style={{ left: "8px" }} />
+                  <div className="absolute inset-y-0 w-px bg-white/[0.13]" style={{ left: "24px" }} />
+                </motion.div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Word Statement (screenshot 1 — stacked words + dividers) ────────────────
-const STATEMENT_WORDS = ["SEVEN", "YEARS", "ONE", "GOAL."]
+const STATEMENT_WORDS = ["MAKE", "THEM", "FEEL", "IT."]
 
 export const WordStatement = () => (
   <section className="border-t border-white/10 bg-black overflow-hidden">
@@ -105,16 +382,16 @@ export const WordStatement = () => (
       )
     })}
 
-    {/* Bottom metadata row — mimics the reference exactly */}
+    {/* Bottom metadata row */}
     <div className="flex items-start justify-between px-6 py-4">
       <div className="font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase leading-snug">
-        <span>2017·2018·2019·2020·2021·2022·2023·2024</span>
+        <span>Strategy · Production · Creative</span>
         <br />
-        <span>Pittsburgh, PA</span>
+        <span>Social Satisfaction</span>
       </div>
       <div className="text-right font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase leading-snug">
         {Array.from({ length: 4 }).map((_, i) => (
-          <span key={i} className="block">Seven Years. One Goal.</span>
+          <span key={i} className="block">Make Them Feel It.</span>
         ))}
       </div>
     </div>
@@ -164,12 +441,12 @@ export const CircleStatement = () => (
 
       {/* Small satellite labels */}
       <div className="absolute top-[22%] left-1/2 -translate-x-1/2 text-center pointer-events-none">
-        <span className="font-mono text-[8px] font-bold tracking-[0.3em] text-white/25 uppercase">Devon Colebank</span>
+        <span className="font-mono text-[8px] font-bold tracking-[0.3em] text-white/25 uppercase">Social Satisfaction</span>
         <span className="massive-text block text-sm leading-none mt-1">FEEL?</span>
       </div>
       <div className="absolute bottom-[22%] left-1/2 -translate-x-1/2 text-center pointer-events-none">
         <span className="massive-text block text-sm leading-none mb-1">FEEL?</span>
-        <span className="font-mono text-[8px] font-bold tracking-[0.3em] text-white/25 uppercase">Pittsburgh, PA</span>
+        <span className="font-mono text-[8px] font-bold tracking-[0.3em] text-white/25 uppercase">Marketing Agency</span>
       </div>
 
       {/* Center content */}
@@ -226,11 +503,11 @@ export const ScatteredStatement = () => (
         <span className="font-mono text-xl text-white/55">←</span>
       </div>
 
-      {/* Bottom-right: "Devon Colebank / NO SHORTCUTS. / Devon Colebank" */}
+      {/* Bottom-right: agency watermarks + NO SHORTCUTS */}
       <div className="absolute right-6 bottom-5 text-right pointer-events-none">
-        <span className="font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase block">Devon Colebank</span>
+        <span className="font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase block">Social Satisfaction</span>
         <span className="font-mono text-[12px] font-bold tracking-[0.2em] text-white/55 uppercase block mt-1">NO SHORTCUTS.</span>
-        <span className="font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase block mt-1">Devon Colebank</span>
+        <span className="font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase block mt-1">Social Satisfaction</span>
       </div>
 
       {/* Bottom-left: "NO STORY" */}
@@ -252,15 +529,15 @@ export const ScatteredStatement = () => (
         <span className="font-mono text-xl text-white/50">←</span>
       </div>
 
-      {/* top-right: "Devon Colebank" */}
+      {/* top-right: "Social Satisfaction" */}
       <span className="absolute right-6 top-5 font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase pointer-events-none">
-        Devon Colebank
+        Social Satisfaction
       </span>
 
       {/* "NO RISK." */}
       <div className="absolute right-6 top-1/2 -translate-y-1/2 text-right pointer-events-none">
         <span className="font-mono text-[14px] font-bold tracking-[0.2em] text-white/55 uppercase block">NO RISK.</span>
-        <span className="font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase block mt-1">Devon Colebank</span>
+        <span className="font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase block mt-1">Social Satisfaction</span>
       </div>
 
       {/* "NO LIMITS." — bottom-left */}
@@ -288,7 +565,7 @@ const TICKER_ITEMS = [
   "—",
   "Graphic Design",
   "—",
-  "Pittsburgh, PA",
+  "Social Satisfaction",
   "—",
 ]
 
@@ -357,9 +634,9 @@ const WordReveal = ({
 // ─── Intro Text ───────────────────────────────────────────────────────────────
 export const IntroText = () => {
   const para1 =
-    "Creative direction, brand identity, and commercial production for the brands and people that shape culture. Seven years of building visual systems that command attention and drive results."
+    "Creative direction, brand identity, and commercial production for the brands and people that shape culture. Bold ideas executed with precision, built to command attention and drive real results."
   const para2 =
-    "Based in Pittsburgh, Pennsylvania, I work at the intersection of videography, photography, and graphic design. From Coors Light to Red Bull to Maker's Mark, every project starts with one question: what do you want people to feel?"
+    "We work at the intersection of videography, photography, graphic design, and strategy. From Coors Light to Red Bull to Maker's Mark, every project starts with one question: what do you want people to feel?"
 
   return (
     <section className="border-t border-white/10 px-8 py-48 md:px-24">
@@ -522,17 +799,17 @@ export const FeaturedProjects = () => {
 const UVP_DATA = [
   {
     title: "Storytelling Through Light",
-    text: "Every frame is a deliberate act. From music videos for local artists to national campaigns for Coors Light and Red Bull, Devon turns moments into cinematic statements.",
+    text: "Every frame is a deliberate act. From music videos for emerging artists to national campaigns for Coors Light and Red Bull, we turn moments into cinematic statements.",
     img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200",
   },
   {
     title: "Brand, Built to Last",
-    text: "Great design outlives trends. Devon builds visual identities rooted in strategy, executed with craft, and designed to grow alongside the brands that wear them.",
+    text: "Great design outlives trends. We build visual identities rooted in strategy, executed with craft, and designed to grow alongside the brands that wear them.",
     img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200",
   },
   {
     title: "Motion That Moves People",
-    text: "Video is connection. From concept to color grade, Devon directs and produces film that carries the full weight of a story worth telling.",
+    text: "Video is connection. From concept to color grade, we direct and produce film that carries the full weight of a story worth telling.",
     img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1200",
   },
 ]

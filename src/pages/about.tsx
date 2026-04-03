@@ -49,11 +49,11 @@ export const About = () => {
     },
     {
       date: "2017 - PRESENT",
-      client: "DEVON COLEBANK MEDIA",
+      client: "SOCIAL SATISFACTION",
       campaign: null,
-      role: "DIGITAL CONTENT CREATION",
+      role: "FULL-SERVICE MARKETING AGENCY",
       description:
-        "Manage and own my current media business, where I do freelance Photography, Videography, Graphic Design, and other media needs for: businesses, entrepreneurs, artists, models and other advertising agencies.",
+        "A full-service marketing agency delivering photography, videography, graphic design, creative direction, and brand strategy for businesses, entrepreneurs, artists, and advertising agencies.",
     },
   ]
 
@@ -111,9 +111,9 @@ export const About = () => {
     <div className="pt-40">
       <div className="mb-32 px-8">
         <DeBlurText className="mb-8 text-[12vw] leading-none">
-          Devon
+          Social
           <br />
-          <span className="text-white/60">Colebank</span>
+          <span className="text-white/60">Satisfaction</span>
         </DeBlurText>
 
         <div className="mt-24 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
@@ -121,7 +121,7 @@ export const About = () => {
             {/* stagger={0.003} makes the character animation significantly faster */}
             <TextReveal
               as="p"
-              text="Devon Colebank is a Pittsburgh-based creative director and brand strategist with seven years of experience in commercial production, digital marketing, and brand identity development. His work spans videography, photography, and graphic design for brands like Coors Light, Red Bull, Maker's Mark, and Truly Hard Seltzer."
+              text="Social Satisfaction is a full-service marketing agency specialising in creative direction, brand identity, and commercial production. Our work spans videography, photography, and graphic design for brands like Coors Light, Red Bull, Maker's Mark, and Truly Hard Seltzer."
               className="text-2xl leading-relaxed font-light"
               stagger={0.003}
               immediate
@@ -129,24 +129,21 @@ export const About = () => {
           </div>
           <div className="space-y-8 leading-relaxed">
             <p className="text-white/60">
-              Born and raised in Pittsburgh and Uniontown, PA, Devon joined the
-              Army at 17 and spent six years on deployments overseas, including
-              time at Camp David. That discipline carries through every project
-              he touches today.
+              We believe great marketing starts with a single question: what do
+              you want people to feel? Every campaign, every frame, every brand
+              identity we build is engineered around that answer.
             </p>
             <p className="text-white/60">
-              After the military, Devon launched Social Satisfaction and quickly
-              became recognized as a top creative professional in Pittsburgh's
-              scene. He currently serves as Marketing Director at Richard
-              DeShantz Restaurant Group, helping foster the growth of Pittsburgh
-              as a culinary hub.
+              From national product launches to intimate brand activations, our
+              team brings strategic thinking and cinematic execution to every
+              brief. Bold ideas. Precise craft. Results that last.
             </p>
             <div className="flex gap-12 pt-8">
               <div>
                 <h4 className="text-white/60 mb-2 text-[10px] font-bold tracking-widest uppercase">
-                  Location
+                  Type
                 </h4>
-                <p>Pittsburgh, PA</p>
+                <p>Marketing Agency</p>
               </div>
               <div>
                 <h4 className="text-white/60 mb-2 text-[10px] font-bold tracking-widest uppercase">
