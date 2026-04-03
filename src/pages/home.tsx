@@ -144,7 +144,7 @@ const SERVICES_ROW2: ServiceCardDef[] = [
   },
 ]
 
-const ServiceCard = ({ card }: { card: ServiceCardDef }) => (
+const ServicesGridCard = ({ card }: { card: ServiceCardDef }) => (
   <motion.div
     style={{ borderRadius: "1.25rem", rotate: card.rotate }}
     className={`aspect-[3/4] p-5 md:p-7 flex flex-col justify-between ${
@@ -195,12 +195,12 @@ export const StatsGrid = () => (
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {SERVICES_ROW1.map((card, i) => (
-          <ServiceCard key={i} card={card} />
+          <ServicesGridCard key={i} card={card} />
         ))}
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {SERVICES_ROW2.map((card, i) => (
-          <ServiceCard key={i} card={card} />
+          <ServicesGridCard key={i} card={card} />
         ))}
       </div>
     </div>
