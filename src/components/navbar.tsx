@@ -19,7 +19,7 @@ export const Navbar = () => {
         <Link to="/" className="block w-fit" onClick={handleLinkClick}>
           <img
             src="/logo.png"
-            alt="Devon Colebank"
+            alt="Social Satisfaction"
             className="h-10 w-auto md:h-12"
           />
         </Link>
@@ -89,7 +89,7 @@ export const Navbar = () => {
               ← → Creative Direction
             </div>
             <div className="absolute bottom-8 right-8 font-mono text-[8px] font-bold tracking-widest text-white/15 uppercase">
-              Devon Colebank
+              Social Satisfaction
             </div>
           </motion.div>
         )}

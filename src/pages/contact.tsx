@@ -337,10 +337,10 @@ export const Contact = () => {
                 Email
               </p>
               <a
-                href="mailto:devon@devoncolebank.com"
+                href="mailto:info@socialsatisfaction.com"
                 className="text-sm text-white/70 transition-colors hover:text-white"
               >
-                devon@devoncolebank.com
+                info@socialsatisfaction.com
               </a>
             </div>
             <div>
@@ -358,19 +358,19 @@ export const Contact = () => {
               <p className="mb-1 text-[9px] font-bold tracking-[0.3em] uppercase text-white/25">
                 Location
               </p>
-              <p className="text-sm text-white/70">Pittsburgh, Pennsylvania</p>
+              <p className="text-sm text-white/70">Marketing Agency</p>
             </div>
             <div>
               <p className="mb-1 text-[9px] font-bold tracking-[0.3em] uppercase text-white/25">
                 Instagram
               </p>
               <a
-                href="https://www.instagram.com/devoncolebank/"
+                href="https://www.instagram.com/socialsatisfaction/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-white/70 transition-colors hover:text-white"
               >
-                @devoncolebank
+                @socialsatisfaction
               </a>
             </div>
           </div>
