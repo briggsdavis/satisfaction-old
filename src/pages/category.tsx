@@ -93,6 +93,38 @@ export const CategoryPage = () => {
         />
       </section>
 
+      {/* Overview section — headline / description + 4-col breakdown */}
+      <section className="border-b border-white/10 px-8 py-20 md:px-16">
+        {/* Top row: headline + description */}
+        <div className="mb-20 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20">
+          <h2 className="text-3xl font-bold leading-[1.15] tracking-tight md:text-4xl">
+            {category.overview.headline}
+          </h2>
+          <p className="text-base leading-relaxed text-white/55 md:text-lg">
+            {category.overview.description}
+          </p>
+        </div>
+
+        {/* Bottom row: 4-col breakdown */}
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
+          {(
+            [
+              { label: "Problem", body: category.overview.problem },
+              { label: "Solution", body: category.overview.solution },
+              { label: "Execution", body: category.overview.execution },
+              { label: "Results", body: category.overview.results },
+            ] as const
+          ).map(({ label, body }) => (
+            <div key={label}>
+              <span className="mb-5 block text-[9px] font-bold tracking-[0.4em] uppercase text-white/35">
+                {label}
+              </span>
+              <p className="text-sm leading-relaxed text-white/55">{body}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Project grid — px-8 + gap-8 matches portfolio page exactly */}
       <div className="flex flex-col gap-8 px-4 py-8 md:px-8">
 

@@ -5,12 +5,22 @@ export type Project = {
   img: string
 }
 
+export type CategoryOverview = {
+  headline: string
+  description: string
+  problem: string
+  solution: string
+  execution: string
+  results: string
+}
+
 export type Category = {
   slug: string
   name: string
   img: string
   height: string
   bullets: string[]
+  overview: CategoryOverview
   projects: Project[]
 }
 
@@ -27,6 +37,19 @@ export const CATEGORIES: Category[] = [
       "Moodboards + visual references",
       "Styling direction (food styling, props, wardrobe)",
     ],
+    overview: {
+      headline: "Your brand deserves a visual voice that stops people cold.",
+      description:
+        "Creative direction isn't just about pretty pictures — it's the strategy behind every frame. From campaign concepting to shoot day execution, we build the visual language your brand needs to command attention and convert on every platform.",
+      problem:
+        "Most brands shoot reactively — no shot list, no concept, no continuity. Content feels disconnected and nothing builds on itself over time.",
+      solution:
+        "We lead full art direction end-to-end: concepting campaigns around real business moments, writing detailed shot lists, building moodboards, and coordinating every element before a camera turns on.",
+      execution:
+        "Every shoot is planned with intention — locations scouted, talent coordinated, food styled, props sourced. The result is content that looks like it belongs together because it was built that way.",
+      results:
+        "A cohesive visual identity that compounds with every piece of content. Campaigns that feel intentional, perform across channels, and build brand equity over time.",
+    },
     projects: [
       {
         title: "Harvest Menu Drop",
@@ -60,6 +83,19 @@ export const CATEGORIES: Category[] = [
       "Hero image sets for campaigns",
       "Press-ready photo assets",
     ],
+    overview: {
+      headline: "Images that make people stop scrolling and start craving.",
+      description:
+        "Food, beverage, and lifestyle photography built for brands that demand presence. Hero images, event coverage, and press-ready assets — all edited and optimized for social, web, and press. Every frame is built to convert.",
+      problem:
+        "Generic photography blends in. Most F&B brands are shooting on phones or relying on stock imagery that doesn't reflect their actual quality or identity.",
+      solution:
+        "We bring full production photography to every shoot — food and prop styling, professional lighting, and a creative eye trained on what actually stops the scroll and drives action.",
+      execution:
+        "Hero dishes, ambiance, staff and guest lifestyle — captured in a single organized shoot and delivered as optimized galleries ready for every use case: social, website, ads, and press.",
+      results:
+        "A full library of editorial-grade images your brand can deploy everywhere. Assets that elevate perception, drive cravings, and make your brand look as good as it actually is.",
+    },
     projects: [
       {
         title: "Hero Dish Series",
@@ -93,6 +129,19 @@ export const CATEGORIES: Category[] = [
       "Logo suite + brand guidelines",
       "Social media look + feel system",
     ],
+    overview: {
+      headline: "A brand identity built to outlast trends and grow with you.",
+      description:
+        "Visual identity systems, logo suites, brand voice, and guidelines — built from strategy first. We develop brands that know exactly who they are before they say a word, and look the part everywhere they show up.",
+      problem:
+        "Outdated logos, inconsistent visuals, and no clear brand guidelines leave teams guessing and audiences confused about what you actually stand for.",
+      solution:
+        "We develop or refresh the full identity system: logo suite, color palette, typography, brand voice, and a guidelines document your whole team can actually use.",
+      execution:
+        "Every mark, color, and typeface is chosen with purpose. We deliver primary and secondary logos, icon sets, stacked marks, social look and feel, and a brand book that governs everything.",
+      results:
+        "A brand that shows up consistently everywhere — one that builds recognition, trust, and equity with every impression, from the first visit to the hundredth.",
+    },
     projects: [
       {
         title: "Noire Collective",
@@ -126,6 +175,19 @@ export const CATEGORIES: Category[] = [
       "Launch content plan + rollout calendar",
       "Paid social ads management + boosting strategy",
     ],
+    overview: {
+      headline: "Launch content that builds anticipation and drives real action.",
+      description:
+        "Promotional design, rollout calendars, paid social strategy, and full launch kits — built around your business goals, not just aesthetics. Every campaign is engineered to create momentum and bring people through the door.",
+      problem:
+        "Most promotions are reactive — last-minute flyers, inconsistent graphics, and no coordinated rollout. The result is wasted opportunity every single time.",
+      solution:
+        "We build full campaign systems: promotional design, digital assets, event collateral, paid social strategy, and a rollout calendar so every piece lands at exactly the right time.",
+      execution:
+        "From grand opening kits to seasonal promo suites — every asset is designed to work together across print, digital screens, and paid social ads. Nothing ships without a plan.",
+      results:
+        "Campaigns that create real momentum. More foot traffic, stronger launch weeks, and a repeatable content system you can deploy every season without starting from scratch.",
+    },
     projects: [
       {
         title: "Grand Opening Kit",
@@ -159,6 +221,19 @@ export const CATEGORIES: Category[] = [
       "Professional editing, color correction, and audio cleanup",
       "Serialized content (Interview series, \"Behind the Menu\")",
     ],
+    overview: {
+      headline: "Video that carries the full weight of your brand's story.",
+      description:
+        "Short-form content, cinematic brand films, homepage loops, and serialized series — produced, edited, and color graded to the highest standard. Built for the platforms where your audience actually lives.",
+      problem:
+        "Low-quality video or phone footage undermines even the strongest brands. Most businesses have no scalable video content system and fall further behind every month.",
+      solution:
+        "We produce everything from Reels and TikToks to full brand films — with complete post-production including editing, color correction, and audio cleanup built into every project.",
+      execution:
+        "A monthly content capture day delivers a full calendar of short-form video plus longer-form assets. Serialized formats like 'Behind the Menu' build a loyal audience over time.",
+      results:
+        "A consistent, high-quality video presence that builds brand equity, drives engagement, and gives your team professional assets to use across every channel.",
+    },
     projects: [
       {
         title: "Behind the Menu",
@@ -192,6 +267,19 @@ export const CATEGORIES: Category[] = [
       "Monthly content capture days + retainer packages",
       "Story packs + Reels bundles",
     ],
+    overview: {
+      headline: "Full social management that turns followers into regulars.",
+      description:
+        "Strategy, content calendars, scheduling, caption writing, and community management — all handled. You focus on running the business; we own the feed and build the audience.",
+      problem:
+        "Inconsistent posting, no clear strategy, and zero community engagement leaves brands invisible on the platforms where their customers spend the most time.",
+      solution:
+        "We take over full social media management — strategy, monthly planning, content capture, scheduling, captions, and community management across IG, TikTok, and beyond.",
+      execution:
+        "Monthly content capture days feed a full calendar of planned posts, Reels bundles, and story packs — all written in your brand voice and posted at the optimal time.",
+      results:
+        "A growing, engaged community. More reach, more saves, more DMs — and a social presence that actually reflects the quality of your brand.",
+    },
     projects: [
       {
         title: "Monthly Retainer",
@@ -225,6 +313,19 @@ export const CATEGORIES: Category[] = [
       "Monthly UGC bundles + campaign briefs",
       "Performance recaps",
     ],
+    overview: {
+      headline: "Authentic creator content that reaches the right audience.",
+      description:
+        "Influencer sourcing, UGC coordination, usage rights, and monthly asset bundles — we handle the relationships, the briefs, and the delivery so you get content that actually converts.",
+      problem:
+        "Most brands either overpay for influencers or get low-quality UGC with no strategy behind it. Neither approach drives the real results brands are paying for.",
+      solution:
+        "We source and manage creators aligned to your brand — handling outreach, creative briefs, usage rights, and full asset delivery so every piece of content has a purpose.",
+      execution:
+        "Monthly UGC bundles and influencer campaigns are built around specific goals: new menu items, grand openings, seasonal pushes, and high-performing paid ad creative.",
+      results:
+        "Organic-feeling content at scale, with full usage rights. More social proof, stronger ad performance, and an audience that trusts your brand because real people said so.",
+    },
     projects: [
       {
         title: "Creator Collab",
@@ -258,6 +359,19 @@ export const CATEGORIES: Category[] = [
       "Launch content plan + rollout calendar",
       "Press-ready assets + promo graphics",
     ],
+    overview: {
+      headline: "Grand openings and events that people actually show up to.",
+      description:
+        "Full launch strategy, event marketing, content capture, rollout calendars, and press-ready assets — built to maximize visibility before, during, and long after the doors open.",
+      problem:
+        "Most grand openings and events are under-marketed. The venue looks incredible, but no one knows about it until it's too late to build real anticipation.",
+      solution:
+        "We build the full launch ecosystem: promotional strategy, event flyers, digital ads, content capture plan, and a rollout calendar that builds genuine anticipation from day one.",
+      execution:
+        "Teasers, countdown content, day-of capture, and post-event recap production — every phase of the event lifecycle is covered with intentional, high-quality content.",
+      results:
+        "Lines at the door, packed rooms, and a social media moment that lives beyond the night. Your launch becomes your most powerful piece of content.",
+    },
     projects: [
       {
         title: "Grand Opening",
@@ -291,6 +405,19 @@ export const CATEGORIES: Category[] = [
       "Lower thirds + title sequences",
       "GIFs + sticker packs",
     ],
+    overview: {
+      headline: "Animation that makes your brand impossible to ignore.",
+      description:
+        "Logo animations, story templates, kinetic typography, lower thirds, and GIF packs — motion content built for every platform your brand lives on. Static graphics scroll by. Motion commands attention.",
+      problem:
+        "Most brands have no animated assets and fall back on basic templates that look identical to every other brand in their space. Static content doesn't stand out anymore.",
+      solution:
+        "We build custom animated assets from the ground up: logo reveals in transparent and background versions, animated story templates, kinetic type promos, and full promo sequences.",
+      execution:
+        "Every animation is delivered in multiple formats and sizes — ready to drop into social content, ads, presentations, or your website without any additional work from your team.",
+      results:
+        "A motion identity that reinforces your brand at every touchpoint. Content that stands out in the feed, stops the scroll, and elevates the perception of everything you put out.",
+    },
     projects: [
       {
         title: "Logo Pack",
