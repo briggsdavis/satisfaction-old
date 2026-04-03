@@ -228,6 +228,10 @@ export const BrandsCarousel = () => {
   const scrollVelocity = useVelocity(scrollY)
   const smoothVelocity = useSpring(scrollVelocity, { damping: 50, stiffness: 400 })
 
+  // Spring-animated skew: -12 when scrolling down (/), +12 when scrolling up (\)
+  const skewAngle = useSpring(-12, { stiffness: 80, damping: 30 })
+  const skewTransform = useTransform(skewAngle, (v) => `skewX(${v}deg)`)
+
   const baseX = useMotionValue(0)
   const trackRef = useRef<HTMLDivElement>(null)
   const copyWidthRef = useRef(0)
@@ -242,6 +246,14 @@ export const BrandsCarousel = () => {
     window.addEventListener("resize", measure)
     return () => window.removeEventListener("resize", measure)
   }, [])
+
+  // Update skew target when scroll direction changes
+  useEffect(() => {
+    return scrollVelocity.on("change", (v) => {
+      if (v > 20) skewAngle.set(-12)
+      else if (v < -20) skewAngle.set(12)
+    })
+  }, [scrollVelocity, skewAngle])
 
   useAnimationFrame((_, delta) => {
     const BASE_SPEED = 60 // px/s
@@ -280,16 +292,13 @@ export const BrandsCarousel = () => {
                   </span>
                 </div>
                 {/* // divider */}
-                <div className="relative h-full w-9 shrink-0">
-                  <div
-                    className="absolute inset-y-0 w-px bg-white/[0.13]"
-                    style={{ left: "8px", transform: "skewX(-12deg)" }}
-                  />
-                  <div
-                    className="absolute inset-y-0 w-px bg-white/[0.13]"
-                    style={{ left: "24px", transform: "skewX(-12deg)" }}
-                  />
-                </div>
+                <motion.div
+                  className="relative h-full w-9 shrink-0"
+                  style={{ transform: skewTransform }}
+                >
+                  <div className="absolute inset-y-0 w-px bg-white/[0.13]" style={{ left: "8px" }} />
+                  <div className="absolute inset-y-0 w-px bg-white/[0.13]" style={{ left: "24px" }} />
+                </motion.div>
               </div>
             ))}
           </div>
@@ -302,16 +311,13 @@ export const BrandsCarousel = () => {
                     {brand}
                   </span>
                 </div>
-                <div className="relative h-full w-9 shrink-0">
-                  <div
-                    className="absolute inset-y-0 w-px bg-white/[0.13]"
-                    style={{ left: "8px", transform: "skewX(-12deg)" }}
-                  />
-                  <div
-                    className="absolute inset-y-0 w-px bg-white/[0.13]"
-                    style={{ left: "24px", transform: "skewX(-12deg)" }}
-                  />
-                </div>
+                <motion.div
+                  className="relative h-full w-9 shrink-0"
+                  style={{ transform: skewTransform }}
+                >
+                  <div className="absolute inset-y-0 w-px bg-white/[0.13]" style={{ left: "8px" }} />
+                  <div className="absolute inset-y-0 w-px bg-white/[0.13]" style={{ left: "24px" }} />
+                </motion.div>
               </div>
             ))}
           </div>

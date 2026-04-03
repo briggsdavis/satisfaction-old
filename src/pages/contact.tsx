@@ -1,4 +1,3 @@
-import { ChevronDown } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useRef, useState } from "react"
 import { TextReveal } from "../components/text-reveal"
@@ -217,75 +216,45 @@ const TextField = ({
   label,
   name,
   type = "text",
-  note,
+  placeholder,
 }: {
   label: string
   name: string
   type?: string
-  note?: string
+  placeholder: string
 }) => (
-  <div className="group relative border-b border-white/[0.08]">
+  <div className="border-b border-white/[0.06] py-5">
+    <label className="mb-2 block text-[9px] font-bold tracking-[0.35em] uppercase text-white/35">
+      {label}
+    </label>
     <input
       type={type}
       name={name}
-      className="w-full bg-transparent px-0 pt-6 pb-7 text-base text-white outline-none placeholder:text-transparent"
-      placeholder={label}
+      className="w-full border-b border-white/20 bg-transparent pb-2 text-base text-white outline-none placeholder:text-white/20 transition-colors focus:border-white/50"
+      placeholder={placeholder}
     />
-    <label className="pointer-events-none absolute bottom-3 left-0 text-[10px] font-bold tracking-[0.3em] uppercase text-white/30">
-      {label}
-      {note && (
-        <span className="ml-2 normal-case tracking-normal font-normal text-white/20">
-          ({note})
-        </span>
-      )}
-    </label>
   </div>
 )
 
-const SelectField = ({
+const TextareaField = ({
   label,
   name,
-  options,
+  placeholder,
 }: {
   label: string
   name: string
-  options: string[]
+  placeholder: string
 }) => (
-  <div className="group relative border-b border-white/[0.08]">
-    <select
-      name={name}
-      defaultValue=""
-      className="w-full appearance-none bg-transparent px-0 pt-6 pb-7 text-base text-white/30 outline-none"
-    >
-      <option value="" disabled className="bg-black text-white/30">
-      </option>
-      {options.map((o) => (
-        <option key={o} value={o} className="bg-black text-white">
-          {o}
-        </option>
-      ))}
-    </select>
-    <label className="pointer-events-none absolute bottom-3 left-0 text-[10px] font-bold tracking-[0.3em] uppercase text-white/30">
+  <div className="border-b border-white/[0.06] py-5">
+    <label className="mb-2 block text-[9px] font-bold tracking-[0.35em] uppercase text-white/35">
       {label}
     </label>
-    <ChevronDown
-      size={14}
-      className="pointer-events-none absolute right-0 bottom-4 text-white/30"
-    />
-  </div>
-)
-
-const TextareaField = ({ label, name }: { label: string; name: string }) => (
-  <div className="group relative border-b border-white/[0.08]">
     <textarea
       name={name}
       rows={4}
-      className="w-full resize-none bg-transparent px-0 pt-6 pb-7 text-base text-white outline-none placeholder:text-transparent"
-      placeholder={label}
+      className="w-full resize-none border-b border-white/20 bg-transparent pb-2 text-base text-white outline-none placeholder:text-white/20 transition-colors focus:border-white/50"
+      placeholder={placeholder}
     />
-    <label className="pointer-events-none absolute bottom-3 left-0 text-[10px] font-bold tracking-[0.3em] uppercase text-white/30">
-      {label}
-    </label>
   </div>
 )
 
@@ -413,38 +382,15 @@ export const Contact = () => {
             onSubmit={(e) => e.preventDefault()}
             className="border-t border-white/[0.08]"
           >
-            <TextField label="Name" name="name" />
-            <TextField label="Company / Brand" name="company" />
-            <TextField label="Email" name="email" type="email" />
-            <SelectField
-              label="Service"
-              name="service"
-              options={[
-                "Creative Direction",
-                "Photography",
-                "Branding",
-                "Campaigns",
-                "Production",
-                "Motion Graphics",
-                "Social Media",
-                "Influencer / UGC",
-                "Event Launch Marketing",
-              ]}
-            />
-            <SelectField
-              label="Budget Range"
-              name="budget"
-              options={[
-                "Under $2,500",
-                "$2,500 – $5,000",
-                "$5,000 – $10,000",
-                "$10,000 – $25,000",
-                "$25,000+",
-              ]}
-            />
+            <TextField label="Name" name="name" placeholder="Your full name" />
+            <TextField label="Company / Brand" name="company" placeholder="Who you're representing" />
+            <TextField label="Email" name="email" type="email" placeholder="your@email.com" />
+            <TextField label="Service" name="service" placeholder="e.g. Photography, Branding, Social Media" />
+            <TextField label="Budget Range" name="budget" placeholder="e.g. $5,000 – $10,000" />
             <TextareaField
               label="Tell me about your project"
               name="message"
+              placeholder="What are you working on? What do you want people to feel?"
             />
 
             <div className="flex items-center justify-between pt-8">
