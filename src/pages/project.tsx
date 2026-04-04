@@ -242,7 +242,7 @@ export const ProjectPage = () => {
 
         {/* Hero decorative elements */}
         <div className="absolute top-28 right-8 font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase text-right pointer-events-none">
-          Devon Colebank<br />Case Study
+          Social Satisfaction<br />Case Study
         </div>
         <div className="absolute bottom-8 left-8 flex gap-3 pointer-events-none">
           <span className="font-mono text-xl text-white/30">←</span>
@@ -458,7 +458,7 @@ export const ProjectPage = () => {
           </Link>
           <div className="flex items-center gap-3">
             <span className="font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase">
-              Devon Colebank · {project.year}
+              Social Satisfaction · {project.year}
             </span>
             <span className="text-white/20">☺</span>
           </div>

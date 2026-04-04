@@ -19,6 +19,7 @@ import {
 } from "./pages/home"
 import { NotFound } from "./pages/not-found"
 import { Portfolio } from "./pages/portfolio"
+import { ProjectPage } from "./pages/project-page"
 import { Services } from "./pages/services"
 
 const Home = () => (
@@ -56,6 +57,7 @@ export default function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/portfolio" element={<Portfolio />} />
             <Route path="/portfolio/:category" element={<CategoryPage />} />
+            <Route path="/portfolio/:category/:project" element={<ProjectPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
