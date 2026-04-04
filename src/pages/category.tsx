@@ -6,15 +6,18 @@ import { TextReveal } from "../components/text-reveal"
 // ─── Project card — same structure as CategoryCard, no bullet expansion ───────
 const ProjectCard = ({
   project,
+  categorySlug,
   className = "",
   index = 0,
 }: {
   project: Project
+  categorySlug: string
   className?: string
   index?: number
 }) => (
+  <Link to={`/portfolio/${categorySlug}/${project.slug}`} className="block">
   <motion.div
-    className={`group relative block overflow-hidden ${className}`}
+    className={`group relative overflow-hidden ${className}`}
     initial={{ opacity: 0, y: 24 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-40px" }}
@@ -56,6 +59,7 @@ const ProjectCard = ({
       </span>
     </div>
   </motion.div>
+  </Link>
 )
 
 // ─── Category page ────────────────────────────────────────────────────────────
@@ -129,12 +133,12 @@ export const CategoryPage = () => {
       <div className="flex flex-col gap-8 px-4 py-8 md:px-8">
 
         {/* Row 1 — full width */}
-        <ProjectCard project={p0} className="h-[62vh] md:h-[68vh]" index={0} />
+        <ProjectCard project={p0} categorySlug={category.slug} className="h-[62vh] md:h-[68vh]" index={0} />
 
         {/* Row 2 — 2 columns */}
         <div className="flex flex-col gap-8 md:flex-row">
-          <ProjectCard project={p1} className="h-[72vh] flex-1" index={1} />
-          <ProjectCard project={p2} className="h-[72vh] flex-1" index={2} />
+          <ProjectCard project={p1} categorySlug={category.slug} className="h-[72vh] flex-1" index={1} />
+          <ProjectCard project={p2} categorySlug={category.slug} className="h-[72vh] flex-1" index={2} />
         </div>
 
       </div>
