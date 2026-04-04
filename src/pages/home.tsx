@@ -399,6 +399,45 @@ export const WordStatement = () => (
   </section>
 )
 
+// ─── Campaign Statement (identical layout, "Campaigns Built To Perform.") ─────
+const CAMPAIGN_WORDS = ["CAMPAIGNS", "BUILT", "TO", "PERFORM."]
+
+export const CampaignStatement = () => (
+  <section className="border-t border-white/10 bg-black overflow-hidden pb-20 md:pb-28">
+    {CAMPAIGN_WORDS.map((word, i) => {
+      const isRight = i % 2 === 1
+      return (
+        <motion.div
+          key={word}
+          className={`border-b border-white/20 px-6 flex items-end ${isRight ? "justify-end" : "justify-start"}`}
+          initial={{ opacity: 0, x: isRight ? 40 : -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <span className="massive-text text-[18vw] leading-[0.88] select-none">
+            {word}
+          </span>
+        </motion.div>
+      )
+    })}
+
+    {/* Bottom metadata row */}
+    <div className="flex items-start justify-between px-6 py-4">
+      <div className="font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase leading-snug">
+        <span>Strategy · Production · Creative</span>
+        <br />
+        <span>Social Satisfaction</span>
+      </div>
+      <div className="text-right font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase leading-snug">
+        {Array.from({ length: 4 }).map((_, i) => (
+          <span key={i} className="block">Campaigns Built To Perform.</span>
+        ))}
+      </div>
+    </div>
+  </section>
+)
+
 // ─── Circle Statement (screenshot 2 — rotating ring + central text) ──────────
 const CIRCLE_RING_TEXT =
   "Creative Direction · Brand Strategy · Videography · Photography · Graphic Design · "

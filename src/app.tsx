@@ -9,6 +9,7 @@ import { CategoryPage } from "./pages/category"
 import { Contact } from "./pages/contact"
 import {
   BrandsCarousel,
+  CampaignStatement,
   CircleStatement,
   Hero,
   IntroText,
@@ -28,6 +29,7 @@ const Home = () => (
     <StatsGrid />
     <BrandsCarousel />
     <WordStatement />
+    <CampaignStatement />
     <IntroText />
     <CircleStatement />
     <ScatteredStatement />
