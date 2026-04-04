@@ -50,7 +50,7 @@ export const TextReveal = ({
       initial="hidden"
       {...(immediate
         ? { animate: "visible" }
-        : { whileInView: "visible", viewport: { once: true } })}
+        : { whileInView: "visible", viewport: { once: true, margin: "-150px" } })}
     >
       {words.map((word, wi) => (
         <span key={wi} className="inline-flex flex-nowrap">

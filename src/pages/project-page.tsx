@@ -55,9 +55,9 @@ export const ProjectPage = () => {
 
       {/* Overview — descriptor + tags + description paragraph */}
       <section className="border-b border-white/10 px-8 py-20 md:px-16">
-        {/* Top row: descriptor label + tags */}
-        <div className="mb-16 flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-          <div>
+        {/* Top row: descriptor/tags + project overview — 4-col grid aligns overview with Execution below */}
+        <div className="mb-16 grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8">
+          <div className="md:col-span-2">
             <span className="mb-3 block text-[9px] font-bold tracking-[0.4em] uppercase text-white/35">
               {project.descriptor}
             </span>
@@ -75,14 +75,14 @@ export const ProjectPage = () => {
               </span>
             </div>
           </div>
-          <div className="md:max-w-[56%]">
+          <div className="md:col-span-2">
             <span className="mb-4 block text-[9px] font-bold tracking-[0.4em] uppercase text-white/35">
               Project Overview
             </span>
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-150px" }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-base leading-relaxed text-white/55 md:text-lg"
             >
@@ -163,7 +163,7 @@ const ImageCard = ({
     className={`group relative block overflow-hidden ${className}`}
     initial={{ opacity: 0, y: 24 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-40px" }}
+    viewport={{ once: true, margin: "-150px" }}
     transition={{
       duration: 0.7,
       delay: (index % 3) * 0.08,

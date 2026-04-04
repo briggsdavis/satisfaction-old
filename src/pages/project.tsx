@@ -301,7 +301,7 @@ export const ProjectPage = () => {
           <motion.p
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-150px" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl leading-relaxed font-light text-white/70 md:text-2xl"
           >
@@ -335,7 +335,7 @@ export const ProjectPage = () => {
               className="group relative aspect-[4/3] cursor-pointer overflow-hidden"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
+              viewport={{ once: true, margin: "-150px" }}
               transition={{ duration: 0.7, delay: (i % 3) * 0.1, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => openLightbox(i)}
             >
@@ -421,7 +421,7 @@ export const ProjectPage = () => {
               className="group relative h-[50vh] w-[70vw] flex-shrink-0 cursor-pointer overflow-hidden md:h-[60vh] md:w-[40vw]"
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
+              viewport={{ once: true, margin: "-150px" }}
               transition={{ duration: 0.7, delay: i * 0.05, ease: [0.22, 1, 0.36, 1] }}
               onClick={() => openLightbox(i)}
             >

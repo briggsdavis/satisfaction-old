@@ -321,7 +321,7 @@ const BlurIn = ({
     variants={blurInVariants}
     initial="hidden"
     whileInView="visible"
-    viewport={{ once: true, margin: "-60px" }}
+    viewport={{ once: true, margin: "-150px" }}
     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay }}
     className={className}
   >
@@ -343,12 +343,18 @@ export const Contact = () => {
   return (
     <div className="pt-32">
       {/* ── Big centered header ───────────────────────────────────────────── */}
-      <section className="border-b border-white/10 px-8 pb-16 text-center">
+      <motion.section
+        className="border-b border-white/10 px-8 pb-16 text-center"
+        initial={{ opacity: 0, filter: "blur(20px)" }}
+        animate={{ opacity: 1, filter: "blur(0px)" }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+      >
         <TextReveal
           text="CONTACT"
           className="massive-text text-[20vw] leading-none"
+          immediate
         />
-      </section>
+      </motion.section>
 
       {/* ── Form + contact details ────────────────────────────────────────── */}
       <section className="grid grid-cols-1 border-b border-white/10 lg:grid-cols-[1fr_2fr]">
@@ -404,32 +410,32 @@ export const Contact = () => {
         </BlurIn>
 
         {/* Form */}
-        <BlurIn delay={0.2} className="px-8 py-12 lg:px-12 lg:py-16">
+        <div className="px-8 py-12 lg:px-12 lg:py-16">
           <form
             onSubmit={(e) => e.preventDefault()}
             className="border-t border-white/[0.08]"
           >
-            <TextField label="Name" name="name" placeholder="" />
-            <TextField label="Company / Brand" name="company" placeholder="" />
-            <TextField label="Email" name="email" type="email" placeholder="" />
-            <TextField label="Service" name="service" placeholder="" />
-            <TextField label="Budget Range" name="budget" placeholder="" />
-            <TextareaField
-              label="Tell me about your project"
-              name="message"
-              placeholder=""
-            />
-
-            <div className="flex items-center justify-between pt-8">
-              <button
-                type="submit"
-                className="btn-industrial"
-              >
-                Send Message →
-              </button>
-            </div>
+            <BlurIn delay={0.1}><TextField label="Name" name="name" placeholder="" /></BlurIn>
+            <BlurIn delay={0.18}><TextField label="Company / Brand" name="company" placeholder="" /></BlurIn>
+            <BlurIn delay={0.26}><TextField label="Email" name="email" type="email" placeholder="" /></BlurIn>
+            <BlurIn delay={0.34}><TextField label="Service" name="service" placeholder="" /></BlurIn>
+            <BlurIn delay={0.42}><TextField label="Budget Range" name="budget" placeholder="" /></BlurIn>
+            <BlurIn delay={0.5}>
+              <TextareaField
+                label="Tell me about your project"
+                name="message"
+                placeholder=""
+              />
+            </BlurIn>
+            <BlurIn delay={0.58}>
+              <div className="flex items-center justify-between pt-8">
+                <button type="submit" className="btn-industrial">
+                  Send Message →
+                </button>
+              </div>
+            </BlurIn>
           </form>
-        </BlurIn>
+        </div>
       </section>
 
       {/* ── Jump-to-FAQ button ────────────────────────────────────────────── */}

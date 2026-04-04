@@ -34,7 +34,7 @@ export const Footer = () => {
                 <li key={item}>
                   <Link
                     to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                    className="text-xl font-medium transition-opacity hover:opacity-60"
+                    className="text-sm font-light tracking-wide text-white/70 transition-colors hover:text-white"
                   >
                     {item}
                   </Link>
@@ -55,7 +55,7 @@ export const Footer = () => {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xl font-medium transition-opacity hover:opacity-60"
+                  className="text-sm font-light tracking-wide text-white/70 transition-colors hover:text-white"
                 >
                   {item.label}
                 </a>
@@ -68,7 +68,7 @@ export const Footer = () => {
           <h4 className="text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase">
             Contact
           </h4>
-          <p className="text-xl font-medium">info@socialsatisfaction.com</p>
+          <p className="text-sm font-light tracking-wide text-white/70">info@socialsatisfaction.com</p>
           <p className="text-sm text-white/40">Marketing Agency</p>
           <Link to="/contact" className="btn-industrial mt-4 inline-block">
             Start a Project

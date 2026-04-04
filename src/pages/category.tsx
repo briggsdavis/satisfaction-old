@@ -20,7 +20,7 @@ const ProjectCard = ({
     className={`group relative overflow-hidden ${className}`}
     initial={{ opacity: 0, y: 24 }}
     whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-40px" }}
+    viewport={{ once: true, margin: "-150px" }}
     transition={{
       duration: 0.7,
       delay: index * 0.08,
@@ -99,12 +99,12 @@ export const CategoryPage = () => {
 
       {/* Overview section — headline / description + 4-col breakdown */}
       <section className="border-b border-white/10 px-8 py-20 md:px-16">
-        {/* Top row: headline + description */}
-        <div className="mb-20 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-20">
-          <h2 className="text-3xl font-bold leading-[1.15] tracking-tight md:text-4xl">
+        {/* Top row: headline + description — uses same 4-col grid so description aligns with Execution below */}
+        <div className="mb-20 grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8">
+          <h2 className="text-3xl font-bold leading-[1.15] tracking-tight md:col-span-2 md:text-4xl">
             {category.overview.headline}
           </h2>
-          <p className="text-base leading-relaxed text-white/55 md:text-lg">
+          <p className="text-base leading-relaxed text-white/55 md:col-span-2 md:text-lg">
             {category.overview.description}
           </p>
         </div>

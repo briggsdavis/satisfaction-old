@@ -70,6 +70,7 @@ export const AsymmetricalSection = ({
           <motion.span
             initial={{ opacity: 0, x: align === "left" ? 20 : -20 }}
             whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-150px" }}
             className="text-white/40 block text-xs font-bold tracking-[0.4em] uppercase"
           >
             {subtitle}
@@ -81,6 +82,7 @@ export const AsymmetricalSection = ({
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-150px" }}
             transition={{ delay: 0.4 }}
             className="max-w-md text-lg leading-relaxed text-white/60"
           >
