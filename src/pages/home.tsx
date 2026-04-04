@@ -221,7 +221,10 @@ export const StatsGrid = () => (
       Our Services
     </p>
     {/* Horizontal scroll track — shows ~3.5 cards */}
-    <div className="overflow-x-auto px-6 md:px-12" style={{ touchAction: "pan-x" }}>
+    <div
+      className="overflow-x-auto px-6 md:px-12 py-4"
+      style={{ touchAction: "pan-x", overflowY: "clip" }}
+    >
       <div className="flex gap-4" style={{ width: "max-content" }}>
         {ALL_SERVICES.map((card, i) => (
           <div key={i} className="w-[72vw] md:w-[26vw] shrink-0">
