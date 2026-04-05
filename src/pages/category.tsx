@@ -42,11 +42,11 @@ const ProjectCard = ({
       {/* Bottom-left overlay — identical pill language to portfolio cards */}
       <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
         <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
+          <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
             <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
             {project.title}
           </span>
-          <span className="bg-black/60 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] text-white/45 uppercase backdrop-blur-sm">
+          <span className="bg-black/60 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white/50 uppercase backdrop-blur-sm">
             {project.descriptor}
           </span>
         </div>
@@ -54,7 +54,7 @@ const ProjectCard = ({
 
       {/* Top-right CTA chip — appears on hover */}
       <div className="absolute top-5 right-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="block bg-white px-3 py-1.5 text-[9px] font-bold tracking-widest text-black uppercase">
+        <span className="block bg-white px-3 py-1.5 text-xs font-bold tracking-widest text-black uppercase">
           View Work →
         </span>
       </div>
@@ -73,7 +73,7 @@ export const CategoryPage = () => {
       <div className="flex min-h-screen flex-col items-center justify-center gap-8">
         <TextReveal
           text="NOT FOUND"
-          className="massive-text text-[8vw]"
+          className="massive-text text-3xl md:text-6xl lg:text-8xl"
           immediate
         />
         <Link to="/portfolio" className="btn-industrial">
@@ -91,13 +91,13 @@ export const CategoryPage = () => {
       <section className="border-b border-white/10 px-8 pb-16 md:px-16">
         <Link
           to="/portfolio"
-          className="mb-6 block text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase transition-colors hover:text-white"
+          className="mb-6 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase transition-colors hover:text-white"
         >
           ← Portfolio
         </Link>
         <TextReveal
           text={category.name.toUpperCase()}
-          className="massive-text text-[clamp(3rem,10vw,9rem)] leading-none"
+          className="massive-text text-4xl leading-none md:text-7xl lg:text-9xl"
         />
       </section>
 
@@ -108,7 +108,7 @@ export const CategoryPage = () => {
           <h2 className="text-3xl leading-[1.15] font-bold tracking-tight md:col-span-2 md:text-4xl">
             {category.overview.headline}
           </h2>
-          <p className="text-base leading-relaxed text-white/55 md:col-span-2 md:text-lg">
+          <p className="text-base leading-relaxed text-white/60 md:col-span-2 md:text-lg">
             {category.overview.description}
           </p>
         </div>
@@ -124,17 +124,17 @@ export const CategoryPage = () => {
             ] as const
           ).map(({ label, body }) => (
             <div key={label}>
-              <span className="mb-5 block text-[9px] font-bold tracking-[0.4em] text-white/35 uppercase">
+              <span className="mb-5 block text-xs font-bold tracking-[0.4em] text-white/40 uppercase">
                 {label}
               </span>
-              <p className="text-sm leading-relaxed text-white/55">{body}</p>
+              <p className="text-sm leading-relaxed text-white/60">{body}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Project grid — px-8 + gap-8 matches portfolio page exactly */}
-      <div className="flex flex-col gap-8 px-4 py-8 md:px-8">
+      <div className="flex flex-col gap-8 px-8 py-8 md:px-16">
         {/* Row 1 — full width */}
         <ProjectCard
           project={p0}

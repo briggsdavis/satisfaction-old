@@ -144,15 +144,15 @@ const ServiceCell = ({
       {/* Top — tag + description */}
       <div>
         <span
-          className={`mb-4 block text-[9px] font-bold tracking-[0.35em] uppercase ${
-            service.inverted ? "text-black/35" : "text-white/30"
+          className={`mb-4 block text-xs font-bold tracking-[0.35em] uppercase ${
+            service.inverted ? "text-black/40" : "text-white/30"
           }`}
         >
           {service.tag}
         </span>
         <p
           className={`text-sm leading-relaxed ${
-            service.inverted ? "text-black/60" : "text-white/55"
+            service.inverted ? "text-black/60" : "text-white/60"
           }`}
         >
           {service.desc}
@@ -180,12 +180,12 @@ const ServiceCell = ({
                       ease: [0.22, 1, 0.36, 1],
                     }}
                     className={`flex list-none items-start gap-2 text-xs leading-relaxed ${
-                      service.inverted ? "text-black/70" : "text-white/65"
+                      service.inverted ? "text-black/70" : "text-white/70"
                     }`}
                   >
                     <span
-                      className={`mt-[3px] shrink-0 text-[10px] ${
-                        service.inverted ? "text-black/30" : "text-white/25"
+                      className={`mt-[3px] shrink-0 text-xs ${
+                        service.inverted ? "text-black/30" : "text-white/30"
                       }`}
                     >
                       —
@@ -221,7 +221,7 @@ const ServiceCell = ({
       <button
         onClick={() => setIsOpen((v) => !v)}
         className={`flex items-center justify-center py-8 text-7xl leading-none font-thin transition-opacity hover:opacity-60 ${
-          service.inverted ? "text-black/15" : "text-white/12"
+          service.inverted ? "text-black/15" : "text-white/15"
         }`}
         aria-label={isOpen ? `Close ${service.name}` : `Expand ${service.name}`}
       >
@@ -236,7 +236,7 @@ const ServiceCell = ({
 
       {/* Bottom — service name large */}
       <div className="overflow-hidden">
-        <span className="block font-display text-[clamp(2rem,4.5vw,3.5rem)] leading-[0.85] uppercase">
+        <span className="block font-display text-3xl leading-[0.85] uppercase md:text-4xl">
           {service.name}
         </span>
       </div>
@@ -248,12 +248,12 @@ export const Services = () => (
   <div className="pt-32">
     {/* Page header */}
     <section className="border-b border-white/10 px-8 pb-16 md:px-16">
-      <span className="mb-6 block text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+      <span className="mb-6 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
         What I Do
       </span>
       <TextReveal
         text="SERVICES"
-        className="massive-text text-[18vw] leading-none"
+        className="massive-text text-6xl leading-none md:text-10xl lg:text-11xl"
       />
     </section>
 

@@ -9,7 +9,7 @@ const marqueeText = Array(10)
   .concat("  \u00B7  ")
 
 const spanClass =
-  "massive-text text-[11px] tracking-[0.25em] text-white/30 uppercase whitespace-nowrap"
+  "massive-text text-xs tracking-[0.25em] text-white/30 uppercase whitespace-nowrap"
 
 const BorderMarquee = ({
   opacity,
@@ -147,7 +147,7 @@ export const AboutHero = () => {
         <BorderMarquee opacity={bgOpacity} />
 
         <motion.h1
-          className="relative z-10 text-center font-sans text-[12vw] font-black tracking-tight text-white uppercase"
+          className="relative z-10 text-center font-sans text-4xl font-black tracking-tight text-white uppercase md:text-7xl lg:text-9xl"
           style={{ scale, opacity: textOpacity }}
         >
           WHO WE ARE

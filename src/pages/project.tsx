@@ -151,7 +151,7 @@ const Lightbox = ({
         onClick={onClose}
         className="absolute top-6 right-6 z-10 flex items-center gap-2 text-white/40 transition-colors hover:text-white"
       >
-        <span className="font-mono text-[9px] font-bold tracking-widest uppercase">
+        <span className="font-mono text-xs font-bold tracking-widest uppercase">
           Close
         </span>
         <X size={20} />
@@ -194,7 +194,7 @@ const Lightbox = ({
       />
 
       {/* Counter */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-[9px] font-bold tracking-widest text-white/30 uppercase">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 font-mono text-xs font-bold tracking-widest text-white/30 uppercase">
         {String(index + 1).padStart(2, "0")} /{" "}
         {String(images.length).padStart(2, "0")}
       </div>
@@ -236,7 +236,7 @@ export const ProjectPage = () => {
         <div className="text-center">
           <TextReveal
             text="PROJECT NOT FOUND"
-            className="massive-text text-[8vw]"
+            className="massive-text text-3xl md:text-6xl lg:text-8xl"
             immediate
           />
           <Link to="/" className="btn-industrial mt-8 inline-block">
@@ -264,7 +264,7 @@ export const ProjectPage = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black" />
 
         {/* Hero decorative elements */}
-        <div className="pointer-events-none absolute top-28 right-8 text-right font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase">
+        <div className="pointer-events-none absolute top-28 right-8 text-right font-mono text-xs font-bold tracking-widest text-white/30 uppercase">
           Social Satisfaction
           <br />
           Case Study
@@ -273,34 +273,34 @@ export const ProjectPage = () => {
           <span className="font-mono text-xl text-white/30">←</span>
           <span className="font-mono text-xl text-white/30">←</span>
         </div>
-        <div className="pointer-events-none absolute right-8 bottom-8 font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase">
+        <div className="pointer-events-none absolute right-8 bottom-8 font-mono text-xs font-bold tracking-widest text-white/30 uppercase">
           {project.year}
         </div>
       </div>
 
       {/* ── Title + Brief ── */}
-      <div className="border-t border-white/15 px-6 md:px-12">
+      <div className="border-t border-white/20 px-8 md:px-16">
         {/* Title row */}
-        <div className="border-b border-white/15 py-4">
+        <div className="border-b border-white/20 py-4">
           <TextReveal
             text={project.title}
-            className="massive-text text-[14vw] leading-[0.88] md:text-[10vw]"
+            className="massive-text text-5xl leading-[0.88] md:text-7xl lg:text-9xl"
           />
         </div>
 
         {/* Subtitle + tags row */}
         <div className="flex flex-col gap-6 border-b border-white/10 py-6 md:flex-row md:items-center md:justify-between">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-[9px] font-bold tracking-widest text-white/40 uppercase">
+            <span className="font-mono text-xs font-bold tracking-widest text-white/40 uppercase">
               {project.subtitle} · {project.year}
             </span>
-            <span className="font-mono text-white/20">↓</span>
+            <span className="font-mono text-white/15">↓</span>
           </div>
           <div className="flex flex-wrap gap-3">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="border border-white/20 px-3 py-1 text-[9px] font-bold tracking-[0.3em] uppercase"
+                className="border border-white/20 px-3 py-1 text-xs font-bold tracking-[0.3em] uppercase"
               >
                 {tag}
               </span>
@@ -311,14 +311,14 @@ export const ProjectPage = () => {
         {/* Brief */}
         <div className="grid grid-cols-1 gap-8 py-16 md:grid-cols-[1fr_2fr] md:gap-16">
           <div>
-            <span className="font-mono text-[9px] font-bold tracking-widest text-white/40 uppercase">
+            <span className="font-mono text-xs font-bold tracking-widest text-white/40 uppercase">
               Project Brief
             </span>
             {/* Decorative */}
             <div className="mt-4 flex items-center gap-3">
-              <span className="font-mono text-sm text-white/25">←</span>
-              <span className="font-mono text-sm text-white/25">←</span>
-              <span className="font-mono text-[8px] font-bold tracking-widest text-white/15 uppercase">
+              <span className="font-mono text-sm text-white/30">←</span>
+              <span className="font-mono text-sm text-white/30">←</span>
+              <span className="font-mono text-xs font-bold tracking-widest text-white/15 uppercase">
                 No shortcuts.
               </span>
             </div>
@@ -336,20 +336,20 @@ export const ProjectPage = () => {
       </div>
 
       {/* ── Image Grid ── */}
-      <div className="border-t border-white/10 px-6 py-16 md:px-12">
+      <div className="border-t border-white/10 px-8 py-16 md:px-16">
         {/* Section label with decorative elements */}
         <div className="mb-12 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-[9px] font-bold tracking-widest text-white/40 uppercase">
+            <span className="font-mono text-xs font-bold tracking-widest text-white/40 uppercase">
               Selected Work
             </span>
             <span className="text-white/15">+</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase">
+            <span className="font-mono text-xs font-bold tracking-widest text-white/15 uppercase">
               0{project.gridImages.length} Images
             </span>
-            <span className="font-mono text-white/20">☺</span>
+            <span className="font-mono text-white/15">☺</span>
           </div>
         </div>
 
@@ -375,17 +375,17 @@ export const ProjectPage = () => {
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-black/20 transition-opacity duration-500 group-hover:bg-black/5" />
+              <div className="absolute inset-0 bg-black/20 transition-opacity duration-500 group-hover:bg-black/10" />
 
               {/* Hover overlay */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-400 group-hover:opacity-100">
-                <span className="border border-white/40 bg-black/60 px-4 py-2 text-[9px] font-bold tracking-widest text-white uppercase backdrop-blur-sm">
+                <span className="border border-white/40 bg-black/60 px-4 py-2 text-xs font-bold tracking-widest text-white uppercase backdrop-blur-sm">
                   View
                 </span>
               </div>
 
               {/* Image number */}
-              <span className="absolute right-3 bottom-3 font-mono text-[8px] font-bold text-white/30">
+              <span className="absolute right-3 bottom-3 font-mono text-xs font-bold text-white/30">
                 0{i + 1}
               </span>
             </motion.div>
@@ -394,13 +394,13 @@ export const ProjectPage = () => {
       </div>
 
       {/* ── Decorative divider ── */}
-      <div className="relative border-t border-white/10 px-6 py-6 md:px-12">
+      <div className="relative border-t border-white/10 px-8 py-6 md:px-16">
         <div className="flex items-center justify-between">
           <div className="flex gap-3">
             <span className="font-mono text-lg text-white/30">←</span>
             <span className="font-mono text-lg text-white/30">←</span>
           </div>
-          <span className="font-mono text-[9px] font-bold tracking-widest text-white/20 uppercase">
+          <span className="font-mono text-xs font-bold tracking-widest text-white/15 uppercase">
             No risk. No story.
           </span>
           <div className="flex gap-3">
@@ -411,12 +411,12 @@ export const ProjectPage = () => {
       </div>
 
       {/* ── Gallery Section ── */}
-      <div className="border-t border-white/10 px-6 py-16 md:px-12">
+      <div className="border-t border-white/10 px-8 py-16 md:px-16">
         <div className="mb-8 flex items-end justify-between">
           <div>
             <TextReveal
               text="FULL GALLERY"
-              className="massive-text text-[8vw] leading-[0.88] md:text-[5vw]"
+              className="massive-text text-3xl leading-[0.88] md:text-4xl lg:text-6xl"
             />
             <p className="mt-3 text-sm text-white/40">
               Scroll horizontally to browse. Click any image to open.
@@ -473,13 +473,13 @@ export const ProjectPage = () => {
 
               {/* Hover overlay */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-400 group-hover:opacity-100">
-                <span className="border border-white/40 bg-black/60 px-5 py-2 text-[10px] font-bold tracking-widest text-white uppercase backdrop-blur-sm">
+                <span className="border border-white/40 bg-black/60 px-5 py-2 text-xs font-bold tracking-widest text-white uppercase backdrop-blur-sm">
                   Open
                 </span>
               </div>
 
               {/* Number label */}
-              <span className="absolute bottom-4 left-4 font-mono text-[9px] font-bold tracking-widest text-white/40">
+              <span className="absolute bottom-4 left-4 font-mono text-xs font-bold tracking-widest text-white/40">
                 {String(i + 1).padStart(2, "0")}
               </span>
             </motion.div>
@@ -488,16 +488,16 @@ export const ProjectPage = () => {
       </div>
 
       {/* ── Bottom Nav ── */}
-      <div className="border-t border-white/10 px-6 py-16 md:px-12">
+      <div className="border-t border-white/10 px-8 py-16 md:px-16">
         <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
           <Link to="/portfolio" className="btn-industrial">
             ← Back to Portfolio
           </Link>
           <div className="flex items-center gap-3">
-            <span className="font-mono text-[8px] font-bold tracking-widest text-white/20 uppercase">
+            <span className="font-mono text-xs font-bold tracking-widest text-white/15 uppercase">
               Social Satisfaction · {project.year}
             </span>
-            <span className="text-white/20">☺</span>
+            <span className="text-white/15">☺</span>
           </div>
           <Link to="/contact" className="btn-industrial">
             Start a Project →

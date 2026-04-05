@@ -33,13 +33,13 @@ export const Hero = () => {
       </div>
 
       {/* Top metadata bar — in document flow so it never overlaps */}
-      <div className="relative z-10 flex items-start justify-between px-8 pt-28 pb-4">
-        <div className="text-[9px] leading-relaxed font-bold tracking-[0.35em] text-white/30 uppercase">
+      <div className="relative z-10 flex items-start justify-between px-8 pt-28 pb-4 md:px-16">
+        <div className="text-xs leading-relaxed font-bold tracking-[0.35em] text-white/30 uppercase">
           Marketing Agency
           <br />
           Creative Production
         </div>
-        <div className="text-right text-[9px] leading-relaxed font-bold tracking-[0.35em] text-white/30 uppercase">
+        <div className="text-right text-xs leading-relaxed font-bold tracking-[0.35em] text-white/30 uppercase">
           Social Satisfaction
           <br />
           Full-Service Agency
@@ -51,26 +51,26 @@ export const Hero = () => {
 
       {/* Main stacked headline */}
       <motion.div style={{ y }} className="relative z-10">
-        <div className="border-t border-white/20 px-6 py-2 md:px-8">
+        <div className="border-t border-white/20 px-8 py-2 md:px-16">
           <TextReveal
             text="SOCIAL"
-            className="massive-text text-[22vw] leading-none md:text-[18vw]"
+            className="massive-text text-7xl leading-none md:text-10xl lg:text-12xl"
           />
         </div>
 
-        <div className="flex items-center gap-6 border-t border-white/20 px-8 py-2">
-          <span className="font-display text-[4vw] leading-none text-white/40">
+        <div className="flex items-center gap-6 border-t border-white/20 px-8 py-2 md:px-16">
+          <span className="font-display text-sm leading-none text-white/40 md:text-2xl">
             ↓
           </span>
-          <span className="text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+          <span className="text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
             Strategy · Production · Creative Direction
           </span>
         </div>
 
-        <div className="border-t border-white/20 px-6 py-2 md:px-8">
+        <div className="border-t border-white/20 px-8 py-2 md:px-16">
           <TextReveal
             text="SATISFACTION"
-            className="massive-text text-[14vw] leading-none md:text-[11vw]"
+            className="massive-text text-5xl leading-none md:text-9xl lg:text-11xl"
             delay={0.3}
           />
         </div>
@@ -79,11 +79,11 @@ export const Hero = () => {
       </motion.div>
 
       {/* Bottom metadata */}
-      <div className="relative z-10 flex items-center justify-between border-t border-white/10 px-8 py-4">
-        <span className="text-[9px] font-bold tracking-[0.35em] text-white/20 uppercase">
+      <div className="relative z-10 flex items-center justify-between border-t border-white/10 px-8 py-4 md:px-16">
+        <span className="text-xs font-bold tracking-[0.35em] text-white/15 uppercase">
           Marketing Agency
         </span>
-        <span className="text-[9px] font-bold tracking-[0.35em] text-white/20 uppercase">
+        <span className="text-xs font-bold tracking-[0.35em] text-white/15 uppercase">
           Scroll ↓
         </span>
       </div>
@@ -179,8 +179,8 @@ const ServicesGridCard = ({ card }: { card: ServiceCardDef }) => (
       <div
         className={`absolute inset-0 transition-opacity duration-500 ${
           card.inverted
-            ? "bg-white/72 group-hover:bg-white/55"
-            : "bg-black/65 group-hover:bg-black/48"
+            ? "bg-white/70 group-hover:bg-white/50"
+            : "bg-black/60 group-hover:bg-black/50"
         }`}
       />
 
@@ -194,7 +194,7 @@ const ServicesGridCard = ({ card }: { card: ServiceCardDef }) => (
         <div>
           {card.tag ? (
             <span
-              className={`text-[9px] font-bold tracking-[0.35em] uppercase ${
+              className={`text-xs font-bold tracking-[0.35em] uppercase ${
                 card.inverted ? "text-black/50" : "text-white/60"
               }`}
             >
@@ -223,12 +223,12 @@ const ServicesGridCard = ({ card }: { card: ServiceCardDef }) => (
 
 export const StatsGrid = () => (
   <section className="overflow-hidden bg-black pt-16 pb-12">
-    <p className="mb-10 px-6 text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase md:px-12">
+    <p className="mb-10 px-8 text-xs font-bold tracking-[0.4em] text-white/30 uppercase md:px-16">
       Our Services
     </p>
     {/* Horizontal scroll track — shows ~3.5 cards */}
     <div
-      className="overflow-x-auto px-6 py-4 md:px-12"
+      className="overflow-x-auto px-8 py-4 md:px-16"
       style={{ touchAction: "pan-x", overflowY: "clip" }}
     >
       <div className="flex gap-4" style={{ width: "max-content" }}>
@@ -239,7 +239,7 @@ export const StatsGrid = () => (
         ))}
       </div>
     </div>
-    <p className="mt-6 px-6 text-[9px] font-bold tracking-[0.35em] text-white/25 uppercase md:px-12">
+    <p className="mt-6 px-8 text-xs font-bold tracking-[0.35em] text-white/30 uppercase md:px-16">
       Scroll horizontally to see all services →
     </p>
   </section>
@@ -312,7 +312,7 @@ export const BrandsCarousel = () => {
     <section className="border-t border-white/10 bg-black pb-20 md:pb-28">
       {/* Header */}
       <div className="border-b border-white/10 px-8 py-10 md:px-16">
-        <p className="mb-4 text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+        <p className="mb-4 text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
           Collaborations
         </p>
         <h2 className="text-2xl leading-[1.25] font-light md:text-3xl">
@@ -341,11 +341,11 @@ export const BrandsCarousel = () => {
                   style={{ transform: skewTransform }}
                 >
                   <div
-                    className="absolute inset-y-0 w-px bg-white/[0.35]"
+                    className="absolute inset-y-0 w-px bg-white/35"
                     style={{ left: "8px" }}
                   />
                   <div
-                    className="absolute inset-y-0 w-px bg-white/[0.35]"
+                    className="absolute inset-y-0 w-px bg-white/35"
                     style={{ left: "24px" }}
                   />
                 </motion.div>
@@ -366,11 +366,11 @@ export const BrandsCarousel = () => {
                   style={{ transform: skewTransform }}
                 >
                   <div
-                    className="absolute inset-y-0 w-px bg-white/[0.35]"
+                    className="absolute inset-y-0 w-px bg-white/35"
                     style={{ left: "8px" }}
                   />
                   <div
-                    className="absolute inset-y-0 w-px bg-white/[0.35]"
+                    className="absolute inset-y-0 w-px bg-white/35"
                     style={{ left: "24px" }}
                   />
                 </motion.div>
@@ -393,7 +393,7 @@ export const WordStatement = () => (
       return (
         <motion.div
           key={word}
-          className={`flex items-end border-b border-white/20 px-6 ${isRight ? "justify-end" : "justify-start"}`}
+          className={`flex items-end border-b border-white/20 px-8 md:px-16 ${isRight ? "justify-end" : "justify-start"}`}
           initial={{ opacity: 0, x: isRight ? 40 : -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-150px" }}
@@ -403,7 +403,7 @@ export const WordStatement = () => (
             ease: [0.22, 1, 0.36, 1],
           }}
         >
-          <span className="massive-text text-[18vw] leading-[0.88] select-none">
+          <span className="massive-text text-6xl leading-[0.88] select-none md:text-10xl lg:text-12xl">
             {word}
           </span>
         </motion.div>
@@ -411,13 +411,13 @@ export const WordStatement = () => (
     })}
 
     {/* Bottom metadata row */}
-    <div className="flex items-start justify-between px-6 py-4">
-      <div className="font-mono text-[8px] leading-snug font-bold tracking-widest text-white/20 uppercase">
+    <div className="flex items-start justify-between px-8 py-4 md:px-16">
+      <div className="font-mono text-xs leading-snug font-bold tracking-widest text-white/15 uppercase">
         <span>Strategy · Production · Creative</span>
         <br />
         <span>Social Satisfaction</span>
       </div>
-      <div className="text-right font-mono text-[8px] leading-snug font-bold tracking-widest text-white/20 uppercase">
+      <div className="text-right font-mono text-xs leading-snug font-bold tracking-widest text-white/15 uppercase">
         {Array.from({ length: 4 }).map((_, i) => (
           <span key={i} className="block">
             Make Them Feel It.
@@ -496,7 +496,7 @@ export const WhatWeDoSection = () => {
           <div className="flex items-end border-b border-white/10 px-8 py-16 md:w-[42%] md:border-r md:border-b-0 md:px-16">
             <TextReveal
               text="What we do"
-              className="massive-text text-[8vw] leading-none"
+              className="massive-text text-3xl leading-none md:text-6xl lg:text-9xl"
               immediate
             />
           </div>
@@ -520,13 +520,13 @@ export const WhatWeDoSection = () => {
           <div className="flex items-end border-b border-white/10 px-8 py-16 md:w-[42%] md:border-r md:border-b-0 md:px-16">
             <TextReveal
               text="Why we're different"
-              className="massive-text text-[6.5vw] leading-none"
+              className="massive-text text-3xl leading-none md:text-6xl lg:text-9xl"
               immediate
             />
           </div>
           <div className="flex flex-1 flex-col justify-center gap-10 px-8 py-12 md:px-16">
             <div className="space-y-3">
-              <p className="text-[10px] font-bold tracking-[0.35em] text-white/40 uppercase">
+              <p className="text-xs font-bold tracking-[0.35em] text-white/40 uppercase">
                 Full-Scale Creative Campaigns
               </p>
               <p className="max-w-lg text-lg leading-relaxed font-light text-white/70">
@@ -538,7 +538,7 @@ export const WhatWeDoSection = () => {
               </p>
             </div>
             <div className="space-y-3">
-              <p className="text-[10px] font-bold tracking-[0.35em] text-white/40 uppercase">
+              <p className="text-xs font-bold tracking-[0.35em] text-white/40 uppercase">
                 Results-Driven Execution
               </p>
               <p className="max-w-lg text-lg leading-relaxed font-light text-white/70">
@@ -555,7 +555,7 @@ export const WhatWeDoSection = () => {
         {/* Scroll cue */}
         <motion.div
           style={{ opacity: indicatorOpacity }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[9px] font-bold tracking-[0.4em] text-white/20 uppercase"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs font-bold tracking-[0.4em] text-white/15 uppercase"
         >
           Scroll ↓
         </motion.div>
@@ -574,7 +574,7 @@ export const CampaignStatement = () => (
       return (
         <motion.div
           key={word}
-          className={`flex items-end border-b border-white/20 px-6 ${isRight ? "justify-end" : "justify-start"}`}
+          className={`flex items-end border-b border-white/20 px-8 md:px-16 ${isRight ? "justify-end" : "justify-start"}`}
           initial={{ opacity: 0, x: isRight ? 40 : -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true, margin: "-150px" }}
@@ -584,7 +584,7 @@ export const CampaignStatement = () => (
             ease: [0.22, 1, 0.36, 1],
           }}
         >
-          <span className="massive-text text-[18vw] leading-[0.88] select-none">
+          <span className="massive-text text-6xl leading-[0.88] select-none md:text-10xl lg:text-12xl">
             {word}
           </span>
         </motion.div>
@@ -592,13 +592,13 @@ export const CampaignStatement = () => (
     })}
 
     {/* Bottom metadata row */}
-    <div className="flex items-start justify-between px-6 py-4">
-      <div className="font-mono text-[8px] leading-snug font-bold tracking-widest text-white/20 uppercase">
+    <div className="flex items-start justify-between px-8 py-4 md:px-16">
+      <div className="font-mono text-xs leading-snug font-bold tracking-widest text-white/15 uppercase">
         <span>Strategy · Production · Creative</span>
         <br />
         <span>Social Satisfaction</span>
       </div>
-      <div className="text-right font-mono text-[8px] leading-snug font-bold tracking-widest text-white/20 uppercase">
+      <div className="text-right font-mono text-xs leading-snug font-bold tracking-widest text-white/15 uppercase">
         {Array.from({ length: 4 }).map((_, i) => (
           <span key={i} className="block">
             Campaigns Built To Perform.
@@ -677,17 +677,17 @@ const CascadeImg = ({
           {/* Bottom overlay — title + tags */}
           <div className="absolute inset-x-0 bottom-0 p-5">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
+              <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
                 <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
                 {item.title}
               </span>
-              <span className="bg-black/60 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] text-white/45 uppercase backdrop-blur-sm">
+              <span className="bg-black/60 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white/50 uppercase backdrop-blur-sm">
                 {item.descriptor}
               </span>
               {item.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="hidden border border-white/20 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] text-white/40 uppercase backdrop-blur-sm sm:block"
+                  className="hidden border border-white/20 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white/40 uppercase backdrop-blur-sm sm:block"
                 >
                   {tag}
                 </span>
@@ -697,7 +697,7 @@ const CascadeImg = ({
 
           {/* Top-right "View Work" chip — hover only */}
           <div className="absolute top-4 right-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <span className="block bg-white px-3 py-1.5 text-[9px] font-bold tracking-widest text-black uppercase">
+            <span className="block bg-white px-3 py-1.5 text-xs font-bold tracking-widest text-black uppercase">
               View Work →
             </span>
           </div>
@@ -710,14 +710,14 @@ const CascadeImg = ({
 export const FeaturedCascade = () => (
   <section className="border-t border-white/10 bg-black pt-32 pb-64">
     {/* Header — px-8 matches nav padding so View All right-edge aligns with Contact */}
-    <div className="mb-20 flex items-end justify-between px-8">
+    <div className="mb-20 flex items-end justify-between px-8 md:px-16">
       <div>
-        <p className="mb-5 text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+        <p className="mb-5 text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
           Selected Work
         </p>
         <TextReveal
           text="Featured Projects"
-          className="massive-text text-[6vw] leading-none"
+          className="massive-text text-xl leading-none md:text-4xl lg:text-6xl"
         />
       </div>
       <Link
@@ -754,7 +754,7 @@ const CIRCLE_RING_TEXT =
   "Creative Direction · Brand Strategy · Videography · Photography · Graphic Design · "
 
 export const CircleStatement = () => (
-  <section className="flex items-center justify-center border-t border-white/10 bg-black px-4 py-32">
+  <section className="flex items-center justify-center border-t border-white/10 bg-black px-8 py-32 md:px-16">
     <div
       className="relative"
       style={{ width: "min(640px, 92vw)", height: "min(640px, 92vw)" }}
@@ -785,19 +785,19 @@ export const CircleStatement = () => (
       </motion.svg>
 
       {/* Static circle border */}
-      <div className="absolute inset-[6%] rounded-full border border-white/8" />
+      <div className="absolute inset-[6%] rounded-full border border-white/10" />
 
       {/* Top + bottom cross markers */}
-      <span className="absolute top-[8%] left-1/2 -translate-x-1/2 text-xs text-white/25 select-none">
+      <span className="absolute top-[8%] left-1/2 -translate-x-1/2 text-xs text-white/30 select-none">
         +
       </span>
-      <span className="absolute bottom-[8%] left-1/2 -translate-x-1/2 text-xs text-white/25 select-none">
+      <span className="absolute bottom-[8%] left-1/2 -translate-x-1/2 text-xs text-white/30 select-none">
         +
       </span>
 
       {/* Small satellite labels */}
       <div className="pointer-events-none absolute top-[22%] left-1/2 -translate-x-1/2 text-center">
-        <span className="font-mono text-[8px] font-bold tracking-[0.3em] text-white/25 uppercase">
+        <span className="font-mono text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
           Social Satisfaction
         </span>
         <span className="massive-text mt-1 block text-sm leading-none">
@@ -808,19 +808,19 @@ export const CircleStatement = () => (
         <span className="massive-text mb-1 block text-sm leading-none">
           FEEL?
         </span>
-        <span className="font-mono text-[8px] font-bold tracking-[0.3em] text-white/25 uppercase">
+        <span className="font-mono text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
           Marketing Agency
         </span>
       </div>
 
       {/* Center content */}
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-16 text-center">
-        <span className="text-[10px] leading-none text-white/20">◆</span>
+        <span className="text-xs leading-none text-white/15">◆</span>
         <TextReveal
           text="WHAT DO YOU WANT PEOPLE TO FEEL?"
-          className="massive-text justify-center text-[4.5vw] leading-[0.95] md:text-[3vw]"
+          className="massive-text justify-center text-sm leading-[0.95] md:text-xl"
         />
-        <span className="text-[10px] leading-none text-white/20">◆</span>
+        <span className="text-xs leading-none text-white/15">◆</span>
       </div>
     </div>
   </section>
@@ -830,10 +830,10 @@ export const CircleStatement = () => (
 export const ScatteredStatement = () => (
   <section className="relative overflow-hidden border-t border-white/10 bg-black">
     {/* ── ROW A: "BUILD" ── */}
-    <div className="relative border-b border-white/15 px-6 pt-6 pb-0">
+    <div className="relative border-b border-white/20 px-8 pt-6 pb-0 md:px-16">
       {/* top-right stacked metadata */}
       <div className="pointer-events-none absolute top-6 right-6 z-10 text-right">
-        <span className="block font-mono text-[8px] leading-relaxed font-bold tracking-widest text-white/20 uppercase">
+        <span className="block font-mono text-xs leading-relaxed font-bold tracking-widest text-white/15 uppercase">
           Build to last
           <br />
           Build to last
@@ -841,7 +841,7 @@ export const ScatteredStatement = () => (
       </div>
       <TextReveal
         text="BUILD"
-        className="massive-text text-[22vw] leading-[0.88]"
+        className="massive-text text-7xl leading-[0.88] md:text-10xl lg:text-12xl"
       />
     </div>
 
@@ -849,25 +849,25 @@ export const ScatteredStatement = () => (
     <div className="relative min-h-[28vw] border-b border-white/10">
       {/* top-left small labels */}
       <div className="pointer-events-none absolute top-5 left-6 flex gap-5">
-        <span className="font-mono text-[8px] font-bold tracking-widest text-white/18 uppercase">
+        <span className="font-mono text-xs font-bold tracking-widest text-white/15 uppercase">
           NO
         </span>
-        <span className="font-mono text-[8px] font-bold tracking-widest text-white/18 uppercase">
+        <span className="font-mono text-xs font-bold tracking-widest text-white/15 uppercase">
           NO
         </span>
       </div>
-      <span className="pointer-events-none absolute top-5 right-[8%] font-mono text-[8px] font-bold tracking-widest text-white/18 uppercase">
+      <span className="pointer-events-none absolute top-5 right-[8%] font-mono text-xs font-bold tracking-widest text-white/15 uppercase">
         NO
       </span>
 
       {/* "BOLD." floating top-right */}
-      <span className="massive-text pointer-events-none absolute top-8 right-6 text-[4vw] leading-none text-white/85">
+      <span className="massive-text pointer-events-none absolute top-8 right-6 text-sm leading-none text-white/80 md:text-2xl">
         BOLD.
       </span>
 
       {/* Center: "Build with intention." + smiley */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-        <span className="block text-[11px] font-bold tracking-[0.3em] text-white/50 uppercase">
+        <span className="block text-xs font-bold tracking-[0.3em] text-white/50 uppercase">
           Build with intention.
         </span>
         <span className="mt-2 block text-lg text-white/30">☺</span>
@@ -875,34 +875,34 @@ export const ScatteredStatement = () => (
 
       {/* "← ←" arrows — left-centre */}
       <div className="pointer-events-none absolute bottom-5 left-[36%] flex gap-3">
-        <span className="font-mono text-xl text-white/55">←</span>
-        <span className="font-mono text-xl text-white/55">←</span>
+        <span className="font-mono text-xl text-white/60">←</span>
+        <span className="font-mono text-xl text-white/60">←</span>
       </div>
 
       {/* Bottom-right: agency watermarks + NO SHORTCUTS */}
       <div className="pointer-events-none absolute right-6 bottom-5 text-right">
-        <span className="block font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase">
+        <span className="block font-mono text-xs font-bold tracking-widest text-white/30 uppercase">
           Social Satisfaction
         </span>
-        <span className="mt-1 block font-mono text-[12px] font-bold tracking-[0.2em] text-white/55 uppercase">
+        <span className="mt-1 block font-mono text-xs font-bold tracking-[0.2em] text-white/60 uppercase">
           NO SHORTCUTS.
         </span>
-        <span className="mt-1 block font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase">
+        <span className="mt-1 block font-mono text-xs font-bold tracking-widest text-white/30 uppercase">
           Social Satisfaction
         </span>
       </div>
 
       {/* Bottom-left: "NO STORY" */}
-      <span className="pointer-events-none absolute bottom-5 left-6 font-mono text-[11px] font-bold tracking-[0.3em] text-white/40 uppercase">
+      <span className="pointer-events-none absolute bottom-5 left-6 font-mono text-xs font-bold tracking-[0.3em] text-white/40 uppercase">
         NO STORY
       </span>
     </div>
 
     {/* ── ROW B: "WITH" ── */}
-    <div className="border-b border-white/15 px-6 pt-0 pb-0">
+    <div className="border-b border-white/20 px-8 pt-0 pb-0 md:px-16">
       <TextReveal
         text="WITH"
-        className="massive-text text-[22vw] leading-[0.88]"
+        className="massive-text text-7xl leading-[0.88] md:text-10xl lg:text-12xl"
         delay={0.1}
       />
     </div>
@@ -916,31 +916,31 @@ export const ScatteredStatement = () => (
       </div>
 
       {/* top-right: "Social Satisfaction" */}
-      <span className="pointer-events-none absolute top-5 right-6 font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase">
+      <span className="pointer-events-none absolute top-5 right-6 font-mono text-xs font-bold tracking-widest text-white/30 uppercase">
         Social Satisfaction
       </span>
 
       {/* "NO RISK." */}
       <div className="pointer-events-none absolute top-1/2 right-6 -translate-y-1/2 text-right">
-        <span className="block font-mono text-[14px] font-bold tracking-[0.2em] text-white/55 uppercase">
+        <span className="block font-mono text-sm font-bold tracking-[0.2em] text-white/60 uppercase">
           NO RISK.
         </span>
-        <span className="mt-1 block font-mono text-[8px] font-bold tracking-widest text-white/25 uppercase">
+        <span className="mt-1 block font-mono text-xs font-bold tracking-widest text-white/30 uppercase">
           Social Satisfaction
         </span>
       </div>
 
       {/* "NO LIMITS." — bottom-left */}
-      <span className="pointer-events-none absolute bottom-5 left-6 font-mono text-[11px] font-bold tracking-[0.3em] text-white/40 uppercase">
+      <span className="pointer-events-none absolute bottom-5 left-6 font-mono text-xs font-bold tracking-[0.3em] text-white/40 uppercase">
         NO LIMITS.
       </span>
     </div>
 
     {/* ── ROW C: "PURPOSE." ── */}
-    <div className="px-6 pt-0 pb-8">
+    <div className="px-8 pt-0 pb-8 md:px-16">
       <TextReveal
         text="PURPOSE."
-        className="massive-text text-[16vw] leading-[0.88]"
+        className="massive-text text-6xl leading-[0.88] md:text-10xl lg:text-12xl"
         delay={0.2}
       />
     </div>
@@ -969,7 +969,7 @@ export const Ticker = () => (
       {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
         <span
           key={i}
-          className="mx-6 text-[10px] font-bold tracking-[0.4em] whitespace-nowrap text-white/40 uppercase"
+          className="mx-6 text-xs font-bold tracking-[0.4em] whitespace-nowrap text-white/40 uppercase"
         >
           {item}
         </span>
@@ -1033,11 +1033,11 @@ export const IntroText = () => {
     "We work at the intersection of videography, photography, graphic design, and strategy. From Coors Light to Red Bull to Maker's Mark, every project starts with one question: what do you want people to feel?"
 
   return (
-    <section className="border-t border-white/10 px-8 py-48 md:px-24">
+    <section className="border-t border-white/10 px-8 py-48 md:px-16">
       <div className="mx-auto max-w-5xl space-y-10">
         <div className="overflow-hidden">
           <motion.span
-            className="block text-[9px] font-bold tracking-[0.4em] text-white/40 uppercase"
+            className="block text-xs font-bold tracking-[0.4em] text-white/40 uppercase"
             initial={{ y: "110%" }}
             whileInView={{ y: "0%" }}
             viewport={{ once: true, margin: "-150px" }}
@@ -1049,7 +1049,7 @@ export const IntroText = () => {
 
         <WordReveal
           text={para1}
-          className="text-3xl leading-[1.35] font-light md:text-4xl lg:text-[2.6rem]"
+          className="text-3xl leading-[1.35] font-light md:text-4xl lg:text-5xl"
           startDelay={0.05}
         />
 
@@ -1128,7 +1128,7 @@ const FeaturedProjectCard = ({
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="border border-white/30 px-3 py-1 text-[10px] font-bold tracking-[0.35em] uppercase"
+                className="border border-white/40 px-3 py-1 text-xs font-bold tracking-[0.35em] uppercase"
               >
                 {tag}
               </span>
@@ -1160,17 +1160,20 @@ export const FeaturedProjects = () => {
       <div className="border-t border-white/10 px-8 pt-32 pb-0 md:px-16">
         {/* Stacked heading with dividers */}
         <div className="border-b border-white/10 pb-2">
-          <TextReveal text="Featured" className="massive-text text-[9vw]" />
+          <TextReveal
+            text="Featured"
+            className="massive-text text-3xl md:text-6xl lg:text-9xl"
+          />
         </div>
         <div className="border-b border-white/10 pt-2 pb-2">
           <TextReveal
             text="Projects"
-            className="massive-text text-[9vw]"
+            className="massive-text text-3xl md:text-6xl lg:text-9xl"
             delay={0.15}
           />
         </div>
         <div className="pt-2 pb-8">
-          <span className="text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+          <span className="text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
             Selected Work
           </span>
         </div>
@@ -1270,9 +1273,9 @@ const UVPPanel = ({
       {/* Text */}
       <motion.div
         style={{ y: textY }}
-        className="flex h-1/2 w-full flex-col justify-center space-y-4 px-6 md:h-full md:w-1/2 md:space-y-6 md:px-16"
+        className="flex h-1/2 w-full flex-col justify-center space-y-4 px-8 md:h-full md:w-1/2 md:space-y-6 md:px-16"
       >
-        <span className="text-[9px] font-bold tracking-[0.4em] text-white/40 uppercase">
+        <span className="text-xs font-bold tracking-[0.4em] text-white/40 uppercase">
           0{index + 1} / 0{total}
         </span>
         <TextReveal
@@ -1427,10 +1430,13 @@ export const ServiceTrinity = () => {
       <div className="mx-auto max-w-7xl">
         <div className="mb-4">
           <div className="border-b border-white/10 pb-2">
-            <TextReveal text="Services" className="massive-text text-[13vw]" />
+            <TextReveal
+              text="Services"
+              className="massive-text text-5xl md:text-9xl lg:text-11xl"
+            />
           </div>
           <div className="pt-2 pb-16">
-            <span className="text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+            <span className="text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
               What I Do
             </span>
           </div>

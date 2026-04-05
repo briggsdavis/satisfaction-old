@@ -58,7 +58,7 @@ const CategoryCard = ({
                     }}
                     className="flex list-none items-start gap-2.5 text-xs leading-relaxed text-white/70"
                   >
-                    <span className="mt-[3px] shrink-0 text-[10px] text-white/30">
+                    <span className="mt-[3px] shrink-0 text-xs text-white/30">
                       —
                     </span>
                     {bullet}
@@ -71,11 +71,11 @@ const CategoryCard = ({
 
         {/* Tag pills */}
         <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
+          <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
             <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
             {category.name}
           </span>
-          <span className="bg-black/60 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] text-white/45 uppercase backdrop-blur-sm">
+          <span className="bg-black/60 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white/50 uppercase backdrop-blur-sm">
             Portfolio
           </span>
         </div>
@@ -83,7 +83,7 @@ const CategoryCard = ({
 
       {/* Top-right CTA chip — appears on hover */}
       <div className="absolute top-5 right-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="block bg-white px-3 py-1.5 text-[9px] font-bold tracking-widest text-black uppercase">
+        <span className="block bg-white px-3 py-1.5 text-xs font-bold tracking-widest text-black uppercase">
           View Work →
         </span>
       </div>
@@ -97,17 +97,17 @@ export const Portfolio = () => (
   <div className="pt-32">
     {/* Page header */}
     <section className="border-b border-white/10 px-8 pb-16 md:px-16">
-      <span className="mb-6 block text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+      <span className="mb-6 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
         Selected Work
       </span>
       <TextReveal
         text="PORTFOLIO"
-        className="massive-text text-[18vw] leading-none"
+        className="massive-text text-6xl leading-none md:text-10xl lg:text-11xl"
       />
     </section>
 
     {/* Image grid — px-8 matches navbar margin; gap-8 between every image */}
-    <div className="flex flex-col gap-8 px-4 py-8 md:px-8">
+    <div className="flex flex-col gap-8 px-8 py-8 md:px-16">
       {/* Row 1 — full width */}
       <CategoryCard category={CATEGORIES[0]} className="h-[62vh] md:h-[68vh]" />
 

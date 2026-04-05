@@ -3,10 +3,10 @@ import { TextReveal } from "../components/text-reveal"
 
 export const NotFound = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-8">
+    <div className="flex min-h-screen flex-col items-center justify-center px-8 md:px-16">
       <TextReveal
         text="404"
-        className="massive-text text-[25vw] leading-none text-white"
+        className="massive-text text-8xl leading-none text-white md:text-10xl lg:text-12xl"
         immediate
       />
       <TextReveal

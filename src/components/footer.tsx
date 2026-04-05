@@ -13,7 +13,7 @@ const SOCIAL_LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-black px-8 pt-32 pb-12">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-black px-8 pt-32 pb-12 md:px-16">
       <div className="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 lg:grid-cols-4 lg:gap-16">
         <div className="space-y-8">
           <h2 className="massive-text text-4xl leading-none md:text-6xl">
@@ -28,7 +28,7 @@ export const Footer = () => {
         </div>
 
         <div className="space-y-6">
-          <h4 className="text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase">
+          <h4 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase">
             Navigation
           </h4>
           <ul className="space-y-4">
@@ -48,7 +48,7 @@ export const Footer = () => {
         </div>
 
         <div className="space-y-6">
-          <h4 className="text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase">
+          <h4 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase">
             Social
           </h4>
           <ul className="space-y-4">
@@ -68,7 +68,7 @@ export const Footer = () => {
         </div>
 
         <div className="space-y-6">
-          <h4 className="text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase">
+          <h4 className="text-xs font-bold tracking-[0.3em] text-white/40 uppercase">
             Contact
           </h4>
           <p className="text-sm font-light tracking-wide text-white/70">
@@ -82,18 +82,18 @@ export const Footer = () => {
       </div>
 
       <div className="mt-32 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
-        <p className="text-[10px] tracking-widest text-white/20 uppercase">
+        <p className="text-xs tracking-widest text-white/15 uppercase">
           © {new Date().getFullYear()} Social Satisfaction. All Rights Reserved
         </p>
         <div className="flex gap-8">
-          <span className="text-[10px] tracking-widest text-white/20 uppercase">
+          <span className="text-xs tracking-widest text-white/15 uppercase">
             Privacy Policy
           </span>
-          <span className="text-[10px] tracking-widest text-white/20 uppercase">
+          <span className="text-xs tracking-widest text-white/15 uppercase">
             Terms of Service
           </span>
         </div>
-        <p className="text-[10px] tracking-widest text-white/20 uppercase">
+        <p className="text-xs tracking-widest text-white/15 uppercase">
           Made by{" "}
           <a
             href="https://www.briggsdavis.com"
@@ -107,7 +107,7 @@ export const Footer = () => {
       </div>
 
       {/* Large background text */}
-      <div className="massive-text pointer-events-none absolute -right-20 -bottom-20 text-[20vw] font-black text-white/[0.02] select-none">
+      <div className="massive-text pointer-events-none absolute -right-20 -bottom-20 text-7xl font-black text-white/5 select-none md:text-10xl lg:text-12xl">
         SATISFACTION
       </div>
     </footer>

@@ -151,7 +151,7 @@ const ValueCard = ({ value }: { value: (typeof values)[0] }) => {
       onClick={() => setIsOpen((v) => !v)}
     >
       {/* Image with parallax */}
-      <div className="relative aspect-[2/3] w-full overflow-hidden">
+      <div className="relative aspect-2/3 w-full overflow-hidden">
         <motion.img
           src={value.img}
           alt={value.label}
@@ -160,8 +160,8 @@ const ValueCard = ({ value }: { value: (typeof values)[0] }) => {
         />
         {/* Tag overlay */}
         <div className="absolute bottom-3 left-3 z-10">
-          <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
-            <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
+          <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" />
             {value.label}
           </span>
         </div>
@@ -177,7 +177,7 @@ const ValueCard = ({ value }: { value: (typeof values)[0] }) => {
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <p className="pt-4 text-xs leading-relaxed text-white/55">
+            <p className="pt-4 text-xs leading-relaxed text-white/60">
               {value.body}
             </p>
           </motion.div>
@@ -243,7 +243,7 @@ export const About = () => {
 
       <div className="pt-24">
         {/* Three staggered paragraphs — line-by-line blur-in */}
-        <div className="mb-32 px-8 md:px-16 lg:px-24">
+        <div className="mb-32 px-8 md:px-16">
           <div className="flex justify-start">
             <BlurInLines
               className="about-glow-text max-w-sm"
@@ -280,7 +280,7 @@ export const About = () => {
           >
             {/* Compact header */}
             <div className="flex-shrink-0 border-b border-white/10 px-8 pt-3 pb-[3px]">
-              <h2 className="text-[10px] font-bold tracking-widest text-white/40 uppercase">
+              <h2 className="text-xs font-bold tracking-widest text-white/40 uppercase">
                 PORTFOLIO
               </h2>
               <h3 className="mt-1 text-3xl font-bold tracking-tight uppercase md:text-5xl">
@@ -326,7 +326,7 @@ export const About = () => {
         </div>
 
         {/* Values Images — four staggered portrait images, click to expand text */}
-        <div className="px-8 py-16 md:py-24">
+        <div className="px-8 py-16 md:px-16 md:py-24">
           <div className="flex items-start gap-3 md:gap-5">
             {values.map((value) => (
               <ValueCard key={value.label} value={value} />

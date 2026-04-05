@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useSpring } from "motion/react"
+import { motion, useMotionValue } from "motion/react"
 import { useEffect, useState } from "react"
 
 const hasPointer = () =>
@@ -50,7 +50,7 @@ export const CustomCursor = () => {
 
   return (
     <motion.div
-      className="pointer-events-none fixed top-0 left-0 z-[10000] flex h-5 w-5 items-center justify-center overflow-hidden rounded-full bg-white mix-blend-difference"
+      className="pointer-events-none fixed top-0 left-0 z-10000 flex h-5 w-5 items-center justify-center overflow-hidden rounded-full bg-white mix-blend-difference"
       style={{
         x: cursorX,
         y: cursorY,
@@ -66,7 +66,7 @@ export const CustomCursor = () => {
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-[10px] font-bold tracking-widest text-black uppercase"
+          className="text-xs font-bold tracking-widest text-black uppercase"
         >
           {hoverText}
         </motion.span>

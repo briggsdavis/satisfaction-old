@@ -14,7 +14,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 z-1000 grid w-full grid-cols-2 items-center px-4 py-6 md:grid-cols-[1fr_auto_1fr] md:px-8">
+      <nav className="fixed top-0 left-0 z-1000 grid w-full grid-cols-2 items-center px-8 py-6 md:grid-cols-[1fr_auto_1fr] md:px-16">
         {/* Logo */}
         <Link to="/" className="block w-fit" onClick={handleLinkClick}>
           <img
@@ -85,10 +85,10 @@ export const Navbar = () => {
               ))}
             </nav>
 
-            <div className="absolute bottom-8 left-8 font-mono text-[8px] font-bold tracking-widest text-white/15 uppercase">
+            <div className="absolute bottom-8 left-8 font-mono text-xs font-bold tracking-widest text-white/15 uppercase">
               ← → Creative Direction
             </div>
-            <div className="absolute right-8 bottom-8 font-mono text-[8px] font-bold tracking-widest text-white/15 uppercase">
+            <div className="absolute right-8 bottom-8 font-mono text-xs font-bold tracking-widest text-white/15 uppercase">
               Social Satisfaction
             </div>
           </motion.div>

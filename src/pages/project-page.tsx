@@ -20,7 +20,7 @@ export const ProjectPage = () => {
       <div className="flex min-h-screen flex-col items-center justify-center gap-8">
         <TextReveal
           text="NOT FOUND"
-          className="massive-text text-[8vw]"
+          className="massive-text text-3xl md:text-6xl lg:text-8xl"
           immediate
         />
         <Link to="/portfolio" className="btn-industrial">
@@ -47,13 +47,13 @@ export const ProjectPage = () => {
       <section className="border-b border-white/10 px-8 pb-16 md:px-16">
         <Link
           to={`/portfolio/${category.slug}`}
-          className="mb-6 block text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase transition-colors hover:text-white"
+          className="mb-6 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase transition-colors hover:text-white"
         >
           ← {category.name}
         </Link>
         <TextReveal
           text={project.title.toUpperCase()}
-          className="massive-text text-[clamp(3rem,10vw,9rem)] leading-none"
+          className="massive-text text-4xl leading-none md:text-7xl lg:text-9xl"
         />
       </section>
 
@@ -62,25 +62,25 @@ export const ProjectPage = () => {
         {/* Top row: descriptor/tags + project overview — 4-col grid aligns overview with Execution below */}
         <div className="mb-16 grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8">
           <div className="md:col-span-2">
-            <span className="mb-3 block text-[9px] font-bold tracking-[0.4em] text-white/35 uppercase">
+            <span className="mb-3 block text-xs font-bold tracking-[0.4em] text-white/40 uppercase">
               {project.descriptor}
             </span>
             <div className="flex flex-wrap gap-3">
               {project.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="border border-white/20 px-3 py-1 text-[9px] font-bold tracking-[0.3em] text-white/60 uppercase"
+                  className="border border-white/20 px-3 py-1 text-xs font-bold tracking-[0.3em] text-white/60 uppercase"
                 >
                   {tag}
                 </span>
               ))}
-              <span className="border border-white/20 px-3 py-1 text-[9px] font-bold tracking-[0.3em] text-white/60 uppercase">
+              <span className="border border-white/20 px-3 py-1 text-xs font-bold tracking-[0.3em] text-white/60 uppercase">
                 {category.name}
               </span>
             </div>
           </div>
           <div className="md:col-span-2">
-            <span className="mb-4 block text-[9px] font-bold tracking-[0.4em] text-white/35 uppercase">
+            <span className="mb-4 block text-xs font-bold tracking-[0.4em] text-white/40 uppercase">
               Project Overview
             </span>
             <motion.p
@@ -88,7 +88,7 @@ export const ProjectPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-150px" }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-base leading-relaxed text-white/55 md:text-lg"
+              className="text-base leading-relaxed text-white/60 md:text-lg"
             >
               {project.description}
             </motion.p>
@@ -106,17 +106,17 @@ export const ProjectPage = () => {
             ] as const
           ).map(({ label, body }) => (
             <div key={label}>
-              <span className="mb-5 block text-[9px] font-bold tracking-[0.4em] text-white/35 uppercase">
+              <span className="mb-5 block text-xs font-bold tracking-[0.4em] text-white/40 uppercase">
                 {label}
               </span>
-              <p className="text-sm leading-relaxed text-white/55">{body}</p>
+              <p className="text-sm leading-relaxed text-white/60">{body}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* 6-image grid — same visual pattern as category page, extended */}
-      <div className="flex flex-col gap-8 px-4 py-8 md:px-8">
+      <div className="flex flex-col gap-8 px-8 py-8 md:px-16">
         {/* Row 1 — full width */}
         <ImageCard
           img={images[0]}
@@ -210,7 +210,7 @@ const ImageCard = ({
       className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
     />
     <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
-    <span className="absolute right-4 bottom-4 font-mono text-[8px] font-bold tracking-widest text-white/30">
+    <span className="absolute right-4 bottom-4 font-mono text-xs font-bold tracking-widest text-white/30">
       {String(index + 1).padStart(2, "0")}
     </span>
   </motion.div>

@@ -5,6 +5,12 @@
   --font-display: "Anton", "Saira Extra Condensed", sans-serif;
   --color-bg: #000000;
   --color-fg: #ffffff;
+  --text-10xl: 10rem;
+  --text-10xl--line-height: 1;
+  --text-11xl: 14rem;
+  --text-11xl--line-height: 1;
+  --text-12xl: 18rem;
+  --text-12xl--line-height: 1;
 }
 
 @layer base {
@@ -61,7 +67,7 @@
   }
 
   .btn-industrial-sm {
-    @apply rounded-none border border-white/40 bg-transparent px-5 py-2 text-[10px] font-bold tracking-[0.25em] uppercase transition-all hover:bg-white hover:text-black;
+    @apply rounded-none border border-white/40 bg-transparent px-5 py-2 text-xs font-bold tracking-[0.25em] uppercase transition-all hover:bg-white hover:text-black;
   }
 
   .massive-text {
@@ -86,7 +92,7 @@
   }
 
   .column-line {
-    @apply pointer-events-none fixed inset-y-0 z-1 w-px overflow-hidden bg-white/[0.06];
+    @apply pointer-events-none fixed inset-y-0 z-1 w-px overflow-hidden bg-white/10;
   }
 
   .column-line::after {

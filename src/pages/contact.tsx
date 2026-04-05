@@ -223,14 +223,14 @@ const TextField = ({
   type?: string
   placeholder: string
 }) => (
-  <div className="border-b border-white/[0.06] py-5">
-    <label className="mb-2 block text-[9px] font-bold tracking-[0.35em] text-white/35 uppercase">
+  <div className="border-b border-white/10 py-5">
+    <label className="mb-2 block text-xs font-bold tracking-[0.35em] text-white/40 uppercase">
       {label}
     </label>
     <input
       type={type}
       name={name}
-      className="w-full border-b border-white/20 bg-transparent pb-2 text-base text-white transition-colors outline-none placeholder:text-white/20 focus:border-white/50"
+      className="w-full border-b border-white/20 bg-transparent pb-2 text-base text-white transition-colors outline-none placeholder:text-white/15 focus:border-white/50"
       placeholder={placeholder}
     />
   </div>
@@ -245,14 +245,14 @@ const TextareaField = ({
   name: string
   placeholder: string
 }) => (
-  <div className="border-b border-white/[0.06] py-5">
-    <label className="mb-2 block text-[9px] font-bold tracking-[0.35em] text-white/35 uppercase">
+  <div className="border-b border-white/10 py-5">
+    <label className="mb-2 block text-xs font-bold tracking-[0.35em] text-white/40 uppercase">
       {label}
     </label>
     <textarea
       name={name}
       rows={4}
-      className="w-full resize-none border-b border-white/20 bg-transparent pb-2 text-base text-white transition-colors outline-none placeholder:text-white/20 focus:border-white/50"
+      className="w-full resize-none border-b border-white/20 bg-transparent pb-2 text-base text-white transition-colors outline-none placeholder:text-white/15 focus:border-white/50"
       placeholder={placeholder}
     />
   </div>
@@ -268,7 +268,7 @@ const FaqItem = ({
   isOpen: boolean
   onToggle: () => void
 }) => (
-  <div className="border-b border-white/[0.08]">
+  <div className="border-b border-white/10">
     <button
       onClick={onToggle}
       className="group flex w-full items-center justify-between py-5 text-left"
@@ -293,7 +293,7 @@ const FaqItem = ({
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="overflow-hidden"
         >
-          <p className="pb-5 text-sm leading-relaxed text-white/45">{item.a}</p>
+          <p className="pb-5 text-sm leading-relaxed text-white/50">{item.a}</p>
         </motion.div>
       )}
     </AnimatePresence>
@@ -342,14 +342,14 @@ export const Contact = () => {
     <div className="pt-32">
       {/* ── Big centered header ───────────────────────────────────────────── */}
       <motion.section
-        className="border-b border-white/10 px-8 pb-16 text-center"
+        className="border-b border-white/10 px-8 pb-16 text-center md:px-16"
         initial={{ opacity: 0, filter: "blur(20px)" }}
         animate={{ opacity: 1, filter: "blur(0px)" }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
       >
         <TextReveal
           text="CONTACT"
-          className="massive-text text-[20vw] leading-none"
+          className="massive-text text-7xl leading-none md:text-10xl lg:text-12xl"
           immediate
         />
       </motion.section>
@@ -361,13 +361,13 @@ export const Contact = () => {
           delay={0.1}
           className="border-b border-white/10 px-8 py-12 lg:border-r lg:border-b-0 lg:px-12 lg:py-16"
         >
-          <p className="mb-10 text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+          <p className="mb-10 text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
             Get In Touch
           </p>
 
           <div className="space-y-10">
             <div>
-              <p className="mb-1 text-[9px] font-bold tracking-[0.3em] text-white/25 uppercase">
+              <p className="mb-1 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
                 Email
               </p>
               <a
@@ -378,7 +378,7 @@ export const Contact = () => {
               </a>
             </div>
             <div>
-              <p className="mb-1 text-[9px] font-bold tracking-[0.3em] text-white/25 uppercase">
+              <p className="mb-1 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
                 Phone
               </p>
               <a
@@ -389,13 +389,13 @@ export const Contact = () => {
               </a>
             </div>
             <div>
-              <p className="mb-1 text-[9px] font-bold tracking-[0.3em] text-white/25 uppercase">
+              <p className="mb-1 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
                 Location
               </p>
               <p className="text-sm text-white/70">Marketing Agency</p>
             </div>
             <div>
-              <p className="mb-1 text-[9px] font-bold tracking-[0.3em] text-white/25 uppercase">
+              <p className="mb-1 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
                 Instagram
               </p>
               <a
@@ -414,7 +414,7 @@ export const Contact = () => {
         <div className="px-8 py-12 lg:px-12 lg:py-16">
           <form
             onSubmit={(e) => e.preventDefault()}
-            className="border-t border-white/[0.08]"
+            className="border-t border-white/10"
           >
             <BlurIn delay={0.1}>
               <TextField label="Name" name="name" placeholder="" />
@@ -470,19 +470,19 @@ export const Contact = () => {
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
       <section ref={faqRef} id="faq" className="px-8 py-20 md:px-16">
         <BlurIn className="mb-16">
-          <span className="mb-4 block text-[9px] font-bold tracking-[0.4em] text-white/30 uppercase">
+          <span className="mb-4 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
             Frequently Asked
           </span>
           <TextReveal
             text="FAQ"
-            className="massive-text text-[12vw] leading-none"
+            className="massive-text text-4xl leading-none md:text-8xl lg:text-10xl"
           />
         </BlurIn>
 
         <div className="mx-auto max-w-4xl space-y-14">
           {FAQ_SECTIONS.map((section) => (
             <BlurIn key={section.section}>
-              <p className="mb-4 border-t border-white/10 pt-6 text-[9px] font-bold tracking-[0.35em] text-white/30 uppercase">
+              <p className="mb-4 border-t border-white/10 pt-6 text-xs font-bold tracking-[0.35em] text-white/30 uppercase">
                 {section.section}
               </p>
               {section.items.map((item, j) => (
