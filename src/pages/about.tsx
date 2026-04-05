@@ -1,6 +1,5 @@
-import { AnimatePresence, motion, useMotionValue, useTransform } from "motion/react"
+import { AnimatePresence, motion, useMotionValue, useScroll, useTransform } from "motion/react"
 import { useEffect, useRef, useState } from "react"
-import { createPortal } from "react-dom"
 import { Link } from "react-router"
 import { AboutHero } from "../components/about-hero"
 import { useSmoothScroll } from "../components/smooth-scroll"
@@ -32,28 +31,28 @@ const values = [
     img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=600",
     offset: "mt-0",
     delay: 0,
-    body: "We measure success in reservations, not impressions. Every campaign is built around a specific business objective — whether that's growing your weekday covers, launching a new concept, or repositioning your brand. Our integrated structure means fewer handoffs, lower overhead, and a direct throughline from strategy to deliverable.",
+    body: "We measure success in reservations, not impressions. Every campaign is built around a specific business objective — whether that's growing your weekday covers, launching a new concept, or repositioning your brand.",
   },
   {
     label: "CULTURE",
     img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=600",
     offset: "mt-20",
     delay: 0.1,
-    body: "Culture isn't a backdrop — it's your product. We build content that makes people feel like they're already part of your world, translating your hospitality vision into storytelling that drives aspiration and belonging. When your audience sees themselves in your brand, they come through the door.",
+    body: "Culture isn't a backdrop — it's your product. We build content that makes people feel like they're already part of your world, translating your hospitality vision into storytelling that drives aspiration and belonging.",
   },
   {
     label: "DYNAMICS",
     img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=600",
     offset: "mt-10",
     delay: 0.2,
-    body: "The market doesn't wait. Our in-house production model means we can turn a campaign concept around in days, not weeks. We monitor performance in real time and adapt creative accordingly — keeping your brand responsive to trends, seasons, and competitive shifts without losing cohesion.",
+    body: "The market doesn't wait. Our in-house production model means we can turn a campaign concept around in days, not weeks — keeping your brand responsive to trends, seasons, and competitive shifts without losing cohesion.",
   },
   {
     label: "CREATIVITY",
     img: "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?auto=format&fit=crop&q=80&w=600",
     offset: "mt-32",
     delay: 0.3,
-    body: "Originality is what makes people stop scrolling. We develop visual identities and campaign narratives unique to each brand — never templated, never recycled. From the tone of a caption to the light in a photograph, every element is intentional and designed to make your brand unmistakable.",
+    body: "Originality is what makes people stop scrolling. We develop visual identities and campaign narratives unique to each brand — never templated, never recycled. Every element is intentional and designed to make your brand unmistakable.",
   },
 ]
 
@@ -108,9 +107,69 @@ const timeline = [
   },
 ]
 
-export const About = () => {
-  const [activeValue, setActiveValue] = useState<string | null>(null)
+const ValueCard = ({
+  value,
+}: {
+  value: (typeof values)[0]
+}) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
 
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  })
+
+  const imgY = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"])
+
+  return (
+    <motion.div
+      ref={containerRef}
+      className={`flex-1 ${value.offset} cursor-pointer text-left`}
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.7, delay: value.delay, ease: [0.22, 1, 0.36, 1] }}
+      onClick={() => setIsOpen((v) => !v)}
+    >
+      {/* Image with parallax */}
+      <div className="relative aspect-[2/3] w-full overflow-hidden">
+        <motion.img
+          src={value.img}
+          alt={value.label}
+          className="absolute inset-0 h-[130%] w-full object-cover"
+          style={{ y: imgY, top: "-15%" }}
+        />
+        {/* Tag overlay */}
+        <div className="absolute bottom-3 left-3 z-10">
+          <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] uppercase text-white backdrop-blur-sm">
+            <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
+            {value.label}
+          </span>
+        </div>
+      </div>
+
+      {/* Inline expand drawer */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="overflow-hidden"
+          >
+            <p className="pt-4 text-xs leading-relaxed text-white/55">
+              {value.body}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  )
+}
+
+export const About = () => {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const horizontalRef = useRef<HTMLDivElement>(null)
   const [scrollDistance, setScrollDistance] = useState(0)
@@ -139,13 +198,6 @@ export const About = () => {
     return () => window.removeEventListener("resize", measure)
   }, [smoothY])
 
-  // Close modal on Escape
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setActiveValue(null) }
-    window.addEventListener("keydown", onKey)
-    return () => window.removeEventListener("keydown", onKey)
-  }, [])
-
   const pinY = useTransform(activeY, (y: number) => {
     const T = wrapperTopRef.current
     const D = scrollDistanceRef.current
@@ -163,8 +215,6 @@ export const About = () => {
     if (y >= T + D) return -D
     return -(y - T)
   })
-
-  const activeValueData = values.find((v) => v.label === activeValue)
 
   return (
     <>
@@ -205,8 +255,8 @@ export const About = () => {
             style={{ y: pinY }}
             className="flex h-screen flex-col overflow-hidden"
           >
-            {/* Compact header — 50% less padding than before */}
-            <div className="flex-shrink-0 border-b border-white/10 px-8 pt-3 pb-1.5">
+            {/* Compact header */}
+            <div className="flex-shrink-0 border-b border-white/10 px-8 pt-3 pb-[3px]">
               <h2 className="text-[10px] font-bold tracking-widest text-white/40 uppercase">
                 PORTFOLIO
               </h2>
@@ -249,34 +299,11 @@ export const About = () => {
           </motion.div>
         </div>
 
-        {/* Values Images — four staggered portrait images, clickable to modal */}
+        {/* Values Images — four staggered portrait images, click to expand text */}
         <div className="px-8 py-16 md:py-24">
           <div className="flex items-start gap-3 md:gap-5">
-            {values.map(({ label, img, offset, delay }) => (
-              <motion.button
-                key={label}
-                className={`flex-1 ${offset} cursor-pointer text-left`}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-                onClick={() => setActiveValue(label)}
-              >
-                <div className="relative aspect-[2/3] w-full overflow-hidden">
-                  <img
-                    src={img}
-                    alt={label}
-                    className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                  {/* Tag overlay — matches portfolio project card style */}
-                  <div className="absolute bottom-3 left-3">
-                    <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-[9px] font-bold tracking-[0.22em] uppercase text-white backdrop-blur-sm">
-                      <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
-                      {label}
-                    </span>
-                  </div>
-                </div>
-              </motion.button>
+            {values.map((value) => (
+              <ValueCard key={value.label} value={value} />
             ))}
           </div>
         </div>
@@ -288,67 +315,6 @@ export const About = () => {
           </Link>
         </div>
       </div>
-
-      {/* Value modal — rendered via portal so CSS transforms on SmoothScroll don't break position:fixed */}
-      {createPortal(
-        <AnimatePresence>
-          {activeValue && activeValueData && (
-            <>
-              {/* Backdrop */}
-              <motion.div
-                className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                onClick={() => setActiveValue(null)}
-              />
-              {/* Modal */}
-              <motion.div
-                className="fixed inset-0 z-[9999] flex items-center justify-center p-6 pointer-events-none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <motion.div
-                  className="pointer-events-auto relative flex w-full max-w-2xl flex-col overflow-hidden bg-black border border-white/10 md:flex-row"
-                  initial={{ scale: 0.92, y: 30 }}
-                  animate={{ scale: 1, y: 0 }}
-                  exit={{ scale: 0.92, y: 30 }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {/* Image */}
-                  <div className="aspect-[3/2] w-full flex-shrink-0 overflow-hidden md:aspect-auto md:w-56">
-                    <img
-                      src={activeValueData.img}
-                      alt={activeValueData.label}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  {/* Content */}
-                  <div className="flex flex-1 flex-col justify-between p-8">
-                    <div>
-                      <p className="mb-4 text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase">
-                        Our approach
-                      </p>
-                      <h3 className="massive-text mb-6 text-3xl text-white">{activeValueData.label}</h3>
-                      <p className="text-sm leading-relaxed text-white/60">{activeValueData.body}</p>
-                    </div>
-                    <button
-                      className="mt-8 self-start text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase hover:text-white/60 transition-colors"
-                      onClick={() => setActiveValue(null)}
-                    >
-                      Close ×
-                    </button>
-                  </div>
-                </motion.div>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>,
-        document.body
-      )}
     </>
   )
 }
