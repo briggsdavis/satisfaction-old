@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useTransform } from "motion/react"
 import { useEffect, useRef, useState } from "react"
+import { AboutHero } from "../components/about-hero"
 import { AsymmetricalSection } from "../components/asymmetrical-section"
 import { DeBlurText } from "../components/de-blur-text"
 import { useSmoothScroll } from "../components/smooth-scroll"
@@ -109,6 +110,8 @@ export const About = () => {
   })
 
   return (
+    <>
+    <AboutHero />
     <div className="pt-40">
       <div className="mb-32 px-8">
         <DeBlurText className="mb-8 text-[12vw] leading-none">
@@ -226,5 +229,6 @@ export const About = () => {
 
       <ValuePropositions />
     </div>
+    </>
   )
 }
