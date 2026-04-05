@@ -125,8 +125,8 @@ const marqueeText = Array(8)
 const BorderMarquee = ({ opacity }: { opacity: ReturnType<typeof useTransform<number, number>> }) => {
   return (
     <motion.div className="pointer-events-none absolute inset-0" style={{ opacity }}>
-      {/* Bottom border */}
-      <div className="absolute bottom-0 left-0 h-[50px] w-full overflow-hidden">
+      {/* Bottom border — full width, sits on top of side borders at corners */}
+      <div className="absolute bottom-0 left-0 z-10 h-[50px] w-full overflow-hidden">
         <div className="animate-marquee-horizontal flex whitespace-nowrap">
           <span className="massive-text text-[16px] leading-[50px] tracking-[0.3em] text-white/30 uppercase">
             {marqueeText}
@@ -137,8 +137,8 @@ const BorderMarquee = ({ opacity }: { opacity: ReturnType<typeof useTransform<nu
         </div>
       </div>
 
-      {/* Left border */}
-      <div className="absolute top-0 left-0 h-full w-[50px] overflow-hidden" style={{ writingMode: "vertical-lr", transform: "rotate(180deg)" }}>
+      {/* Left border — stops at bottom border */}
+      <div className="absolute top-0 left-0 bottom-[50px] w-[50px] overflow-hidden" style={{ writingMode: "vertical-lr", transform: "rotate(180deg)" }}>
         <div className="animate-marquee-vertical-reverse flex h-max flex-col whitespace-nowrap">
           <span className="massive-text text-[16px] tracking-[0.3em] text-white/30 uppercase">
             {marqueeText}
@@ -149,8 +149,8 @@ const BorderMarquee = ({ opacity }: { opacity: ReturnType<typeof useTransform<nu
         </div>
       </div>
 
-      {/* Right border */}
-      <div className="absolute top-0 right-0 h-full w-[50px] overflow-hidden">
+      {/* Right border — stops at bottom border */}
+      <div className="absolute top-0 right-0 bottom-[50px] w-[50px] overflow-hidden">
         <div className="animate-marquee-vertical-reverse flex h-max flex-col whitespace-nowrap" style={{ writingMode: "vertical-rl" }}>
           <span className="massive-text text-[16px] tracking-[0.3em] text-white/30 uppercase">
             {marqueeText}
@@ -176,7 +176,7 @@ export const AboutHero = () => {
 
   useEffect(() => {
     const measure = () => {
-      const dist = window.innerHeight * 1.5
+      const dist = window.innerHeight * 0.75
       heroScrollDistanceRef.current = dist
       setHeroScrollDistance(dist)
 
@@ -207,9 +207,12 @@ export const AboutHero = () => {
     return Math.max(0, Math.min(1, (y - T) / D))
   })
 
-  const scale = useTransform(heroProgress, [0, 0.7, 1], [1, 3, 18])
-  const textOpacity = useTransform(heroProgress, [0, 0.5, 0.85], [1, 1, 0])
-  const bgOpacity = useTransform(heroProgress, [0.6, 0.9], [1, 0])
+  const scale = useTransform(heroProgress, [0, 0.6, 1], [1, 4, 22])
+  const textOpacity = useTransform(heroProgress, [0, 0.4, 0.75], [1, 1, 0])
+  const textX = useTransform(heroProgress, [0, 0.5, 1], [0, -60, -250])
+  const textY = useTransform(heroProgress, [0, 0.5, 1], [0, -40, -180])
+  const textRotate = useTransform(heroProgress, [0, 0.5, 1], [0, -3, -8])
+  const bgOpacity = useTransform(heroProgress, [0.5, 0.8], [1, 0])
 
   return (
     <div
@@ -226,7 +229,7 @@ export const AboutHero = () => {
 
         <motion.h1
           className="massive-text relative z-10 text-center text-[12vw] text-white"
-          style={{ scale, opacity: textOpacity }}
+          style={{ scale, opacity: textOpacity, x: textX, y: textY, rotate: textRotate }}
         >
           WHO WE ARE
         </motion.h1>

@@ -4,7 +4,6 @@ import { AboutHero } from "../components/about-hero"
 import { AsymmetricalSection } from "../components/asymmetrical-section"
 import { DeBlurText } from "../components/de-blur-text"
 import { useSmoothScroll } from "../components/smooth-scroll"
-import { TextReveal } from "../components/text-reveal"
 import { ValuePropositions } from "./home"
 
 export const About = () => {
@@ -112,51 +111,28 @@ export const About = () => {
   return (
     <>
     <AboutHero />
-    <div className="pt-40">
-      <div className="mb-32 px-8">
-        <DeBlurText className="mb-8 text-[12vw] leading-none">
-          Social
-          <br />
-          <span className="text-white/60">Satisfaction</span>
-        </DeBlurText>
+    <div className="pt-24">
+      {/* Three staggered paragraphs */}
+      <div className="mb-32 px-8 md:px-16 lg:px-24">
+        {/* Paragraph 1 — Left aligned */}
+        <div className="flex justify-start">
+          <DeBlurText as="p" className="about-glow-text max-w-md text-lg leading-relaxed text-white/70 font-light">
+            Social Satisfaction, founded by Devon Colebank, transforms hospitality and lifestyle brands through cultural storytelling. We blend nostalgia with modern innovation to create resonant identities that bridge the gap between trend-forward messaging and striking visuals.
+          </DeBlurText>
+        </div>
 
-        <div className="mt-24 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-          <div className="space-y-8">
-            {/* stagger={0.003} makes the character animation significantly faster */}
-            <TextReveal
-              as="p"
-              text="Social Satisfaction is a full-service marketing agency specialising in creative direction, brand identity, and commercial production. Our work spans videography, photography, and graphic design for brands like Coors Light, Red Bull, Maker's Mark, and Truly Hard Seltzer."
-              className="text-2xl leading-relaxed font-light"
-              stagger={0.003}
-              immediate
-            />
-          </div>
-          <div className="space-y-8 leading-relaxed">
-            <p className="text-white/60">
-              We believe great marketing starts with a single question: what do
-              you want people to feel? Every campaign, every frame, every brand
-              identity we build is engineered around that answer.
-            </p>
-            <p className="text-white/60">
-              From national product launches to intimate brand activations, our
-              team brings strategic thinking and cinematic execution to every
-              brief. Bold ideas. Precise craft. Results that last.
-            </p>
-            <div className="flex gap-12 pt-8">
-              <div>
-                <h4 className="text-white/60 mb-2 text-[10px] font-bold tracking-widest uppercase">
-                  Type
-                </h4>
-                <p>Marketing Agency</p>
-              </div>
-              <div>
-                <h4 className="text-white/60 mb-2 text-[10px] font-bold tracking-widest uppercase">
-                  Focus
-                </h4>
-                <p>Creative Direction & Brand Strategy</p>
-              </div>
-            </div>
-          </div>
+        {/* Paragraph 2 — Right aligned, further down */}
+        <div className="mt-32 flex justify-end">
+          <DeBlurText as="p" className="about-glow-text max-w-md text-lg leading-relaxed text-white/70 font-light">
+            We replace &ldquo;shoot and share&rdquo; tactics with performance-driven campaigns. As an end-to-end partner, we manage everything from ideation to execution. This streamlined structure ensures every effort is intentional, cohesive, and designed to drive reservations.
+          </DeBlurText>
+        </div>
+
+        {/* Paragraph 3 — Center aligned, further down */}
+        <div className="mt-32 flex justify-center">
+          <DeBlurText as="p" className="about-glow-text max-w-md text-lg leading-relaxed text-white/70 font-light text-center">
+            By integrating strategy with internal production, we eliminate fragmented communication and multiple vendors. Every piece of content serves a business objective. The result is a consistent, optimized rollout that delivers measurable brand loyalty.
+          </DeBlurText>
         </div>
       </div>
 

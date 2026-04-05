@@ -68,6 +68,15 @@
     opacity: 0.72;
   }
 
+  .about-glow-text {
+    transition: text-shadow 0.4s ease, color 0.4s ease;
+  }
+
+  .about-glow-text:hover {
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.25), 0 0 40px rgba(255, 255, 255, 0.1);
+  }
+
   .column-line {
     @apply pointer-events-none fixed inset-y-0 z-1 w-px bg-white/[0.06];
   }
