@@ -121,15 +121,17 @@ const SERVICES = [
 const ServiceCell = ({
   service,
   index,
+  isLast,
 }: {
   service: (typeof SERVICES)[0]
   index: number
+  isLast?: boolean
 }) => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <motion.div
-      className={`relative flex flex-col justify-between border-b border-white/10 p-7 ${service.minH} ${
+      className={`relative flex flex-col justify-between border-b border-white/30 p-7 ${service.minH} ${isLast ? "flex-1" : ""} ${
         service.inverted ? "bg-white text-black" : "bg-black text-white"
       }`}
       initial={{ opacity: 0, y: 24 }}
@@ -220,8 +222,8 @@ const ServiceCell = ({
       {/* Center — expand toggle */}
       <button
         onClick={() => setIsOpen((v) => !v)}
-        className={`flex items-center justify-center py-8 text-7xl leading-none font-thin transition-opacity hover:opacity-60 ${
-          service.inverted ? "text-black/15" : "text-white/15"
+        className={`flex w-fit items-center justify-center py-4 text-5xl leading-none font-thin transition-opacity hover:opacity-60 ${
+          service.inverted ? "text-black/40" : "text-white/40"
         }`}
         aria-label={isOpen ? `Close ${service.name}` : `Expand ${service.name}`}
       >
@@ -249,7 +251,7 @@ export const Services = () => (
     {/* Page header */}
     <section className="border-b border-white/10 px-8 pb-16 md:px-16">
       <span className="mb-6 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
-        What I Do
+        What We Do
       </span>
       <TextReveal
         text="SERVICES"
@@ -258,18 +260,22 @@ export const Services = () => (
     </section>
 
     {/* Asymmetric bento grid — 3 flex columns so cards stack flush */}
-    <div className="flex flex-col divide-y divide-white/10 md:flex-row md:divide-x md:divide-y-0">
-      {[0, 1, 2].map((col) => (
-        <div key={col} className="flex flex-1 flex-col">
-          {SERVICES.filter((_, i) => i % 3 === col).map((service, row) => (
-            <ServiceCell
-              key={service.name}
-              service={service}
-              index={col + row * 3}
-            />
-          ))}
-        </div>
-      ))}
+    <div className="flex flex-col divide-y divide-white/30 md:flex-row md:divide-x md:divide-y-0">
+      {[0, 1, 2].map((col) => {
+        const colServices = SERVICES.filter((_, i) => i % 3 === col)
+        return (
+          <div key={col} className="flex flex-1 flex-col">
+            {colServices.map((service, row) => (
+              <ServiceCell
+                key={service.name}
+                service={service}
+                index={col + row * 3}
+                isLast={row === colServices.length - 1}
+              />
+            ))}
+          </div>
+        )
+      })}
     </div>
   </div>
 )
