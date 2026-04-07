@@ -204,7 +204,7 @@ const ServicesGridCard = ({ card }: { card: ServiceCardDef }) => (
 )
 
 export const StatsGrid = () => (
-  <section className="overflow-hidden bg-black pt-16 pb-12">
+  <section className="relative z-[2] overflow-hidden bg-black pt-16 pb-12">
     <p className="mb-10 px-8 text-xs font-bold tracking-[0.4em] text-white/30 uppercase md:px-16">
       Our Services
     </p>

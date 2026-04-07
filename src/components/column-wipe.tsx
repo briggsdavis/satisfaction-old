@@ -26,8 +26,9 @@ export const ColumnWipe = ({ children }: { children: React.ReactNode }) => {
     }
   }, [location, displayedLocation, phase])
 
-  // Screen fully white → swap displayed location, then begin wipe-out
+  // Screen fully white → scroll to top, swap displayed location, then begin wipe-out
   const handleInComplete = () => {
+    window.scrollTo(0, 0)
     flushSync(() => {
       setDisplayedLocation(pendingRef.current)
       setPhase("out")
