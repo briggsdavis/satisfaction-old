@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useTransform } from "motion/react"
 import { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { useSmoothScroll } from "./smooth-scroll"
 
 // Ends with separator so the seam between two copies is identical to all other gaps
@@ -126,24 +127,33 @@ export const AboutHero = () => {
   const textOpacity = useTransform(heroProgress, [0, 0.35, 0.65], [1, 1, 0])
   const bgOpacity = useTransform(heroProgress, [0.4, 0.75], [1, 0])
 
+  const overlay = (
+    <motion.div
+      style={{ opacity: heroOpacity }}
+      className="fixed inset-0 z-[9999] flex h-screen w-full items-center justify-center overflow-hidden bg-black"
+    >
+      <BorderMarquee opacity={bgOpacity} />
+      <motion.h1
+        className="relative z-10 text-center font-sans text-4xl font-black tracking-tight text-white uppercase md:text-7xl lg:text-9xl"
+        style={{ scale, opacity: textOpacity }}
+      >
+        WHO WE ARE
+      </motion.h1>
+    </motion.div>
+  )
+
   return (
     <>
-      {/* Spacer gives the scroll range for the animation */}
+      {/* Spacer in flow — gives the scroll range for the animation */}
       <div style={{ height: scrollDistance }} />
 
-      {/* Fixed overlay — exits immediately after animation, no 100vh black hold */}
-      <motion.div
-        style={{ opacity: heroOpacity }}
-        className="fixed inset-0 z-50 flex h-screen w-full items-center justify-center overflow-hidden bg-black"
-      >
-        <BorderMarquee opacity={bgOpacity} />
-        <motion.h1
-          className="relative z-10 text-center font-sans text-4xl font-black tracking-tight text-white uppercase md:text-7xl lg:text-9xl"
-          style={{ scale, opacity: textOpacity }}
-        >
-          WHO WE ARE
-        </motion.h1>
-      </motion.div>
+      {/*
+        Portal to <body> so the overlay escapes the SmoothScroll container's
+        transform context. Without this, position:fixed children are positioned
+        relative to the transformed ancestor (CSS spec), causing the overlay to
+        slide up with the container and reveal content during the animation.
+      */}
+      {typeof document !== "undefined" && createPortal(overlay, document.body)}
     </>
   )
 }
