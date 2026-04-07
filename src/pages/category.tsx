@@ -33,11 +33,14 @@ const ProjectCard = ({
         alt={project.title}
         loading="lazy"
         referrerPolicy="no-referrer"
-        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        className="h-full w-full object-cover transition-transform duration-700 ease-out will-change-transform [backface-visibility:hidden] group-hover:scale-105"
       />
 
       {/* Permanent gradient from bottom */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+
+      {/* Bottom border line */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
       {/* Bottom-left overlay — identical pill language to portfolio cards */}
       <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
@@ -50,13 +53,6 @@ const ProjectCard = ({
             {project.descriptor}
           </span>
         </div>
-      </div>
-
-      {/* Top-right CTA chip — appears on hover */}
-      <div className="absolute top-5 right-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="block bg-white px-3 py-1.5 text-xs font-bold tracking-widest text-black uppercase">
-          View Work →
-        </span>
       </div>
     </motion.div>
   </Link>

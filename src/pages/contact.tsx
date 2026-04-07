@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react"
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import { TextReveal } from "../components/text-reveal"
 
 // ─── FAQ Data ─────────────────────────────────────────────────────────────────
@@ -330,13 +330,9 @@ const BlurIn = ({
 // ─── Contact page ─────────────────────────────────────────────────────────────
 export const Contact = () => {
   const [openFaq, setOpenFaq] = useState<string | null>(null)
-  const faqRef = useRef<HTMLDivElement>(null)
 
   const toggleFaq = (key: string) =>
     setOpenFaq((prev) => (prev === key ? null : key))
-
-  const scrollToFaq = () =>
-    faqRef.current?.scrollIntoView({ behavior: "smooth" })
 
   return (
     <div className="pt-32">
@@ -438,16 +434,13 @@ export const Contact = () => {
               <TextField label="Service" name="service" placeholder="" />
             </BlurIn>
             <BlurIn delay={0.42}>
-              <TextField label="Budget Range" name="budget" placeholder="" />
-            </BlurIn>
-            <BlurIn delay={0.5}>
               <TextareaField
                 label="Tell me about your project"
                 name="message"
                 placeholder=""
               />
             </BlurIn>
-            <BlurIn delay={0.58}>
+            <BlurIn delay={0.5}>
               <div className="flex items-center justify-between pt-8">
                 <button type="submit" className="btn-industrial">
                   Send Message →
@@ -458,43 +451,41 @@ export const Contact = () => {
         </div>
       </section>
 
-      {/* ── Jump-to-FAQ button ────────────────────────────────────────────── */}
-      <section className="flex items-center justify-center border-b border-white/10 py-16">
-        <BlurIn>
-          <button onClick={scrollToFaq} className="btn-industrial">
-            View FAQ ↓
-          </button>
-        </BlurIn>
-      </section>
-
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-      <section ref={faqRef} id="faq" className="px-8 py-20 md:px-16">
-        <BlurIn className="mb-16">
+      <section id="faq" className="grid grid-cols-1 border-b border-white/10 lg:grid-cols-[1fr_2fr]">
+        {/* FAQ title sidebar */}
+        <BlurIn
+          delay={0.1}
+          className="border-b border-white/10 px-8 py-12 lg:border-r lg:border-b-0 lg:px-12 lg:py-16"
+        >
           <span className="mb-4 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
             Frequently Asked
           </span>
           <TextReveal
             text="FAQ"
-            className="massive-text text-4xl leading-none md:text-8xl lg:text-10xl"
+            className="massive-text text-4xl leading-none md:text-6xl lg:text-8xl"
           />
         </BlurIn>
 
-        <div className="mx-auto max-w-4xl space-y-14">
-          {FAQ_SECTIONS.map((section) => (
-            <BlurIn key={section.section}>
-              <p className="mb-4 border-t border-white/10 pt-6 text-xs font-bold tracking-[0.35em] text-white/30 uppercase">
-                {section.section}
-              </p>
-              {section.items.map((item, j) => (
-                <FaqItem
-                  key={j}
-                  item={item}
-                  isOpen={openFaq === `${section.section}-${j}`}
-                  onToggle={() => toggleFaq(`${section.section}-${j}`)}
-                />
-              ))}
-            </BlurIn>
-          ))}
+        {/* FAQ questions */}
+        <div className="px-8 py-12 lg:px-12 lg:py-16">
+          <div className="space-y-14">
+            {FAQ_SECTIONS.map((section) => (
+              <BlurIn key={section.section}>
+                <p className="mb-4 border-t border-white/10 pt-6 text-xs font-bold tracking-[0.35em] text-white/30 uppercase">
+                  {section.section}
+                </p>
+                {section.items.map((item, j) => (
+                  <FaqItem
+                    key={j}
+                    item={item}
+                    isOpen={openFaq === `${section.section}-${j}`}
+                    onToggle={() => toggleFaq(`${section.section}-${j}`)}
+                  />
+                ))}
+              </BlurIn>
+            ))}
+          </div>
         </div>
       </section>
     </div>

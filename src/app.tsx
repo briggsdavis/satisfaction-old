@@ -12,6 +12,7 @@ import {
   BrandsCarousel,
   CampaignStatement,
   CircleStatement,
+  FaqCta,
   FeaturedCascade,
   Hero,
   StatsGrid,
@@ -44,6 +45,7 @@ const Home = () => (
     <CampaignStatement />
     <FeaturedCascade />
     <CircleStatement />
+    <FaqCta />
   </>
 )
 

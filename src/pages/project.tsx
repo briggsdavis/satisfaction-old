@@ -372,10 +372,12 @@ export const ProjectPage = () => {
                 src={img}
                 alt={`${project.title} ${i + 1}`}
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-700 will-change-transform [backface-visibility:hidden] group-hover:scale-105"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-black/20 transition-opacity duration-500 group-hover:bg-black/10" />
+              {/* Bottom border line */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
               {/* Hover overlay */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-400 group-hover:opacity-100">
@@ -466,10 +468,12 @@ export const ProjectPage = () => {
                 src={img}
                 alt={`${project.title} gallery ${i + 1}`}
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="h-full w-full object-cover transition-transform duration-700 will-change-transform [backface-visibility:hidden] group-hover:scale-105"
                 referrerPolicy="no-referrer"
               />
               <div className="absolute inset-0 bg-black/10 transition-opacity duration-500 group-hover:bg-transparent" />
+              {/* Bottom border line */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
               {/* Hover overlay */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-400 group-hover:opacity-100">
