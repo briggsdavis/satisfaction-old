@@ -262,6 +262,8 @@ export const ProjectPage = () => {
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black" />
+        {/* Bottom border line — matches portfolio/category images */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
         {/* Hero decorative elements */}
         <div className="pointer-events-none absolute top-28 right-8 text-right font-mono text-xs font-bold tracking-widest text-white/30 uppercase">
