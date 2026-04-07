@@ -258,10 +258,12 @@ export const ProjectPage = () => {
           style={{ y: heroImgY }}
           src={project.heroImg}
           alt={project.title}
-          className="absolute inset-0 h-[120%] w-full object-cover"
+          className="absolute inset-0 h-[120%] w-full object-cover will-change-transform [backface-visibility:hidden]"
           referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black" />
+        {/* Bottom border line — matches portfolio/category images */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
         {/* Hero decorative elements */}
         <div className="pointer-events-none absolute top-28 right-8 text-right font-mono text-xs font-bold tracking-widest text-white/30 uppercase">
@@ -357,7 +359,7 @@ export const ProjectPage = () => {
           {project.gridImages.map((img, i) => (
             <motion.div
               key={i}
-              className="group relative aspect-[4/3] cursor-pointer overflow-hidden"
+              className="group relative aspect-[4/3] cursor-pointer overflow-hidden [backface-visibility:hidden]"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-150px" }}
@@ -368,14 +370,18 @@ export const ProjectPage = () => {
               }}
               onClick={() => openLightbox(i)}
             >
-              <img
+              <motion.img
                 src={img}
                 alt={`${project.title} ${i + 1}`}
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="h-full w-full object-cover"
                 referrerPolicy="no-referrer"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               />
               <div className="absolute inset-0 bg-black/20 transition-opacity duration-500 group-hover:bg-black/10" />
+              {/* Bottom border line */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
               {/* Hover overlay */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-400 group-hover:opacity-100">
@@ -451,7 +457,7 @@ export const ProjectPage = () => {
           {project.galleryImages.map((img, i) => (
             <motion.div
               key={i}
-              className="group relative h-[50vh] w-[70vw] flex-shrink-0 cursor-pointer overflow-hidden md:h-[60vh] md:w-[40vw]"
+              className="group relative h-[50vh] w-[70vw] flex-shrink-0 cursor-pointer overflow-hidden [backface-visibility:hidden] md:h-[60vh] md:w-[40vw]"
               initial={{ opacity: 0, x: 60 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-150px" }}
@@ -462,14 +468,18 @@ export const ProjectPage = () => {
               }}
               onClick={() => openLightbox(i)}
             >
-              <img
+              <motion.img
                 src={img}
                 alt={`${project.title} gallery ${i + 1}`}
                 loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="h-full w-full object-cover"
                 referrerPolicy="no-referrer"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               />
               <div className="absolute inset-0 bg-black/10 transition-opacity duration-500 group-hover:bg-transparent" />
+              {/* Bottom border line */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
               {/* Hover overlay */}
               <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-400 group-hover:opacity-100">

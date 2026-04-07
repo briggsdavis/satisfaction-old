@@ -6,6 +6,7 @@ const hasPointer = () =>
 
 export const CustomCursor = () => {
   const [enabled, setEnabled] = useState(false)
+  const [hasMoved, setHasMoved] = useState(false)
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
   const [isHovering, setIsHovering] = useState(false)
@@ -24,6 +25,7 @@ export const CustomCursor = () => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX)
       mouseY.set(e.clientY)
+      setHasMoved(true)
     }
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -46,7 +48,7 @@ export const CustomCursor = () => {
     }
   }, [mouseX, mouseY])
 
-  if (!enabled) return null
+  if (!enabled || !hasMoved) return null
 
   return (
     <motion.div

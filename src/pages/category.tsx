@@ -17,7 +17,7 @@ const ProjectCard = ({
 }) => (
   <Link to={`/portfolio/${categorySlug}/${project.slug}`} className="block">
     <motion.div
-      className={`group relative overflow-hidden ${className}`}
+      className={`group relative overflow-hidden [backface-visibility:hidden] ${className}`}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-150px" }}
@@ -28,16 +28,21 @@ const ProjectCard = ({
       }}
     >
       {/* Background image */}
-      <img
+      <motion.img
         src={project.img}
         alt={project.title}
         loading="lazy"
         referrerPolicy="no-referrer"
-        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        className="h-full w-full object-cover"
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       />
 
       {/* Permanent gradient from bottom */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+
+      {/* Bottom border line */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
       {/* Bottom-left overlay — identical pill language to portfolio cards */}
       <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
@@ -50,13 +55,6 @@ const ProjectCard = ({
             {project.descriptor}
           </span>
         </div>
-      </div>
-
-      {/* Top-right CTA chip — appears on hover */}
-      <div className="absolute top-5 right-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="block bg-white px-3 py-1.5 text-xs font-bold tracking-widest text-black uppercase">
-          View Work →
-        </span>
       </div>
     </motion.div>
   </Link>

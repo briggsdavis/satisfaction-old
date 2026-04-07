@@ -17,21 +17,26 @@ const CategoryCard = ({
   return (
     <Link
       to={`/portfolio/${category.slug}`}
-      className={`group relative block overflow-hidden ${className}`}
+      className={`group relative block overflow-hidden [backface-visibility:hidden] ${className}`}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
       {/* Background image */}
-      <img
+      <motion.img
         src={category.img}
         alt={category.name}
         loading="lazy"
         referrerPolicy="no-referrer"
-        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+        className="h-full w-full object-cover"
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       />
 
       {/* Permanent gradient from bottom */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+
+      {/* Bottom border line */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
 
       {/* Bottom-left overlay */}
       <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
@@ -81,12 +86,6 @@ const CategoryCard = ({
         </div>
       </div>
 
-      {/* Top-right CTA chip — appears on hover */}
-      <div className="absolute top-5 right-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="block bg-white px-3 py-1.5 text-xs font-bold tracking-widest text-black uppercase">
-          View Work →
-        </span>
-      </div>
     </Link>
   )
 }

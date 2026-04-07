@@ -1,69 +1,69 @@
-import { AnimatePresence, motion } from "motion/react"
-import React, { useEffect, useState } from "react"
+import { motion } from "motion/react"
+import React, { createContext, useContext, useEffect, useRef, useState } from "react"
+import { flushSync } from "react-dom"
 import { useLocation } from "react-router"
+import type { Location } from "react-router"
 
 const COLUMNS = 6
+const DURATION = 0.52
+const STAGGER = 0.07
+
+// Exposes the "displayed" location so <Routes> can render the old page during wipe-in
+const ColumnWipeContext = createContext<Location | null>(null)
+export const useColumnWipeLocation = () => useContext(ColumnWipeContext)
 
 export const ColumnWipe = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation()
-  const [isTransitioning, setIsTransitioning] = useState(true)
+  const [displayedLocation, setDisplayedLocation] = useState(location)
+  const pendingRef = useRef<Location>(location)
+  const [phase, setPhase] = useState<"idle" | "in" | "out">("idle")
 
+  // When the real location changes and we're idle, start wipe-in
   useEffect(() => {
-    setIsTransitioning(true)
-    const timer = setTimeout(() => setIsTransitioning(false), 1500)
-    return () => clearTimeout(timer)
-  }, [location.pathname])
+    if (location.key !== displayedLocation.key && phase === "idle") {
+      pendingRef.current = location
+      setPhase("in")
+    }
+  }, [location, displayedLocation, phase])
+
+  // Screen fully white → scroll to top, swap displayed location, then begin wipe-out
+  const handleInComplete = () => {
+    window.scrollTo(0, 0)
+    flushSync(() => {
+      setDisplayedLocation(pendingRef.current)
+      setPhase("out")
+    })
+  }
 
   return (
-    <>
-      <div className="pointer-events-none fixed inset-0 z-[9999] flex">
-        {Array.from({ length: COLUMNS }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="h-full origin-top bg-white"
-            style={{ width: `${100 / COLUMNS}%` }}
-            initial="initial"
-            animate={isTransitioning ? "animate" : "initial"}
-            variants={{
-              initial: { scaleY: 0, originY: 0 },
-              animate: {
-                scaleY: 1,
-                originY: 0,
-                transition: {
-                  duration: 0.6,
-                  delay: i * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                },
-              },
-              exit: {
-                scaleY: 0,
-                originY: 1,
-                transition: {
-                  duration: 0.6,
-                  delay: i * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                },
-              },
-            }}
-          />
-        ))}
-      </div>
+    <ColumnWipeContext.Provider value={displayedLocation}>
+      {children}
 
-      {/* Second pass for the outward wipe effect when content changes */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={location.pathname}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        >
-          {children}
-        </motion.div>
-      </AnimatePresence>
+      {/* Wipe IN: columns drop from top, old page visible behind them */}
+      {phase === "in" && (
+        <div className="pointer-events-none fixed inset-0 z-[9999] flex">
+          {Array.from({ length: COLUMNS }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="h-full origin-top bg-white"
+              style={{ width: `${100 / COLUMNS}%` }}
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              transition={{
+                duration: DURATION,
+                delay: i * STAGGER,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              onAnimationComplete={
+                i === COLUMNS - 1 ? handleInComplete : undefined
+              }
+            />
+          ))}
+        </div>
+      )}
 
-      {/* Outward wipe overlay */}
-      {!isTransitioning && (
+      {/* Wipe OUT: columns retract from bottom, new page revealed */}
+      {phase === "out" && (
         <div className="pointer-events-none fixed inset-0 z-[9999] flex">
           {Array.from({ length: COLUMNS }).map((_, i) => (
             <motion.div
@@ -73,14 +73,17 @@ export const ColumnWipe = ({ children }: { children: React.ReactNode }) => {
               initial={{ scaleY: 1 }}
               animate={{ scaleY: 0 }}
               transition={{
-                duration: 0.6,
-                delay: i * 0.08,
+                duration: DURATION,
+                delay: i * STAGGER,
                 ease: [0.22, 1, 0.36, 1],
               }}
+              onAnimationComplete={
+                i === COLUMNS - 1 ? () => setPhase("idle") : undefined
+              }
             />
           ))}
         </div>
       )}
-    </>
+    </ColumnWipeContext.Provider>
   )
 }

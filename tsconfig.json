@@ -13,6 +13,7 @@
     "jsx": "react-jsx",
     "paths": { "@/*": ["./*"] },
     "allowImportingTsExtensions": true,
+    "allowArbitraryExtensions": true,
     "noEmit": true
   }
 }

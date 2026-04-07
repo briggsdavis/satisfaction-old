@@ -155,7 +155,7 @@ const ValueCard = ({ value }: { value: (typeof values)[0] }) => {
         <motion.img
           src={value.img}
           alt={value.label}
-          className="absolute inset-0 h-[130%] w-full object-cover"
+          className="absolute inset-0 h-[130%] w-full object-cover will-change-transform [backface-visibility:hidden]"
           style={{ y: imgY, top: "-15%" }}
         />
         {/* Tag overlay */}
@@ -195,6 +195,10 @@ export const About = () => {
   const smoothY = useSmoothScroll()
   const fallbackY = useMotionValue(0)
   const activeY = smoothY ?? fallbackY
+
+  // Fade content in as the WHO WE ARE overlay exits (matches AboutHero's scrollDistance = 50vh)
+  const heroEnd = typeof window !== "undefined" ? window.innerHeight * 0.5 : 0
+  const contentOpacity = useTransform(activeY, [heroEnd - 10, heroEnd + 10], [0, 1])
 
   const wrapperTopRef = useRef(0)
   const scrollDistanceRef = useRef(0)
@@ -241,9 +245,9 @@ export const About = () => {
     <>
       <AboutHero />
 
-      <div className="pt-24">
+      <motion.div style={{ opacity: contentOpacity }} className="pt-[62vh]">
         {/* Three staggered paragraphs — line-by-line blur-in */}
-        <div className="mb-32 px-8 md:px-16">
+        <div className="mb-12 px-8 md:px-16">
           <div className="flex justify-start">
             <BlurInLines
               className="about-glow-text max-w-sm"
@@ -279,7 +283,7 @@ export const About = () => {
             className="flex h-screen flex-col overflow-hidden"
           >
             {/* Compact header */}
-            <div className="flex-shrink-0 border-b border-white/10 px-8 pt-3 pb-[3px]">
+            <div className="flex-shrink-0 border-b border-white/10 px-8 pt-20 pb-[3px] md:px-16">
               <h2 className="text-xs font-bold tracking-widest text-white/40 uppercase">
                 PORTFOLIO
               </h2>
@@ -288,7 +292,7 @@ export const About = () => {
               </h3>
             </div>
             {/* Scrolling cards */}
-            <div className="flex flex-1 items-center overflow-hidden">
+            <div className="flex flex-1 items-start pt-6 overflow-hidden">
               <motion.div
                 ref={horizontalRef}
                 style={{ x }}
@@ -299,7 +303,7 @@ export const About = () => {
                     key={item.client}
                     className="w-[85vw] flex-shrink-0 md:w-[45vw]"
                   >
-                    <div className="border-l-2 border-white/20 pl-8">
+                    <div>
                       <span className="text-sm font-bold tracking-widest text-white/60">
                         {item.date}
                       </span>
@@ -326,7 +330,7 @@ export const About = () => {
         </div>
 
         {/* Values Images — four staggered portrait images, click to expand text */}
-        <div className="px-8 py-16 md:px-16 md:py-24">
+        <div className="px-8 pt-16 pb-6 md:px-16 md:pt-24 md:pb-8">
           <div className="flex items-start gap-3 md:gap-5">
             {values.map((value) => (
               <ValueCard key={value.label} value={value} />
@@ -335,12 +339,12 @@ export const About = () => {
         </div>
 
         {/* Discover Our Services CTA */}
-        <div className="flex justify-center border-t border-white/10 py-24">
+        <div className="flex justify-center border-t border-white/10 py-12">
           <Link to="/services" className="btn-industrial">
             Discover Our Services
           </Link>
         </div>
-      </div>
+      </motion.div>
     </>
   )
 }
