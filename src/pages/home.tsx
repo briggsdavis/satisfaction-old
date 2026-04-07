@@ -312,7 +312,7 @@ export const BrandsCarousel = () => {
       </div>
 
       {/* Scrolling track */}
-      <div className="h-40 overflow-hidden border-b border-white/10">
+      <div className="h-40 overflow-hidden">
         <motion.div style={{ x: baseX }} className="flex h-full w-max">
           {/* First copy — measured for wrap */}
           <div ref={trackRef} className="flex h-full">
@@ -705,7 +705,7 @@ const CascadeImg = ({
 }
 
 export const FeaturedCascade = () => (
-  <section className="border-t border-white/10 bg-black pt-12 pb-64">
+  <section className="bg-black pt-12 pb-64">
     {/* Header — px-8 matches nav padding so View All right-edge aligns with Contact */}
     <div className="mb-20 flex items-end justify-between px-8 md:px-16">
       <div>
@@ -1461,7 +1461,7 @@ export const ServiceTrinity = () => {
 export const FaqCta = () => (
   <section className="grid grid-cols-1 border-t border-white/10 lg:grid-cols-[1fr_2fr]">
     {/* Left */}
-    <div className="border-b border-white/10 px-8 py-16 lg:border-r lg:border-b-0 lg:px-12 lg:py-20">
+    <div className="border-b border-white/10 px-8 py-16 lg:border-b-0 lg:px-12 lg:py-20">
       <span className="mb-4 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
         Got Questions
       </span>

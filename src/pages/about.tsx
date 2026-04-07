@@ -339,7 +339,7 @@ export const About = () => {
         </div>
 
         {/* Discover Our Services CTA */}
-        <div className="flex justify-center border-t border-white/10 py-12">
+        <div className="flex justify-center py-12">
           <Link to="/services" className="btn-industrial">
             Discover Our Services
           </Link>
