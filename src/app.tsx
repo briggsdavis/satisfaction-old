@@ -1,23 +1,26 @@
 import React from "react"
-import { Route, BrowserRouter as Router, Routes } from "react-router"
+import {
+  Route,
+  BrowserRouter as Router,
+  Routes,
+  useLocation,
+} from "react-router"
 import { ColumnWipe, useColumnWipeLocation } from "./components/column-wipe"
 import { CustomCursor } from "./components/custom-cursor"
 import { Footer } from "./components/footer"
 import { Navbar } from "./components/navbar"
-import { SmoothScroll } from "./components/smooth-scroll"
+import { SmoothScroll, SmoothScrollProvider } from "./components/smooth-scroll"
 import { About } from "./pages/about"
 import { CategoryPage } from "./pages/category"
 import { Contact } from "./pages/contact"
-import {
-  BrandsCarousel,
-  CampaignStatement,
-  CircleStatement,
-  FaqCta,
-  FeaturedCascade,
-  Hero,
-  StatsGrid,
-  WhatWeDoSection,
-} from "./pages/home"
+import { BrandsCarousel } from "./pages/home/brands-carousel"
+import { CampaignStatement } from "./pages/home/campaign-statement"
+import { CircleStatement } from "./pages/home/circle-statement"
+import { FaqCta } from "./pages/home/faq-cta"
+import { FeaturedCascade } from "./pages/home/featured-cascade"
+import { HeroCanvas, Hero } from "./pages/home/hero"
+import { StatsGrid } from "./pages/home/stats-grid"
+import { WhatWeDoSection } from "./pages/home/what-we-do"
 import { NotFound } from "./pages/not-found"
 import { Portfolio } from "./pages/portfolio"
 import { ProjectPage } from "./pages/project-page"
@@ -85,6 +88,12 @@ const AppRoutes = () => {
   )
 }
 
+const ConditionalHeroCanvas = () => {
+  const { pathname } = useLocation()
+  if (pathname !== "/") return null
+  return <HeroCanvas />
+}
+
 export default function App() {
   return (
     <Router>
@@ -92,12 +101,16 @@ export default function App() {
 
       <Navbar />
 
-      <ColumnWipe>
-        <SmoothScroll>
-          <AppRoutes />
-          <Footer />
-        </SmoothScroll>
-      </ColumnWipe>
+      <SmoothScrollProvider>
+        <ConditionalHeroCanvas />
+
+        <ColumnWipe>
+          <SmoothScroll>
+            <AppRoutes />
+            <Footer />
+          </SmoothScroll>
+        </ColumnWipe>
+      </SmoothScrollProvider>
     </Router>
   )
 }
