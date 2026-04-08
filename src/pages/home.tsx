@@ -1459,7 +1459,7 @@ export const ServiceTrinity = () => {
 
 // ─── FAQ CTA ─────────────────────────────────────────────────────────────────
 export const FaqCta = () => (
-  <section className="grid grid-cols-1 border-t border-white/10 lg:grid-cols-[1fr_2fr]">
+  <section className="grid grid-cols-1 lg:grid-cols-[1fr_2fr]">
     {/* Left */}
     <div className="border-b border-white/10 px-8 py-16 lg:border-r lg:border-b-0 lg:px-12 lg:py-20">
       <span className="mb-4 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
