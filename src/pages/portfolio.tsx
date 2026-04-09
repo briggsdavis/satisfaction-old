@@ -64,7 +64,7 @@ const CategoryCard = ({
                     className="flex list-none items-start gap-2.5 text-xs leading-relaxed text-white/70"
                   >
                     <span className="mt-[3px] shrink-0 text-xs text-white/30">
-                      —
+                      -
                     </span>
                     {bullet}
                   </motion.li>

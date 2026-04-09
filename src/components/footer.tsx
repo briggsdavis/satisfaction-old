@@ -10,11 +10,11 @@ export const Footer = () => {
     <footer className="relative overflow-hidden border-t border-white/10 bg-black px-8 pt-32 pb-12 md:px-16">
       <div className="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12 lg:grid-cols-4 lg:gap-16">
         <div className="space-y-8">
-          <h2 className="massive-text text-4xl leading-none md:text-6xl">
-            Social
-            <br />
-            Satisfaction
-          </h2>
+          <img
+            src="/satisfactionlogo.png"
+            alt="Social Satisfaction"
+            className="h-12 w-auto md:h-14"
+          />
           <p className="max-w-xs text-sm leading-relaxed text-white/40">
             Full-service marketing agency specialising in creative direction,
             brand identity, and commercial production.
@@ -92,10 +92,6 @@ export const Footer = () => {
         </p>
       </div>
 
-      {/* Large background text */}
-      <div className="massive-text pointer-events-none absolute right-8 bottom-0 left-8 overflow-hidden text-[13vw] leading-none font-black whitespace-nowrap text-white/5 select-none md:right-16 md:left-16">
-        SATISFACTION
-      </div>
     </footer>
   )
 }

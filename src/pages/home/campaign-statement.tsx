@@ -33,13 +33,6 @@ export const CampaignStatement = () => (
         <br />
         <span>Social Satisfaction</span>
       </div>
-      <div className="text-right font-mono text-xs leading-snug font-bold tracking-widest text-white/15 uppercase">
-        {Array.from({ length: 4 }).map((_, i) => (
-          <span key={i} className="block">
-            Campaigns Built To Perform.
-          </span>
-        ))}
-      </div>
     </div>
   </section>
 )

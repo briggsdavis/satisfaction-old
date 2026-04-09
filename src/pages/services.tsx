@@ -7,7 +7,7 @@ const SERVICES = [
   {
     name: "Creative Direction",
     tag: "Strategy",
-    desc: "Full art direction and campaign concepting — from moodboards to shoot day.",
+    desc: "Full art direction and campaign concepting, from moodboards to shoot day.",
     bullets: [
       "Creative direction + art direction",
       "Campaign concepting (menu drops, seasonal, events)",
@@ -16,7 +16,7 @@ const SERVICES = [
       "Location scouting + talent coordination",
     ],
     inverted: false,
-    minH: "min-h-[300px]",
+    minH: "min-h-[360px]",
   },
   {
     name: "Photography",
@@ -30,7 +30,7 @@ const SERVICES = [
       "Product photography (retail items, merch, packaged goods)",
     ],
     inverted: true,
-    minH: "min-h-[360px]",
+    minH: "min-h-[432px]",
   },
   {
     name: "Branding",
@@ -44,12 +44,12 @@ const SERVICES = [
       "Brand guidelines / brand book",
     ],
     inverted: true,
-    minH: "min-h-[260px]",
+    minH: "min-h-[312px]",
   },
   {
     name: "Visual Identity",
     tag: "Design",
-    desc: "Cohesive visual systems — color, type, patterns, and a full brand asset library.",
+    desc: "Cohesive visual systems: color, type, patterns, and a full brand asset library.",
     bullets: [
       "Visual identity systems",
       "Color palette + typography system",
@@ -58,12 +58,12 @@ const SERVICES = [
       "Brand asset library",
     ],
     inverted: false,
-    minH: "min-h-[320px]",
+    minH: "min-h-[384px]",
   },
   {
     name: "Social Media",
     tag: "Content",
-    desc: "Full social media management — strategy, content, scheduling, and community.",
+    desc: "Full social media management: strategy, content, scheduling, and community.",
     bullets: [
       "Full social media management (IG, TikTok, FB, etc.)",
       "Social strategy + monthly planning",
@@ -72,7 +72,7 @@ const SERVICES = [
       "Community management (comments + DMs)",
     ],
     inverted: false,
-    minH: "min-h-[260px]",
+    minH: "min-h-[312px]",
   },
   {
     name: "Email Marketing",
@@ -86,12 +86,12 @@ const SERVICES = [
       "Performance reporting (open rates, CTR)",
     ],
     inverted: true,
-    minH: "min-h-[340px]",
+    minH: "min-h-[408px]",
   },
   {
     name: "Graphic Design",
     tag: "Design",
-    desc: "Full-service graphic design — print, digital, and everything in between.",
+    desc: "Full-service graphic design: print, digital, and everything in between.",
     bullets: [
       "Full-service graphic design + promotional design",
       "Menu + insert design support",
@@ -100,12 +100,12 @@ const SERVICES = [
       "Monthly graphic drops + highlight covers",
     ],
     inverted: true,
-    minH: "min-h-[280px]",
+    minH: "min-h-[336px]",
   },
   {
     name: "Motion Graphics",
     tag: "Video / Motion",
-    desc: "Animated content that moves — logo animation, kinetic type, and promo templates.",
+    desc: "Animated content that moves: logo animation, kinetic type, and promo templates.",
     bullets: [
       "Logo animation (transparent + background versions)",
       "Text + photo animation",
@@ -114,7 +114,7 @@ const SERVICES = [
       "Lower thirds + title sequences",
     ],
     inverted: false,
-    minH: "min-h-[380px]",
+    minH: "min-h-[456px]",
   },
 ]
 
@@ -190,7 +190,7 @@ const ServiceCell = ({
                         service.inverted ? "text-black/30" : "text-white/30"
                       }`}
                     >
-                      —
+                      -
                     </span>
                     {bullet}
                   </motion.li>

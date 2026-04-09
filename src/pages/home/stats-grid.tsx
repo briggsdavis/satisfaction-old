@@ -14,14 +14,14 @@ const ALL_SERVICES: ServiceCardDef[] = [
   {
     service: "Creative Direction",
     inverted: true,
-    rotate: -2,
+    rotate: -1,
     delay: 0,
     img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=80&w=800",
   },
   {
     service: "Photography",
     inverted: false,
-    rotate: 1.5,
+    rotate: 0.75,
     delay: 0.08,
     img: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=800",
   },
@@ -29,7 +29,7 @@ const ALL_SERVICES: ServiceCardDef[] = [
     service: "Branding & Visual Identity",
     tag: "Videography",
     inverted: true,
-    rotate: -1,
+    rotate: -0.5,
     delay: 0.16,
     img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800",
   },
@@ -37,28 +37,28 @@ const ALL_SERVICES: ServiceCardDef[] = [
     service: "Social Media",
     tag: "Videography",
     inverted: false,
-    rotate: 2,
+    rotate: 1,
     delay: 0.24,
     img: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800",
   },
   {
     service: "Emails",
     inverted: true,
-    rotate: -1.5,
+    rotate: -0.75,
     delay: 0.32,
     img: "https://images.unsplash.com/photo-1596526131083-e8c633c948d2?auto=format&fit=crop&q=80&w=800",
   },
   {
     service: "Graphic Design",
     inverted: false,
-    rotate: 1,
+    rotate: 0.5,
     delay: 0.4,
     img: "https://images.unsplash.com/photo-1558655146-364adaf1fcc9?auto=format&fit=crop&q=80&w=800",
   },
   {
     service: "Motion Graphics",
     inverted: true,
-    rotate: -2.5,
+    rotate: -1.25,
     delay: 0.48,
     img: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=800",
   },
@@ -119,7 +119,7 @@ export const StatsGrid = () => (
     </p>
     {/* Horizontal scroll track — shows ~3.5 cards */}
     <div
-      className="overflow-x-auto px-8 py-4 md:px-16"
+      className="overflow-x-auto px-8 py-6 md:px-16"
       style={{ touchAction: "pan-x", overflowY: "clip" }}
     >
       <div className="flex gap-4" style={{ width: "max-content" }}>

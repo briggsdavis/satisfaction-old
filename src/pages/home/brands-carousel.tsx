@@ -98,7 +98,7 @@ export const BrandsCarousel = () => {
   })
 
   return (
-    <section ref={sectionRef} className="bg-black pb-20 md:pb-28">
+    <section ref={sectionRef} className="bg-black pb-[52px] md:pb-[73px]">
       {/* Header */}
       <div className="border-b border-white/10 px-8 py-10 md:px-16">
         <p className="mb-4 text-xs font-bold tracking-[0.4em] text-white/30 uppercase">

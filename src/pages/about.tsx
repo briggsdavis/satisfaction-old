@@ -45,32 +45,25 @@ const BlurInLines = ({
 
 const values = [
   {
-    label: "BUSINESS VALUE",
-    img: "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=600",
-    offset: "mt-0",
-    delay: 0,
-    body: "We measure success in reservations, not impressions. Every campaign is built around a specific business objective — whether that's growing your weekday covers, launching a new concept, or repositioning your brand.",
-  },
-  {
     label: "CULTURE",
     img: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&q=80&w=600",
     offset: "mt-20",
-    delay: 0.1,
-    body: "Culture isn't a backdrop — it's your product. We build content that makes people feel like they're already part of your world, translating your hospitality vision into storytelling that drives aspiration and belonging.",
+    delay: 0,
+    body: "Culture isn't a backdrop, it's your product. We build content that makes people feel like they're already part of your world, translating your hospitality vision into storytelling that drives aspiration and belonging.",
   },
   {
     label: "DYNAMICS",
     img: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=600",
     offset: "mt-10",
-    delay: 0.2,
-    body: "The market doesn't wait. Our in-house production model means we can turn a campaign concept around in days, not weeks — keeping your brand responsive to trends, seasons, and competitive shifts without losing cohesion.",
+    delay: 0.1,
+    body: "The market doesn't wait. Our in-house production model means we can turn a campaign concept around in days, not weeks, keeping your brand responsive to trends, seasons, and competitive shifts without losing cohesion.",
   },
   {
     label: "CREATIVITY",
     img: "https://images.unsplash.com/photo-1572044162444-ad60f128bdea?auto=format&fit=crop&q=80&w=600",
     offset: "mt-32",
-    delay: 0.3,
-    body: "Originality is what makes people stop scrolling. We develop visual identities and campaign narratives unique to each brand — never templated, never recycled. Every element is intentional and designed to make your brand unmistakable.",
+    delay: 0.2,
+    body: "Originality is what makes people stop scrolling. We develop visual identities and campaign narratives unique to each brand, never templated, never recycled. Every element is intentional and designed to make your brand unmistakable.",
   },
 ]
 
@@ -334,8 +327,8 @@ export const About = () => {
           </motion.div>
         </div>
 
-        {/* Values Images — four staggered portrait images, click to expand text */}
-        <div className="px-8 pt-16 pb-6 md:px-16 md:pt-24 md:pb-8">
+        {/* Values Images — three staggered portrait images, click to expand text */}
+        <div className="px-8 pt-[54px] pb-6 md:px-16 md:pt-[82px] md:pb-8">
           <div className="flex items-start gap-3 md:gap-5">
             {values.map((value) => (
               <ValueCard key={value.label} value={value} />

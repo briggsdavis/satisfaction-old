@@ -25,7 +25,7 @@ const PROJECT_DATA: Record<
     year: "2023",
     tags: ["Brand Campaign", "Photography", "Art Direction"],
     brief:
-      "A bold visual campaign for Absolut Vodka designed to capture the energy of Pittsburgh's nightlife culture. The project spanned photography, art direction, and social content creation — translating the brand's global identity into authentic local moments that resonated across digital platforms and in-venue activations.",
+      "A bold visual campaign for Absolut Vodka designed to capture the energy of Pittsburgh's nightlife culture. The project spanned photography, art direction, and social content creation, translating the brand's global identity into authentic local moments that resonated across digital platforms and in-venue activations.",
     heroImg:
       "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&q=80&w=2000",
     gridImages: [
@@ -53,7 +53,7 @@ const PROJECT_DATA: Record<
     year: "2022",
     tags: ["Event Coverage", "Videography", "Photography"],
     brief:
-      "High-energy event coverage and content creation for Red Bull activations across the Pittsburgh region. From extreme sport showcases to music events, the project demanded fast turnaround, cinematic quality, and a fearless creative eye — capturing the raw adrenaline that defines the Red Bull brand.",
+      "High-energy event coverage and content creation for Red Bull activations across the Pittsburgh region. From extreme sport showcases to music events, the project demanded fast turnaround, cinematic quality, and a fearless creative eye, capturing the raw adrenaline that defines the Red Bull brand.",
     heroImg:
       "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&q=80&w=2000",
     gridImages: [
@@ -81,7 +81,7 @@ const PROJECT_DATA: Record<
     year: "2024",
     tags: ["Brand Identity", "Graphic Design", "Creative Direction"],
     brief:
-      "A complete brand identity system for Montclair, a luxury lifestyle brand launching in the Northeast. The project covered logo design, typographic systems, colour palettes, photography direction, and a full set of brand guidelines — built to scale from day one across digital, print, and physical retail spaces.",
+      "A complete brand identity system for Montclair, a luxury lifestyle brand launching in the Northeast. The project covered logo design, typographic systems, colour palettes, photography direction, and a full set of brand guidelines, built to scale from day one across digital, print, and physical retail spaces.",
     heroImg:
       "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&q=80&w=2000",
     gridImages: [
