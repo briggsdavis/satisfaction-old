@@ -1,7 +1,8 @@
-import { motion, useScroll, useTransform } from "motion/react"
-import { useRef } from "react"
+import { motion, useMotionValue, useTransform } from "motion/react"
+import { useEffect, useRef } from "react"
 import { Link } from "react-router"
 import { TextReveal } from "../../components/text-reveal"
+import { useSmoothScroll } from "../../components/smooth-scroll"
 
 const CASCADE_ITEMS = [
   {
@@ -32,17 +33,43 @@ const CascadeImg = ({
   index: number
 }) => {
   const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  })
-  const imgY = useTransform(scrollYProgress, [0, 1], [60, -60])
+  const topRef = useRef(0)
+  const heightRef = useRef(0)
 
-  const vertOffsets = [0, 80, 160] // px — cascades downward
+  const smoothY = useSmoothScroll()
+  const fallbackY = useMotionValue(0)
+  const activeY = smoothY ?? fallbackY
+
+  // Measure the element's natural layout position (visual top + current smoothY).
+  // Must not use useScroll() here — it mixes browser scrollY with getBoundingClientRect
+  // which introduces spring-lag error and causes the parallax to flicker.
+  useEffect(() => {
+    const measure = () => {
+      if (!ref.current) return
+      const rect = ref.current.getBoundingClientRect()
+      topRef.current = rect.top + (smoothY?.get() ?? window.scrollY)
+      heightRef.current = ref.current.offsetHeight
+    }
+    requestAnimationFrame(() => requestAnimationFrame(measure))
+    window.addEventListener("resize", measure)
+    return () => window.removeEventListener("resize", measure)
+  }, [smoothY])
+
+  const imgY = useTransform(activeY, (y: number) => {
+    const elTop = topRef.current
+    const elHeight = heightRef.current
+    const vh = window.innerHeight
+    const start = elTop - vh
+    const end = elTop + elHeight
+    const range = end - start
+    if (range <= 0) return 0
+    const progress = Math.max(0, Math.min(1, (y - start) / range))
+    return 60 - progress * 120 // maps [0,1] → [60px, -60px]
+  })
+
+  const vertOffsets = [0, 80, 160]
 
   return (
-    // Stable non-animated wrapper — useScroll target must not be transformed
-    // to avoid parallax measurement glitches during the entrance animation
     <div
       ref={ref}
       className="relative min-w-0 flex-1"
