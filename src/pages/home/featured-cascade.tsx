@@ -88,7 +88,7 @@ const CascadeImg = ({
       <Link to="/portfolio" className="group block">
         <div className="relative aspect-[3/4] overflow-hidden">
           <motion.img
-            style={{ y: imgY, height: "calc(100% + 120px)", top: "-60px" }}
+            style={{ y: imgY, height: "calc(100% + 128px)", top: "-60px" }}
             src={item.src}
             alt={item.title}
             loading="lazy"
