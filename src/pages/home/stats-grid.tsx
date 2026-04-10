@@ -113,7 +113,7 @@ const ServicesGridCard = ({ card }: { card: ServiceCardDef }) => (
 )
 
 export const StatsGrid = () => (
-  <section className="relative z-[2] overflow-hidden bg-black pt-16 pb-12">
+  <section className="relative overflow-hidden bg-black pt-16 pb-12">
     <p className="mb-10 px-8 text-xs font-bold tracking-[0.4em] text-white/30 uppercase md:px-16">
       Our Services
     </p>
@@ -124,7 +124,7 @@ export const StatsGrid = () => (
     >
       <div className="flex gap-4" style={{ width: "max-content" }}>
         {ALL_SERVICES.map((card, i) => (
-          <div key={i} className="w-[72vw] shrink-0 md:w-[26vw]">
+          <div key={i} className="relative z-[2] w-[72vw] shrink-0 md:w-[26vw]">
             <ServicesGridCard card={card} />
           </div>
         ))}

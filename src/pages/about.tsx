@@ -132,7 +132,7 @@ const ValueCard = ({ value }: { value: (typeof values)[0] }) => {
   return (
     <motion.div
       ref={containerRef}
-      className={`flex-1 ${value.offset} cursor-pointer text-left`}
+      className={`relative z-[2] flex-1 ${value.offset} cursor-pointer text-left`}
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
