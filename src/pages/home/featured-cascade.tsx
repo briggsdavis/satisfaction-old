@@ -72,7 +72,7 @@ const CascadeImg = ({
   return (
     <div
       ref={ref}
-      className="relative min-w-0 flex-1"
+      className="relative z-[2] min-w-0 flex-1"
       style={{ marginTop: vertOffsets[index] }}
     >
       <motion.div

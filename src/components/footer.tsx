@@ -74,7 +74,7 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div className="mt-32 flex flex-col items-center justify-between gap-4 pt-8 md:flex-row">
+      <div className="mt-32 flex flex-col justify-between gap-4 pt-8 md:flex-row md:items-center">
         <p className="text-xs tracking-widest text-white/15 uppercase">
           © {new Date().getFullYear()} Social Satisfaction. All Rights Reserved
         </p>
