@@ -1,12 +1,5 @@
-import {
-  motion,
-  MotionValue,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "motion/react"
-import React, { createContext, useContext, useEffect, useRef } from "react"
+import { MotionValue, useScroll, useSpring } from "motion/react"
+import { createContext, useContext, type ReactNode } from "react"
 
 const SmoothScrollContext = createContext<MotionValue<number> | null>(null)
 
@@ -15,15 +8,8 @@ export const useSmoothScroll = () => useContext(SmoothScrollContext)
 export const SmoothScrollProvider = ({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) => {
-  // Ensure the native scroll position starts at 0 so the spring is never
-  // seeded with a stale restored value (belt-and-suspenders alongside the
-  // history.scrollRestoration = "manual" set in main.tsx).
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
-
   const { scrollY } = useScroll()
   const smoothY = useSpring(scrollY, {
     damping: 38,
@@ -39,38 +25,12 @@ export const SmoothScrollProvider = ({
   )
 }
 
-export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [contentHeight, setContentHeight] = React.useState(0)
-  const smoothY = useSmoothScroll()
-
-  useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
-
-    const observer = new ResizeObserver(() => {
-      setContentHeight(el.scrollHeight)
-    })
-    observer.observe(el)
-    setContentHeight(el.scrollHeight)
-
-    return () => observer.disconnect()
-  }, [])
-
-  const fallbackY = useMotionValue(0)
-  const activeY = smoothY ?? fallbackY
-  const transform = useTransform(activeY, (y) => -y)
-
-  return (
-    <>
-      <div style={{ height: contentHeight }} />
-      <motion.div
-        ref={scrollRef}
-        style={{ y: transform }}
-        className="fixed top-0 left-0 z-[2] w-full will-change-transform"
-      >
-        {children}
-      </motion.div>
-    </>
-  )
+// Passthrough wrapper. Previously this rendered a fixed, transformed content
+// div with a dynamic spacer to fake-scroll the page — but that caused content
+// to flash and disappear on first load (transform stacking-context + ResizeObserver
+// race between initial 0 height and the real measurement). Native scroll is
+// simpler and reliable. The smoothY spring in SmoothScrollProvider still drives
+// parallax effects downstream (useSmoothScroll).
+export const SmoothScroll = ({ children }: { children: ReactNode }) => {
+  return <>{children}</>
 }
