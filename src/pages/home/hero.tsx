@@ -59,7 +59,7 @@ export const Hero = () => {
         <div className="flex-1" />
 
         {/* Bottom metadata */}
-        <div className="flex items-center justify-between border-t border-white/10 px-8 py-4 md:px-16">
+        <div className="flex items-center justify-between px-8 py-4 md:px-16">
           <span className="text-xs font-bold tracking-[0.35em] text-white/15 uppercase">
             Marketing Agency
           </span>
