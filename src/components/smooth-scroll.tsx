@@ -6,7 +6,12 @@ import {
   useSpring,
   useTransform,
 } from "motion/react"
-import React, { createContext, useContext, useEffect, useRef } from "react"
+import React, {
+  createContext,
+  useContext,
+  useLayoutEffect,
+  useRef,
+} from "react"
 
 const SmoothScrollContext = createContext<MotionValue<number> | null>(null)
 
@@ -37,7 +42,12 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   const [contentHeight, setContentHeight] = React.useState(0)
   const smoothY = useSmoothScroll()
 
-  useEffect(() => {
+  // useLayoutEffect so the spacer height is committed synchronously before the
+  // first browser paint. Without this the page starts with height 0, which can
+  // let browser scroll-restoration fire a scroll jump before the spacer is
+  // ready — causing the spring to chase a non-zero target from a 0 start and
+  // the content to visually disappear for a moment.
+  useLayoutEffect(() => {
     const el = scrollRef.current
     if (!el) return
 
