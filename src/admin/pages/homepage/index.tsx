@@ -13,7 +13,7 @@ export const HomepageIndex = () => (
   <div className="max-w-2xl">
     <SectionHeader title="Homepage" description="Manage all homepage sections." />
     <div className="space-y-0">
-      {sections.map(({ to, label, description, badge }) => (
+      {sections.map(({ to, label, description }) => (
         <Link
           key={to}
           to={to}
@@ -23,14 +23,7 @@ export const HomepageIndex = () => (
             <p className="text-sm font-bold tracking-wide text-white">{label}</p>
             <p className="mt-0.5 text-xs text-white/40">{description}</p>
           </div>
-          <div className="flex items-center gap-3">
-            {badge && (
-              <span className="text-[10px] font-bold tracking-[0.2em] text-white/30 uppercase border border-white/10 px-2 py-0.5">
-                {badge}
-              </span>
-            )}
-            <span className="text-white/30">→</span>
-          </div>
+          <span className="text-white/30">→</span>
         </Link>
       ))}
     </div>
