@@ -7,7 +7,7 @@ import * as THREE from "three"
 function Model({ onReady }: { onReady?: () => void }) {
   const groupRef = useRef<THREE.Group>(null)
   const readyFired = useRef(false)
-  const { scene: originalScene } = useGLTF("/model.gltf")
+  const { scene: originalScene } = useGLTF("/glassmodel")
   const scene = useMemo(() => originalScene.clone(true), [originalScene])
 
   // Normalize geometry — center and scale to fit in a 2-unit box
@@ -68,7 +68,7 @@ function Model({ onReady }: { onReady?: () => void }) {
   )
 }
 
-useGLTF.preload("/model.gltf")
+useGLTF.preload("/glassmodel")
 
 // ─── Scene ──────────────────────────────────────────────────────────────────
 function Scene({ onReady }: { onReady?: () => void }) {
@@ -95,7 +95,7 @@ function Scene({ onReady }: { onReady?: () => void }) {
 
       {/* Environment + Model in same Suspense so both must load before render */}
       <Suspense fallback={null}>
-        <Environment preset="city" background={false} />
+        <Environment files="/environement.hdr" background={false} />
         <Model onReady={onReady} />
       </Suspense>
     </>
