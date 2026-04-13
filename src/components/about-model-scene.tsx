@@ -44,7 +44,7 @@ function Model({ onReady }: { onReady?: () => void }) {
       onReady?.()
     }
 
-    const maxAngle = 0.15 // ±0.15 rad (~8.6°) — clearly noticeable
+    const maxAngle = 0.3 // ±0.30 rad (~17.2°)
     const damping = 0.08
 
     const targetY = mouse.current.x * maxAngle
