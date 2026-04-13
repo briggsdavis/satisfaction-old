@@ -7,7 +7,7 @@ import * as THREE from "three"
 function Model({ onReady }: { onReady?: () => void }) {
   const groupRef = useRef<THREE.Group>(null)
   const readyFired = useRef(false)
-  const { scene: originalScene } = useGLTF("/model.gltf")
+  const { scene: originalScene } = useGLTF("/glassmodel")
   const scene = useMemo(() => originalScene.clone(true), [originalScene])
 
   // Normalize geometry — center and scale to fit in a 2-unit box
@@ -68,34 +68,19 @@ function Model({ onReady }: { onReady?: () => void }) {
   )
 }
 
-useGLTF.preload("/model.gltf")
+useGLTF.preload("/glassmodel")
 
 // ─── Scene ──────────────────────────────────────────────────────────────────
 function Scene({ onReady }: { onReady?: () => void }) {
   return (
     <>
-      {/* Lighting */}
-      <ambientLight intensity={0.4} />
-      <directionalLight
-        position={[5, 8, 5]}
-        intensity={1.0}
-        castShadow
-        shadow-mapSize-width={1024}
-        shadow-mapSize-height={1024}
-      />
-      <pointLight position={[-3, 3, -2]} intensity={0.6} color="#4466ff" />
-      <pointLight position={[3, 2, 2]} intensity={0.5} color="#ffffff" />
-      <spotLight
-        position={[0, 5, -5]}
-        angle={0.5}
-        penumbra={1}
-        intensity={0.4}
-        color="#334455"
-      />
+      {/* Lighting — HDR environment handles global illumination; keep this minimal */}
+      <ambientLight intensity={0.3} />
+      <pointLight position={[-3, 3, -2]} intensity={0.5} color="#4466ff" />
 
       {/* Environment + Model in same Suspense so both must load before render */}
       <Suspense fallback={null}>
-        <Environment preset="city" background={false} />
+        <Environment files="/environement.hdr" background={false} />
         <Model onReady={onReady} />
       </Suspense>
     </>
@@ -108,13 +93,12 @@ export function AboutModelScene({
 }: {
   onReady?: () => void
 }) {
-  const dpr = Math.min(window.devicePixelRatio, 2)
+  const dpr = Math.min(window.devicePixelRatio, 1.5)
 
   return (
     <Canvas
       dpr={dpr}
       camera={{ position: [0, 0, 5], fov: 45 }}
-      shadows
       gl={{ antialias: true, alpha: true }}
       style={{ background: "transparent" }}
     >
