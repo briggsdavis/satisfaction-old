@@ -1,3 +1,4 @@
+import { useMotionValue } from "motion/react"
 import React from "react"
 import {
   Route,
@@ -25,8 +26,13 @@ class CanvasErrorBoundary extends React.Component<
     return this.state.failed ? null : this.props.children
   }
 }
+import { AboutModelScene } from "./components/about-model-scene"
 import { Navbar } from "./components/navbar"
-import { SmoothScroll, SmoothScrollProvider } from "./components/smooth-scroll"
+import {
+  SmoothScroll,
+  SmoothScrollProvider,
+  useSmoothScroll,
+} from "./components/smooth-scroll"
 import { About } from "./pages/about"
 import { CategoryPage } from "./pages/category"
 import { Contact } from "./pages/contact"
@@ -113,12 +119,54 @@ const ConditionalHeroCanvas = () => {
   )
 }
 
+const AboutCanvasInner = () => {
+  const [canvasReady, setCanvasReady] = React.useState(false)
+  const [heroComplete, setHeroComplete] = React.useState(false)
+
+  const smoothY = useSmoothScroll()
+  const fallbackY = useMotionValue(0)
+  const activeY = smoothY ?? fallbackY
+
+  // Watch scroll — only allow fade-in after the hero zoom finishes
+  React.useEffect(() => {
+    const heroEnd = window.innerHeight * 0.5
+    return activeY.on("change", (y) => {
+      if (y >= heroEnd) setHeroComplete(true)
+    })
+  }, [activeY])
+
+  const visible = canvasReady && heroComplete
+
+  return (
+    <div
+      className="pointer-events-none fixed inset-0 z-[1]"
+      style={{
+        opacity: visible ? 1 : 0,
+        transition: visible ? "opacity 4s ease" : "none",
+      }}
+    >
+      <AboutModelScene onReady={() => setCanvasReady(true)} />
+    </div>
+  )
+}
+
+const ConditionalAboutCanvas = () => {
+  const { pathname } = useLocation()
+  if (pathname !== "/about") return null
+  return (
+    <CanvasErrorBoundary>
+      <AboutCanvasInner />
+    </CanvasErrorBoundary>
+  )
+}
+
 const SiteRoot = () => (
   <>
     <CustomCursor />
     <Navbar />
     <SmoothScrollProvider>
       <ConditionalHeroCanvas />
+      <ConditionalAboutCanvas />
       <ColumnWipe>
         <SmoothScroll>
           <AppRoutes />
