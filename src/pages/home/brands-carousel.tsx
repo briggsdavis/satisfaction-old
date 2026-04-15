@@ -182,10 +182,10 @@ const LogoBrand = ({
   skewTransform: MotionValue<string>
   counterSkewTransform: MotionValue<string>
 }) => (
-  <div className="flex h-full shrink-0 items-center px-3">
-    {/* White parallelogram that contains the brand name */}
+  <>
+    {/* Full-height white parallelogram containing the brand name */}
     <motion.div
-      className="flex h-[60%] min-w-[180px] items-center justify-center bg-white px-6"
+      className="flex h-full w-[220px] shrink-0 items-center justify-center bg-white"
       style={{ transform: skewTransform }}
     >
       {/* Counter-skew keeps the text upright */}
@@ -196,7 +196,12 @@ const LogoBrand = ({
         {brand}
       </motion.span>
     </motion.div>
-  </div>
+    {/* Thin black skewed separator line */}
+    <motion.div
+      className="h-full w-[3px] shrink-0 bg-black"
+      style={{ transform: skewTransform }}
+    />
+  </>
 )
 
 export const LogosCarousel = () => {
@@ -215,8 +220,8 @@ export const LogosCarousel = () => {
         </h2>
       </div>
 
-      {/* Scrolling track */}
-      <div className="h-40 overflow-hidden border-b border-white/10">
+      {/* Scrolling track — white background so gaps between parallelograms are also white */}
+      <div className="h-40 overflow-hidden border-b border-white/10 bg-white">
         <motion.div style={{ x: baseX }} className="flex h-full w-max">
           {/* First copy — measured for wrap */}
           <div ref={trackRef} className="flex h-full">
