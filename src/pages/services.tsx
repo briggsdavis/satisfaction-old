@@ -188,11 +188,6 @@ const ServiceCell = ({
 
         {/* Content overlay */}
         <div className="absolute inset-0 flex flex-col p-5 md:p-6">
-          {/* Tag — top */}
-          <span className="text-xs font-bold tracking-[0.35em] text-white/50 uppercase">
-            {service.tag}
-          </span>
-
           {/* Bottom area: hover bullets above the service name */}
           <div className="flex flex-1 flex-col justify-end">
             <AnimatePresence>

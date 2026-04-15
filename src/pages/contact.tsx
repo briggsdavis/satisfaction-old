@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "motion/react"
 import React, { useEffect, useRef, useState } from "react"
+import { createPortal } from "react-dom"
 import { useLocation } from "react-router"
 import { TextReveal } from "../components/text-reveal"
 
@@ -212,11 +213,35 @@ const TextareaField = ({
 const ServiceSelect = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [selected, setSelected] = useState<string | null>(null)
-  const ref = useRef<HTMLDivElement>(null)
+  const [menuStyle, setMenuStyle] = useState<React.CSSProperties>({})
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  const toggleMenu = () => {
+    if (!isOpen && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect()
+      setMenuStyle({
+        position: "fixed",
+        top: rect.bottom + 4,
+        left: rect.left,
+        width: rect.width,
+        zIndex: 99999,
+        backgroundColor: "#111111",
+        border: "1px solid rgba(255,255,255,0.2)",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.95)",
+      })
+    }
+    setIsOpen((v) => !v)
+  }
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
+      const target = e.target as Element
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(target) &&
+        !target.closest?.("[data-service-menu]")
+      ) {
         setIsOpen(false)
       }
     }
@@ -226,15 +251,50 @@ const ServiceSelect = () => {
 
   const selectedOption = SERVICE_OPTIONS.find((s) => s.name === selected)
 
+  const menu = (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          data-service-menu=""
+          initial={{ opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.2 }}
+          style={menuStyle}
+        >
+          {SERVICE_OPTIONS.map((option) => (
+            <button
+              key={option.name}
+              type="button"
+              onClick={() => {
+                setSelected(option.name)
+                setIsOpen(false)
+              }}
+              style={{ display: "flex", width: "100%", alignItems: "center", gap: "12px", padding: "10px 16px", textAlign: "left", fontSize: "14px", color: "rgba(255,255,255,0.6)", background: "none", border: "none", cursor: "pointer" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(255,255,255,0.05)"; (e.currentTarget as HTMLButtonElement).style.color = "#fff" }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent"; (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.6)" }}
+            >
+              <span
+                style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: option.color, flexShrink: 0, display: "inline-block" }}
+              />
+              {option.name}
+            </button>
+          ))}
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+
   return (
-    <div className="border-b border-white/10 py-5" ref={ref}>
+    <div className="border-b border-white/10 py-5" ref={containerRef}>
       <label className="mb-2 block text-xs font-bold tracking-[0.35em] text-white/40 uppercase">
         Service
       </label>
       <div className="relative">
         <button
+          ref={buttonRef}
           type="button"
-          onClick={() => setIsOpen((v) => !v)}
+          onClick={toggleMenu}
           className="flex w-full items-center justify-between border-b border-white/20 pb-2 text-base outline-none transition-colors focus:border-white/50"
         >
           {selectedOption ? (
@@ -257,35 +317,7 @@ const ServiceSelect = () => {
           </motion.span>
         </button>
 
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-full left-0 right-0 z-50 mt-1 border border-white/20 bg-neutral-900 shadow-2xl"
-            >
-              {SERVICE_OPTIONS.map((option) => (
-                <button
-                  key={option.name}
-                  type="button"
-                  onClick={() => {
-                    setSelected(option.name)
-                    setIsOpen(false)
-                  }}
-                  className="flex w-full items-center gap-3 px-4 py-2.5 text-left text-sm text-white/60 transition-colors hover:bg-white/5 hover:text-white"
-                >
-                  <span
-                    className="h-2 w-2 shrink-0"
-                    style={{ backgroundColor: option.color, borderRadius: "50%" }}
-                  />
-                  {option.name}
-                </button>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {createPortal(menu, document.body)}
 
         <input type="hidden" name="service" value={selected ?? ""} />
       </div>
