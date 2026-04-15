@@ -51,6 +51,8 @@ const useCarouselAnimation = () => {
 
   const skewAngle = useSpring(-12, { stiffness: 320, damping: 45 })
   const skewTransform = useTransform(skewAngle, (v) => `skewX(${v}deg)`)
+  // Counter-transform keeps text upright inside skewed containers
+  const counterSkewTransform = useTransform(skewAngle, (v) => `skewX(${-v}deg)`)
 
   const baseX = useMotionValue(0)
   const trackRef = useRef<HTMLDivElement>(null)
@@ -95,7 +97,7 @@ const useCarouselAnimation = () => {
     baseX.set(next)
   })
 
-  return { sectionRef, baseX, trackRef, skewTransform }
+  return { sectionRef, baseX, trackRef, skewTransform, counterSkewTransform }
 }
 
 export const BrandsCarousel = () => {
@@ -170,8 +172,35 @@ export const BrandsCarousel = () => {
   )
 }
 
+const LogoBrand = ({
+  brand,
+  skewTransform,
+  counterSkewTransform,
+}: {
+  brand: string
+  skewTransform: ReturnType<typeof useTransform>
+  counterSkewTransform: ReturnType<typeof useTransform>
+}) => (
+  <div className="flex h-full shrink-0 items-center px-3">
+    {/* White parallelogram that contains the brand name */}
+    <motion.div
+      className="flex h-[60%] min-w-[180px] items-center justify-center bg-white px-6"
+      style={{ transform: skewTransform }}
+    >
+      {/* Counter-skew keeps the text upright */}
+      <motion.span
+        className="font-display text-base tracking-wide whitespace-nowrap text-black uppercase"
+        style={{ transform: counterSkewTransform }}
+      >
+        {brand}
+      </motion.span>
+    </motion.div>
+  </div>
+)
+
 export const LogosCarousel = () => {
-  const { sectionRef, baseX, trackRef, skewTransform } = useCarouselAnimation()
+  const { sectionRef, baseX, trackRef, skewTransform, counterSkewTransform } =
+    useCarouselAnimation()
 
   return (
     <section ref={sectionRef} className="bg-black pb-0">
@@ -188,35 +217,26 @@ export const LogosCarousel = () => {
       {/* Scrolling track */}
       <div className="h-40 overflow-hidden border-b border-white/10">
         <motion.div style={{ x: baseX }} className="flex h-full w-max">
+          {/* First copy — measured for wrap */}
           <div ref={trackRef} className="flex h-full">
             {BRANDS.map((brand) => (
-              <div key={brand} className="flex h-full shrink-0 items-center">
-                <div className="flex h-full w-[220px] items-center justify-center">
-                  <span className="font-display text-xl tracking-wide whitespace-nowrap text-white/40 uppercase">
-                    {brand}
-                  </span>
-                </div>
-                {/* White-filled parallelogram divider */}
-                <motion.div
-                  className="h-full w-9 shrink-0 bg-white/70"
-                  style={{ transform: skewTransform }}
-                />
-              </div>
+              <LogoBrand
+                key={brand}
+                brand={brand}
+                skewTransform={skewTransform}
+                counterSkewTransform={counterSkewTransform}
+              />
             ))}
           </div>
+          {/* Second copy — seamless loop */}
           <div aria-hidden className="flex h-full">
             {BRANDS.map((brand) => (
-              <div key={brand} className="flex h-full shrink-0 items-center">
-                <div className="flex h-full w-[220px] items-center justify-center">
-                  <span className="font-display text-xl tracking-wide whitespace-nowrap text-white/40 uppercase">
-                    {brand}
-                  </span>
-                </div>
-                <motion.div
-                  className="h-full w-9 shrink-0 bg-white/70"
-                  style={{ transform: skewTransform }}
-                />
-              </div>
+              <LogoBrand
+                key={brand}
+                brand={brand}
+                skewTransform={skewTransform}
+                counterSkewTransform={counterSkewTransform}
+              />
             ))}
           </div>
         </motion.div>

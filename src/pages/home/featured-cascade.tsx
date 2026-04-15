@@ -11,12 +11,14 @@ type GridProject = {
 }
 
 const GRID_PROJECTS: GridProject[] = [
+  // — Group 1 (tall) —
   {
     title: "Harvest Menu Drop",
     descriptor: "Creative Direction",
     img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=1200",
     href: "/portfolio/creative-direction/harvest-menu-drop",
   },
+  // — Group 2 (stacked) —
   {
     title: "Hero Dish Series",
     descriptor: "Photography",
@@ -29,6 +31,7 @@ const GRID_PROJECTS: GridProject[] = [
     img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200",
     href: "/portfolio/photography/interior-story",
   },
+  // — Group 3 (wide top + two bottom) —
   {
     title: "Noire Collective",
     descriptor: "Branding",
@@ -47,6 +50,7 @@ const GRID_PROJECTS: GridProject[] = [
     img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200",
     href: "/portfolio/campaigns/grand-opening-kit",
   },
+  // — Group 4 (stacked) —
   {
     title: "Monthly Retainer",
     descriptor: "Social Media",
@@ -58,6 +62,58 @@ const GRID_PROJECTS: GridProject[] = [
     descriptor: "Launch + Events",
     img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=1200",
     href: "/portfolio/launch-event-marketing/grand-opening",
+  },
+  // — Group 5 (tall) —
+  {
+    title: "Summer Activation",
+    descriptor: "Creative Direction",
+    img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/creative-direction/summer-activation",
+  },
+  // — Group 6 (stacked) —
+  {
+    title: "Event Recap",
+    descriptor: "Photography",
+    img: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/photography/event-recap",
+  },
+  {
+    title: "Gather & Co.",
+    descriptor: "Branding",
+    img: "https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/branding/gather-and-co",
+  },
+  // — Group 7 (wide top + two bottom) —
+  {
+    title: "Fall Promo Suite",
+    descriptor: "Campaigns",
+    img: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/campaigns/fall-promo-suite",
+  },
+  {
+    title: "Reel Pack",
+    descriptor: "Production",
+    img: "https://images.unsplash.com/photo-1536240478700-b869ad10e2c8?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/production/reel-pack",
+  },
+  {
+    title: "Creator Collab",
+    descriptor: "Influencer / UGC",
+    img: "https://images.unsplash.com/photo-1542744094-24638eff58bb?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/influencer-ugc/creator-collab",
+  },
+  // — Group 8 (stacked) —
+  {
+    title: "Pop-Up Event",
+    descriptor: "Launch + Events",
+    img: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/launch-event-marketing/pop-up-event",
+  },
+  {
+    title: "Logo Pack",
+    descriptor: "Motion Graphics",
+    img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/motion-graphics/logo-pack",
   },
 ]
 
@@ -121,7 +177,8 @@ export const FeaturedCascade = () => {
     isDragging.current = false
   }
 
-  const [p0, p1, p2, p3, p4, p5, p6, p7] = GRID_PROJECTS
+  const [p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15] =
+    GRID_PROJECTS
 
   return (
     <section className="bg-black pt-12 pb-20">
@@ -201,6 +258,52 @@ export const FeaturedCascade = () => {
             </motion.div>
             <motion.div className="flex-1" {...animProps(0.42)}>
               <ProjectCard project={p7} />
+            </motion.div>
+          </div>
+
+          {/* Group 5: single tall card */}
+          <motion.div
+            className="h-full w-[260px] shrink-0 md:w-[280px]"
+            {...animProps(0.48)}
+          >
+            <ProjectCard project={p8} />
+          </motion.div>
+
+          {/* Group 6: two stacked portrait cards */}
+          <div className="flex h-full w-[260px] shrink-0 flex-col gap-4 md:w-[280px]">
+            <motion.div className="flex-1" {...animProps(0.54)}>
+              <ProjectCard project={p9} />
+            </motion.div>
+            <motion.div className="flex-1" {...animProps(0.58)}>
+              <ProjectCard project={p10} />
+            </motion.div>
+          </div>
+
+          {/* Group 7: wide landscape top + two portrait bottom */}
+          <div
+            className="flex h-full shrink-0 flex-col gap-4"
+            style={{ width: "556px" }}
+          >
+            <motion.div className="flex-1" {...animProps(0.62)}>
+              <ProjectCard project={p11} />
+            </motion.div>
+            <div className="flex flex-1 gap-4">
+              <motion.div className="flex-1" {...animProps(0.66)}>
+                <ProjectCard project={p12} />
+              </motion.div>
+              <motion.div className="flex-1" {...animProps(0.7)}>
+                <ProjectCard project={p13} />
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Group 8: two stacked portrait cards */}
+          <div className="flex h-full w-[260px] shrink-0 flex-col gap-4 md:w-[280px]">
+            <motion.div className="flex-1" {...animProps(0.74)}>
+              <ProjectCard project={p14} />
+            </motion.div>
+            <motion.div className="flex-1" {...animProps(0.78)}>
+              <ProjectCard project={p15} />
             </motion.div>
           </div>
         </div>
