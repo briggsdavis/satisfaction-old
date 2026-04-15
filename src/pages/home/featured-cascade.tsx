@@ -1,177 +1,220 @@
-import { motion, useMotionValue, useTransform } from "motion/react"
-import { useEffect, useRef } from "react"
+import { motion } from "motion/react"
+import React, { useRef } from "react"
 import { Link } from "react-router"
 import { TextReveal } from "../../components/text-reveal"
-import { useSmoothScroll } from "../../components/smooth-scroll"
 
-const CASCADE_ITEMS = [
+type GridProject = {
+  title: string
+  descriptor: string
+  img: string
+  href: string
+}
+
+const GRID_PROJECTS: GridProject[] = [
   {
-    src: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200",
-    title: "Kinetic Light",
+    title: "Harvest Menu Drop",
+    descriptor: "Creative Direction",
+    img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/creative-direction/harvest-menu-drop",
+  },
+  {
+    title: "Hero Dish Series",
     descriptor: "Photography",
-    tags: ["Landscape", "Editorial"],
+    img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/photography/hero-dish-series",
   },
   {
-    src: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&q=80&w=1200",
-    title: "Frame Study",
-    descriptor: "Videography",
-    tags: ["Commercial", "Brand"],
+    title: "Interior Story",
+    descriptor: "Photography",
+    img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/photography/interior-story",
   },
   {
-    src: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=1200",
-    title: "Signal & Form",
-    descriptor: "Graphic Design",
-    tags: ["Branding", "Identity"],
+    title: "Noire Collective",
+    descriptor: "Branding",
+    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/branding/noire-collective",
+  },
+  {
+    title: "Brand Film",
+    descriptor: "Production",
+    img: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/production/brand-film",
+  },
+  {
+    title: "Grand Opening Kit",
+    descriptor: "Campaigns",
+    img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/campaigns/grand-opening-kit",
+  },
+  {
+    title: "Monthly Retainer",
+    descriptor: "Social Media",
+    img: "https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/social-media/monthly-retainer",
+  },
+  {
+    title: "Grand Opening",
+    descriptor: "Launch + Events",
+    img: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80&w=1200",
+    href: "/portfolio/launch-event-marketing/grand-opening",
   },
 ]
 
-const CascadeImg = ({
-  item,
-  index,
-}: {
-  item: (typeof CASCADE_ITEMS)[0]
-  index: number
-}) => {
-  const ref = useRef<HTMLDivElement>(null)
-  const topRef = useRef(0)
-  const heightRef = useRef(0)
+const animProps = (delay: number) => ({
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" as const },
+  transition: {
+    duration: 0.75,
+    delay,
+    ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+  },
+})
 
-  const smoothY = useSmoothScroll()
-  const fallbackY = useMotionValue(0)
-  const activeY = smoothY ?? fallbackY
+const ProjectCard = ({ project }: { project: GridProject }) => (
+  <Link
+    to={project.href}
+    className="group relative block h-full w-full overflow-hidden rounded-3xl bg-neutral-900"
+  >
+    <img
+      src={project.img}
+      alt={project.title}
+      loading="lazy"
+      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+    />
+    {/* Base dark overlay */}
+    <div className="absolute inset-0 bg-black/20 transition-opacity duration-500 group-hover:bg-black/65" />
+    {/* Title — centered, fades in on hover */}
+    <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+      <p className="px-6 text-center font-display text-sm uppercase tracking-[0.2em] text-white md:text-base">
+        {project.title}
+      </p>
+      <span className="text-[10px] font-bold tracking-[0.3em] text-white/60 uppercase">
+        {project.descriptor}
+      </span>
+    </div>
+  </Link>
+)
 
-  // Measure the element's natural layout position (visual top + current smoothY).
-  // Must not use useScroll() here — it mixes browser scrollY with getBoundingClientRect
-  // which introduces spring-lag error and causes the parallax to flicker.
-  useEffect(() => {
-    const measure = () => {
-      if (!ref.current) return
-      const rect = ref.current.getBoundingClientRect()
-      topRef.current = rect.top + (smoothY?.get() ?? window.scrollY)
-      heightRef.current = ref.current.offsetHeight
-    }
-    requestAnimationFrame(() => requestAnimationFrame(measure))
-    window.addEventListener("resize", measure)
-    return () => window.removeEventListener("resize", measure)
-  }, [smoothY])
+export const FeaturedCascade = () => {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const isDragging = useRef(false)
+  const startX = useRef(0)
+  const scrollLeftRef = useRef(0)
 
-  const imgY = useTransform(activeY, (y: number) => {
-    const elTop = topRef.current
-    const elHeight = heightRef.current
-    const vh = window.innerHeight
-    const start = elTop - vh
-    const end = elTop + elHeight
-    const range = end - start
-    if (range <= 0) return 0
-    const progress = Math.max(0, Math.min(1, (y - start) / range))
-    return 60 - progress * 120 // maps [0,1] → [60px, -60px]
-  })
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    isDragging.current = true
+    startX.current = e.pageX - (scrollRef.current?.offsetLeft ?? 0)
+    scrollLeftRef.current = scrollRef.current?.scrollLeft ?? 0
+  }
 
-  const vertOffsets = [0, 80, 160]
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDragging.current) return
+    e.preventDefault()
+    const x = e.pageX - (scrollRef.current?.offsetLeft ?? 0)
+    const walk = (x - startX.current) * 1.5
+    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeftRef.current - walk
+  }
+
+  const stopDrag = () => {
+    isDragging.current = false
+  }
+
+  const [p0, p1, p2, p3, p4, p5, p6, p7] = GRID_PROJECTS
 
   return (
-    <div
-      ref={ref}
-      className="relative z-[2] min-w-0 flex-1"
-      style={{ marginTop: vertOffsets[index] }}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 80 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-150px" }}
-        transition={{
-          duration: 0.9,
-          delay: index * 0.15,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
-      <Link to="/portfolio" className="group block">
-        <div className="relative aspect-[3/4] overflow-hidden">
-          <motion.img
-            style={{ y: imgY, height: "calc(100% + 128px)", top: "-60px" }}
-            src={item.src}
-            alt={item.title}
-            loading="lazy"
-            className="absolute w-full object-cover will-change-transform [backface-visibility:hidden]"
-            whileHover={{ scale: 1.03 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            referrerPolicy="no-referrer"
+    <section className="bg-black pt-12 pb-20">
+      {/* Header — keep exactly as before */}
+      <div className="mb-12 flex items-end justify-between px-8 md:px-16">
+        <div>
+          <p className="mb-5 text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
+            Selected Work
+          </p>
+          <TextReveal
+            text="Featured Projects"
+            className="massive-text text-xl leading-none md:text-4xl lg:text-6xl"
           />
-          {/* Gradient */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+        </div>
+        <Link
+          to="/portfolio"
+          className="btn-industrial-sm hidden items-center gap-2 md:inline-flex"
+        >
+          View All <span>→</span>
+        </Link>
+      </div>
 
-          {/* Bottom overlay — title + tags */}
-          <div className="absolute inset-x-0 bottom-0 p-5">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
-                <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
-                {item.title}
-              </span>
-              <span className="bg-black/60 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white/50 uppercase backdrop-blur-sm">
-                {item.descriptor}
-              </span>
-              {item.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="hidden border border-white/20 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white/40 uppercase backdrop-blur-sm sm:block"
-                >
-                  {tag}
-                </span>
-              ))}
+      {/* Horizontal scroll masonry grid */}
+      <div
+        ref={scrollRef}
+        className="cursor-grab overflow-x-auto px-8 active:cursor-grabbing md:px-16"
+        style={{ touchAction: "pan-x", overflowY: "clip" }}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+        onMouseUp={stopDrag}
+        onMouseLeave={stopDrag}
+      >
+        <div
+          className="flex gap-4"
+          style={{ width: "max-content", height: "580px" }}
+        >
+          {/* Group 1: single tall card */}
+          <motion.div
+            className="h-full w-[260px] shrink-0 md:w-[280px]"
+            {...animProps(0)}
+          >
+            <ProjectCard project={p0} />
+          </motion.div>
+
+          {/* Group 2: two stacked portrait cards */}
+          <div className="flex h-full w-[260px] shrink-0 flex-col gap-4 md:w-[280px]">
+            <motion.div className="flex-1" {...animProps(0.08)}>
+              <ProjectCard project={p1} />
+            </motion.div>
+            <motion.div className="flex-1" {...animProps(0.14)}>
+              <ProjectCard project={p2} />
+            </motion.div>
+          </div>
+
+          {/* Group 3: wide landscape top + two portrait bottom */}
+          <div
+            className="flex h-full shrink-0 flex-col gap-4"
+            style={{ width: "556px" }}
+          >
+            <motion.div className="flex-1" {...animProps(0.18)}>
+              <ProjectCard project={p3} />
+            </motion.div>
+            <div className="flex flex-1 gap-4">
+              <motion.div className="flex-1" {...animProps(0.24)}>
+                <ProjectCard project={p4} />
+              </motion.div>
+              <motion.div className="flex-1" {...animProps(0.3)}>
+                <ProjectCard project={p5} />
+              </motion.div>
             </div>
           </div>
 
-          {/* Top-right "View Work" chip — hover only */}
-          <div className="absolute top-4 right-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-            <span className="block bg-white px-3 py-1.5 text-xs font-bold tracking-widest text-black uppercase">
-              View Work →
-            </span>
+          {/* Group 4: two stacked portrait cards */}
+          <div className="flex h-full w-[260px] shrink-0 flex-col gap-4 md:w-[280px]">
+            <motion.div className="flex-1" {...animProps(0.36)}>
+              <ProjectCard project={p6} />
+            </motion.div>
+            <motion.div className="flex-1" {...animProps(0.42)}>
+              <ProjectCard project={p7} />
+            </motion.div>
           </div>
         </div>
-      </Link>
-      </motion.div>
-    </div>
+      </div>
+
+      {/* Mobile CTA */}
+      <div className="mt-10 flex justify-center px-8 md:hidden">
+        <Link
+          to="/portfolio"
+          className="btn-industrial inline-flex items-center gap-3"
+        >
+          View All Projects <span className="text-sm">→</span>
+        </Link>
+      </div>
+    </section>
   )
 }
-
-export const FeaturedCascade = () => (
-  <section className="bg-black pt-12 pb-64">
-    {/* Header — px-8 matches nav padding so View All right-edge aligns with Contact */}
-    <div className="mb-20 flex items-end justify-between px-8 md:px-16">
-      <div>
-        <p className="mb-5 text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
-          Selected Work
-        </p>
-        <TextReveal
-          text="Featured Projects"
-          className="massive-text text-xl leading-none md:text-4xl lg:text-6xl"
-        />
-      </div>
-      <Link
-        to="/portfolio"
-        className="btn-industrial-sm hidden items-center gap-2 md:inline-flex"
-      >
-        View All <span>→</span>
-      </Link>
-    </div>
-
-    {/* Cascade */}
-    <div className="px-8 md:px-16">
-      <div className="flex items-start gap-5 md:gap-8">
-        {CASCADE_ITEMS.map((item, i) => (
-          <CascadeImg key={i} item={item} index={i} />
-        ))}
-      </div>
-    </div>
-
-    {/* Mobile CTA */}
-    <div className="mt-16 flex justify-center px-8 md:hidden">
-      <Link
-        to="/portfolio"
-        className="btn-industrial inline-flex items-center gap-3"
-      >
-        View All Projects <span className="text-sm">→</span>
-      </Link>
-    </div>
-  </section>
-)

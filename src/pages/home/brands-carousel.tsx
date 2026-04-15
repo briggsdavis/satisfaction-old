@@ -174,41 +174,33 @@ export const LogosCarousel = () => {
   const { sectionRef, baseX, trackRef, skewTransform } = useCarouselAnimation()
 
   return (
-    <section ref={sectionRef} className="bg-white pb-0">
+    <section ref={sectionRef} className="bg-black pb-0">
       {/* Header */}
-      <div className="border-b border-black/10 px-8 py-10 md:px-16">
-        <p className="mb-4 text-xs font-bold tracking-[0.4em] text-black/30 uppercase">
+      <div className="border-b border-white/10 px-8 py-10 md:px-16">
+        <p className="mb-4 text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
           Our Work
         </p>
-        <h2 className="text-2xl leading-[1.25] font-light text-black md:text-3xl">
+        <h2 className="text-2xl leading-[1.25] font-light text-white md:text-3xl">
           Logos we&apos;ve designed:
         </h2>
       </div>
 
       {/* Scrolling track */}
-      <div className="h-40 overflow-hidden border-b border-black/10">
+      <div className="h-40 overflow-hidden border-b border-white/10">
         <motion.div style={{ x: baseX }} className="flex h-full w-max">
           <div ref={trackRef} className="flex h-full">
             {BRANDS.map((brand) => (
               <div key={brand} className="flex h-full shrink-0 items-center">
                 <div className="flex h-full w-[220px] items-center justify-center">
-                  <span className="font-display text-xl tracking-wide whitespace-nowrap text-black/35 uppercase">
+                  <span className="font-display text-xl tracking-wide whitespace-nowrap text-white/40 uppercase">
                     {brand}
                   </span>
                 </div>
+                {/* White-filled parallelogram divider */}
                 <motion.div
-                  className="relative h-full w-9 shrink-0"
+                  className="h-full w-9 shrink-0 bg-white/70"
                   style={{ transform: skewTransform }}
-                >
-                  <div
-                    className="absolute inset-y-0 w-px bg-black/20"
-                    style={{ left: "8px" }}
-                  />
-                  <div
-                    className="absolute inset-y-0 w-px bg-black/20"
-                    style={{ left: "24px" }}
-                  />
-                </motion.div>
+                />
               </div>
             ))}
           </div>
@@ -216,23 +208,14 @@ export const LogosCarousel = () => {
             {BRANDS.map((brand) => (
               <div key={brand} className="flex h-full shrink-0 items-center">
                 <div className="flex h-full w-[220px] items-center justify-center">
-                  <span className="font-display text-xl tracking-wide whitespace-nowrap text-black/35 uppercase">
+                  <span className="font-display text-xl tracking-wide whitespace-nowrap text-white/40 uppercase">
                     {brand}
                   </span>
                 </div>
                 <motion.div
-                  className="relative h-full w-9 shrink-0"
+                  className="h-full w-9 shrink-0 bg-white/70"
                   style={{ transform: skewTransform }}
-                >
-                  <div
-                    className="absolute inset-y-0 w-px bg-black/20"
-                    style={{ left: "8px" }}
-                  />
-                  <div
-                    className="absolute inset-y-0 w-px bg-black/20"
-                    style={{ left: "24px" }}
-                  />
-                </motion.div>
+                />
               </div>
             ))}
           </div>
