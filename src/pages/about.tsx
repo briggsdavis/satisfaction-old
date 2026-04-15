@@ -193,19 +193,19 @@ const WheelPair = ({
   const opacity = useTransform(
     progress,
     [
-      Math.max(0, center - 0.45),
-      Math.max(0, center - 0.12),
-      Math.min(1, center + 0.12),
-      Math.min(1, center + 0.45),
+      Math.max(0, center - 0.38),
+      Math.max(0, center - 0.1),
+      Math.min(1, center + 0.1),
+      Math.min(1, center + 0.22),
     ],
-    [0, 1, 1, 0],
+    [0.08, 1, 1, 0.08],
   )
   const yVal = useTransform(progress, [0, 1], [center * -80, (center - 1) * -80])
 
   return (
     <motion.div
       style={{ rotateX, opacity, y: yVal }}
-      className="absolute inset-0 flex flex-col items-center justify-center gap-10 px-8 md:flex-row md:gap-16 md:px-16"
+      className="absolute inset-0 flex flex-col items-center justify-center gap-10 px-8 pt-24 md:flex-row md:gap-16 md:px-16"
     >
       {/* Left: text — always left-aligned */}
       <div className="flex-1">
@@ -313,15 +313,8 @@ const WheelSection = () => {
     >
       <motion.div
         style={{ y: pinY }}
-        className="relative h-screen overflow-hidden bg-black"
+        className="relative h-screen bg-black"
       >
-        {/* Fixed section label */}
-        <div className="pointer-events-none absolute top-10 left-8 z-10 md:left-16">
-          <span className="text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
-            Our Story
-          </span>
-        </div>
-
         {/* Right-side progress dots */}
         <div className="pointer-events-none absolute right-8 top-1/2 z-10 flex -translate-y-1/2 flex-col gap-3 md:right-16">
           {WHEEL_PAIRS.map((_, i) => (
