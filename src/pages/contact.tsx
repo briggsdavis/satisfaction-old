@@ -264,7 +264,7 @@ const ServiceSelect = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.2 }}
-              className="absolute top-full left-0 right-0 z-50 mt-1 border border-white/10 bg-[#0a0a0a] shadow-2xl"
+              className="absolute top-full left-0 right-0 z-50 mt-1 border border-white/10 bg-black shadow-2xl"
             >
               {SERVICE_OPTIONS.map((option) => (
                 <button
@@ -531,7 +531,7 @@ export const Contact = () => {
           <div className="hidden lg:block" />
         </div>
 
-        {/* Alternating FAQ section blocks */}
+        {/* Alternating FAQ sections — section name left, Q&A right */}
         {FAQ_SECTIONS.map((section, i) => {
           const isLight = i % 2 !== 0
           return (
@@ -541,22 +541,29 @@ export const Contact = () => {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5 }}
-              className={`border-b px-8 py-10 md:px-16 md:py-12 ${
+              className={`grid grid-cols-1 border-b lg:grid-cols-[1fr_2fr] ${
                 isLight
                   ? "border-black/10 bg-white"
                   : "border-white/10 bg-black"
               }`}
             >
-              <p
-                className={`mb-5 border-t pt-6 text-xs font-bold tracking-[0.35em] uppercase ${
-                  isLight
-                    ? "border-black/10 text-black/40"
-                    : "border-white/10 text-white/30"
+              {/* Left: section label */}
+              <div
+                className={`border-b px-8 py-10 lg:border-r lg:border-b-0 md:px-16 ${
+                  isLight ? "border-black/10" : "border-white/10"
                 }`}
               >
-                {section.section}
-              </p>
-              <div className="max-w-2xl">
+                <span
+                  className={`text-xs font-bold tracking-[0.35em] uppercase ${
+                    isLight ? "text-black/40" : "text-white/30"
+                  }`}
+                >
+                  {section.section}
+                </span>
+              </div>
+
+              {/* Right: Q&A items */}
+              <div className="px-8 py-10 md:px-16">
                 {section.items.map((item, j) => (
                   <FaqItem
                     key={j}

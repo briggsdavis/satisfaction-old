@@ -164,8 +164,8 @@ const ServiceCell = ({
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
     >
-      {/* Image inset — small gap from card edge with rounded corners */}
-      <div className="absolute inset-2.5 overflow-hidden rounded-xl">
+      {/* Image inset — gap from card edge with prominent rounded corners */}
+      <div className="absolute inset-3 overflow-hidden rounded-2xl">
         {/* Photo */}
         <img
           src={service.img}
