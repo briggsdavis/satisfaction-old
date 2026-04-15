@@ -1,4 +1,5 @@
 import {
+  MotionValue,
   motion,
   useAnimationFrame,
   useMotionValue,
@@ -178,8 +179,8 @@ const LogoBrand = ({
   counterSkewTransform,
 }: {
   brand: string
-  skewTransform: ReturnType<typeof useTransform>
-  counterSkewTransform: ReturnType<typeof useTransform>
+  skewTransform: MotionValue<string>
+  counterSkewTransform: MotionValue<string>
 }) => (
   <div className="flex h-full shrink-0 items-center px-3">
     {/* White parallelogram that contains the brand name */}
