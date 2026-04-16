@@ -61,7 +61,7 @@ const CategoryCard = ({
                       duration: 0.3,
                       ease: [0.22, 1, 0.36, 1],
                     }}
-                    className="flex list-none items-start gap-2.5 text-xs leading-relaxed text-white/70"
+                    className="flex list-none items-start gap-2.5 text-xs lowercase leading-relaxed text-white/70"
                   >
                     <span className="mt-[3px] shrink-0 text-xs text-white/30">
                       -
@@ -75,15 +75,14 @@ const CategoryCard = ({
         </AnimatePresence>
 
         {/* Tag pills */}
-        <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
-            <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
-            {category.name}
-          </span>
-          <span className="bg-black/60 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white/50 uppercase backdrop-blur-sm">
-            Portfolio
-          </span>
-        </div>
+        {category.slug === "creative-direction" && (
+          <div className="flex items-center gap-2">
+            <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
+              <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
+              {category.name}
+            </span>
+          </div>
+        )}
       </div>
     </Link>
   )
@@ -94,13 +93,13 @@ const CategoryCard = ({
 export const Portfolio = () => (
   <div className="pt-32">
     {/* Page header */}
-    <section className="border-b border-white/10 px-8 pb-16 md:px-16">
+    <section className="border-b border-white/10 px-8 pb-16 text-center md:px-16">
       <span className="mb-6 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
         Selected Work
       </span>
       <TextReveal
         text="PORTFOLIO"
-        className="massive-text text-6xl leading-none md:text-10xl lg:text-11xl"
+        className="massive-text justify-center text-6xl leading-none md:text-10xl lg:text-11xl"
       />
     </section>
 

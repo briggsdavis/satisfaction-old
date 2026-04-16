@@ -1,9 +1,36 @@
-import { motion } from "motion/react"
+import { motion, useMotionValue, useTransform } from "motion/react"
+import React, { useEffect, useRef } from "react"
 import { Link, useParams } from "react-router"
+import { useSmoothScroll } from "../components/smooth-scroll"
 import { TextReveal } from "../components/text-reveal"
-import { CATEGORIES, type Project } from "../lib/categories"
+import { CATEGORIES, type Category, type Project } from "../lib/categories"
 
-// ─── Project card — same structure as CategoryCard, no bullet expansion ───────
+// ─── CTA block ────────────────────────────────────────────────────────────────
+const CTA_COPY = [
+  "Secure your Design",
+  "Book your Call",
+  "Start your Project",
+  "Let's Work Together",
+] as const
+
+const CtaBlock = ({
+  className = "",
+  copyIndex = 0,
+}: {
+  className?: string
+  copyIndex?: number
+}) => (
+  <Link
+    to="/contact"
+    className={`group relative flex items-center justify-center border border-white/80 bg-black transition-all duration-500 hover:bg-white ${className}`}
+  >
+    <span className="text-center text-lg font-bold tracking-[0.25em] text-white uppercase transition-colors duration-500 group-hover:text-black md:text-xl">
+      {CTA_COPY[copyIndex % CTA_COPY.length]}
+    </span>
+  </Link>
+)
+
+// ─── Project card ─────────────────────────────────────────────────────────────
 const ProjectCard = ({
   project,
   categorySlug,
@@ -27,7 +54,6 @@ const ProjectCard = ({
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }}
     >
-      {/* Background image */}
       <motion.img
         src={project.img}
         alt={project.title}
@@ -37,14 +63,8 @@ const ProjectCard = ({
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       />
-
-      {/* Permanent gradient from bottom */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
-
-      {/* Bottom border line */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-white/20" />
-
-      {/* Bottom-left overlay — identical pill language to portfolio cards */}
       <div className="absolute inset-x-0 bottom-0 p-6 md:p-8">
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
@@ -60,8 +80,206 @@ const ProjectCard = ({
   </Link>
 )
 
+// ─── Grid item builder ────────────────────────────────────────────────────────
+// CTAs occupy "small" masonry slots (slot % 3 === 2 in the [full,small,small] repeat).
+// For 6+ projects: insert a CTA at every slot where slotIndex % 6 === 5.
+//   (5 % 3 === 2 → always a small slot ✓)
+// For fewer than 6 projects: splice one CTA at index 2 (also a small slot ✓).
+type GridItem = { kind: "project"; project: Project } | { kind: "cta"; copyIndex: number }
+
+function buildGridItems(projects: Project[]): GridItem[] {
+  const items: GridItem[] = []
+  let projectIdx = 0
+  let ctaCopyIdx = 0
+  let slotIdx = 0
+  let ctaInserted = false
+
+  while (projectIdx < projects.length) {
+    if (slotIdx % 6 === 5) {
+      items.push({ kind: "cta", copyIndex: ctaCopyIdx++ })
+      ctaInserted = true
+    } else {
+      items.push({ kind: "project", project: projects[projectIdx++] })
+    }
+    slotIdx++
+  }
+
+  // For short project lists (< 6), splice a CTA at position 2 (small slot)
+  if (!ctaInserted && items.length >= 2) {
+    items.splice(2, 0, { kind: "cta", copyIndex: 0 })
+  }
+
+  return items
+}
+
+// ─── Masonry grid ─────────────────────────────────────────────────────────────
+// Renders items in the [full, small, small] repeating pattern.
+const MasonryGrid = ({
+  projects,
+  categorySlug,
+}: {
+  projects: Project[]
+  categorySlug: string
+}) => {
+  const items = buildGridItems(projects)
+  const rows: React.ReactNode[] = []
+  let i = 0
+  let animIdx = 0
+
+  while (i < items.length) {
+    const fullItem = items[i]
+
+    // Full-width row
+    rows.push(
+      <div key={`full-${i}`}>
+        {fullItem.kind === "cta" ? (
+          <CtaBlock className="h-[62vh] md:h-[68vh]" copyIndex={fullItem.copyIndex} />
+        ) : (
+          <ProjectCard
+            project={fullItem.project}
+            categorySlug={categorySlug}
+            className="h-[62vh] md:h-[68vh]"
+            index={animIdx++}
+          />
+        )}
+      </div>,
+    )
+    i++
+    if (i >= items.length) break
+
+    // Pair row
+    const left = items[i]
+    const right = i + 1 < items.length ? items[i + 1] : undefined
+
+    rows.push(
+      <div key={`pair-${i}`} className="flex flex-col gap-8 md:flex-row">
+        {left.kind === "cta" ? (
+          <CtaBlock className="h-[72vh] flex-1" copyIndex={left.copyIndex} />
+        ) : (
+          <ProjectCard
+            project={left.project}
+            categorySlug={categorySlug}
+            className="h-[72vh] flex-1"
+            index={animIdx++}
+          />
+        )}
+        {right &&
+          (right.kind === "cta" ? (
+            <CtaBlock className="h-[72vh] flex-1" copyIndex={right.copyIndex} />
+          ) : (
+            <ProjectCard
+              project={right.project}
+              categorySlug={categorySlug}
+              className="h-[72vh] flex-1"
+              index={animIdx++}
+            />
+          ))}
+      </div>,
+    )
+    i += right ? 2 : 1
+  }
+
+  return <>{rows}</>
+}
+
+// ─── Hero header: centered title → sticks to top on scroll ───────────────────
+//
+// Two-phase crossfade driven by SmoothScroll's smoothY MotionValue:
+//
+// Phase 1  (smoothY < crossover)
+//   Centered title has no y-transform — it scrolls up naturally with the page.
+//   viewport_y = sectionTop + vh/2 − titleH/2 − smoothY
+//
+// Phase 2  (smoothY > crossover)
+//   Pinned title: y = activeY counteracts the container's −smoothY translation,
+//   keeping the element fixed at top-0 in the viewport (content below pt-24
+//   clears the navbar).
+//
+// Crossover point: smoothY at which the centered title's top reaches navH (96px).
+//   crossover = (vh − titleH) / 2 − navH
+//
+// A 60px opacity crossfade blends the two phases seamlessly.
+const CategoryHero = ({ category }: { category: Category }) => {
+  const smoothY = useSmoothScroll()
+  const fallbackY = useMotionValue(0)
+  const activeY = smoothY ?? fallbackY
+
+  const centeredRef = useRef<HTMLDivElement>(null)
+  const crossoverRef = useRef(0)
+  const NAV_H = 96 // px — matches pt-24
+  const FADE = 30 // px half-width of crossfade
+
+  useEffect(() => {
+    const measure = () => {
+      const titleH = centeredRef.current?.offsetHeight ?? 0
+      crossoverRef.current = Math.max(0, (window.innerHeight - titleH) / 2 - NAV_H)
+    }
+    measure()
+    window.addEventListener("resize", measure)
+    return () => window.removeEventListener("resize", measure)
+  }, [])
+
+  const centeredOpacity = useTransform(activeY, (y) => {
+    const co = crossoverRef.current
+    const lo = Math.max(0, co - FADE)
+    const hi = co + FADE
+    if (y <= lo) return 1
+    if (y >= hi) return 0
+    return 1 - (y - lo) / (hi - lo)
+  })
+
+  const pinnedOpacity = useTransform(activeY, (y) => {
+    const co = crossoverRef.current
+    const lo = Math.max(0, co - FADE)
+    const hi = co + FADE
+    if (y <= lo) return 0
+    if (y >= hi) return 1
+    return (y - lo) / (hi - lo)
+  })
+
+  return (
+    <section className="relative h-screen">
+      {/* Hero image — scrolls away with normal page flow */}
+      <div className="absolute inset-0">
+        <img
+          src={category.img}
+          alt={category.name}
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/50" />
+      </div>
+
+      {/* Phase 1: centered — no y-transform, scrolls with the page */}
+      <motion.div
+        style={{ opacity: centeredOpacity }}
+        className="pointer-events-none absolute inset-0 flex items-center justify-center px-8 md:px-16"
+      >
+        <div ref={centeredRef} className="text-center">
+          <TextReveal
+            text={category.name.toUpperCase()}
+            className="massive-text justify-center text-4xl leading-none md:text-7xl lg:text-9xl"
+          />
+        </div>
+      </motion.div>
+
+      {/* Phase 2: pinned — y:activeY cancels -smoothY, locks element at top-0 */}
+      <motion.div
+        style={{ y: activeY, opacity: pinnedOpacity }}
+        className="pointer-events-none absolute inset-x-0 top-0 z-50"
+      >
+        <div className="bg-gradient-to-b from-black/95 via-black/75 to-transparent px-8 pt-24 pb-20 text-center md:px-16 md:pt-28">
+          <TextReveal
+            text={category.name.toUpperCase()}
+            className="massive-text justify-center text-4xl leading-none md:text-7xl lg:text-9xl"
+            immediate
+          />
+        </div>
+      </motion.div>
+    </section>
+  )
+}
+
 // ─── Category page ────────────────────────────────────────────────────────────
-// 3 projects laid out as: full → 2-column split (mirrors portfolio pattern)
 export const CategoryPage = () => {
   const { category: slug } = useParams<{ category: string }>()
   const category = CATEGORIES.find((c) => c.slug === slug)
@@ -81,27 +299,13 @@ export const CategoryPage = () => {
     )
   }
 
-  const [p0, p1, p2] = category.projects
-
   return (
-    <div className="pt-32">
-      {/* Header — same structure as portfolio header */}
-      <section className="border-b border-white/10 px-8 pb-16 md:px-16">
-        <Link
-          to="/portfolio"
-          className="mb-6 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase transition-colors hover:text-white"
-        >
-          ← Portfolio
-        </Link>
-        <TextReveal
-          text={category.name.toUpperCase()}
-          className="massive-text text-4xl leading-none md:text-7xl lg:text-9xl"
-        />
-      </section>
+    <div>
+      {/* Hero — full-viewport with sticky title */}
+      <CategoryHero category={category} />
 
-      {/* Overview section — headline / description + 4-col breakdown */}
+      {/* Overview section */}
       <section className="border-b border-white/10 px-8 py-20 md:px-16">
-        {/* Top row: headline + description — uses same 4-col grid so description aligns with Execution below */}
         <div className="mb-20 grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8">
           <h2 className="text-3xl leading-[1.15] font-bold tracking-tight md:col-span-2 md:text-4xl">
             {category.overview.headline}
@@ -111,7 +315,6 @@ export const CategoryPage = () => {
           </p>
         </div>
 
-        {/* Bottom row: 4-col breakdown */}
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-4 md:gap-8">
           {(
             [
@@ -131,31 +334,9 @@ export const CategoryPage = () => {
         </div>
       </section>
 
-      {/* Project grid — px-8 + gap-8 matches portfolio page exactly */}
+      {/* Project grid with CTA blocks */}
       <div className="flex flex-col gap-8 px-8 py-8 md:px-16">
-        {/* Row 1 — full width */}
-        <ProjectCard
-          project={p0}
-          categorySlug={category.slug}
-          className="h-[62vh] md:h-[68vh]"
-          index={0}
-        />
-
-        {/* Row 2 — 2 columns */}
-        <div className="flex flex-col gap-8 md:flex-row">
-          <ProjectCard
-            project={p1}
-            categorySlug={category.slug}
-            className="h-[72vh] flex-1"
-            index={1}
-          />
-          <ProjectCard
-            project={p2}
-            categorySlug={category.slug}
-            className="h-[72vh] flex-1"
-            index={2}
-          />
-        </div>
+        <MasonryGrid projects={category.projects} categorySlug={category.slug} />
       </div>
 
       {/* Bottom nav */}
