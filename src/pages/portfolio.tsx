@@ -74,15 +74,23 @@ const CategoryCard = ({
           )}
         </AnimatePresence>
 
-        {/* Tag pills */}
-        {category.slug === "creative-direction" && (
-          <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
-              <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
-              {category.name}
-            </span>
-          </div>
-        )}
+        {/* Category title — visible on hover for all cards */}
+        <AnimatePresence>
+          {hovered && (
+            <motion.div
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 4 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="flex items-center gap-2"
+            >
+              <span className="flex items-center gap-1.5 bg-black/85 px-2.5 py-1 text-xs font-bold tracking-[0.22em] text-white uppercase backdrop-blur-sm">
+                <span className="h-[6px] w-[6px] shrink-0 rounded-full bg-white/80" />
+                {category.name}
+              </span>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </Link>
   )
