@@ -48,6 +48,7 @@ import { NotFound } from "./pages/not-found"
 import { Portfolio } from "./pages/portfolio"
 import { ProjectPage } from "./pages/project-page"
 import { Services } from "./pages/services"
+import { Staff } from "./pages/staff"
 
 const Home = () => (
   <>
@@ -86,6 +87,7 @@ const AppRoutes = () => {
       <Route path="/portfolio" element={<Portfolio />} />
       <Route path="/portfolio/:category" element={<CategoryPage />} />
       <Route path="/portfolio/:category/:project" element={<ProjectPage />} />
+      <Route path="/staff" element={<Staff />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/credits" element={<Credits />} />
       <Route path="*" element={<NotFound />} />

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Link } from "react-router"
 import { useContent } from "../admin/context/content-context"
 
-const NAV_LINKS = ["About", "Services", "Portfolio"]
+const NAV_LINKS = ["About", "Staff", "Services", "Portfolio"]
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number]
 
