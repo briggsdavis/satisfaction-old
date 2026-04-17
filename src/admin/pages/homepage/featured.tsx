@@ -7,7 +7,11 @@ export const FeaturedAdmin = () => {
 
   // Flatten all projects from all categories
   const allProjects = content.categories.flatMap((cat) =>
-    cat.projects.map((p) => ({ ...p, categoryName: cat.name, categorySlug: cat.slug })),
+    cat.projects.map((p) => ({
+      ...p,
+      categoryName: cat.name,
+      categorySlug: cat.slug,
+    })),
   )
 
   const toggle = (slug: string) => {
@@ -22,7 +26,9 @@ export const FeaturedAdmin = () => {
     update("featuredSlugs", selected as typeof slugs)
   }
 
-  const featuredProjects = slugs.map((s) => allProjects.find((p) => p.slug === s)).filter(Boolean)
+  const featuredProjects = slugs
+    .map((s) => allProjects.find((p) => p.slug === s))
+    .filter(Boolean)
 
   return (
     <div className="max-w-3xl">
@@ -47,7 +53,7 @@ export const FeaturedAdmin = () => {
                   className="h-28 w-full object-cover opacity-80"
                 />
                 <div className="p-2">
-                  <p className="text-xs font-bold truncate">{p.title}</p>
+                  <p className="truncate text-xs font-bold">{p.title}</p>
                   <p className="text-[10px] text-white/40">{p.descriptor}</p>
                 </div>
               </div>
@@ -56,7 +62,7 @@ export const FeaturedAdmin = () => {
           {Array.from({ length: 3 - featuredProjects.length }).map((_, i) => (
             <div
               key={i}
-              className="flex-1 border border-dashed border-white/10 h-36 flex items-center justify-center text-xs text-white/20"
+              className="flex h-36 flex-1 items-center justify-center border border-dashed border-white/10 text-xs text-white/20"
             >
               Empty slot
             </div>
@@ -81,7 +87,9 @@ export const FeaturedAdmin = () => {
                   onClick={() => toggle(project.slug)}
                   disabled={isDisabled}
                   className={`flex w-full items-center gap-4 border-b border-white/10 py-3 text-left transition-colors ${
-                    isDisabled ? "opacity-30 cursor-not-allowed" : "hover:bg-white/5"
+                    isDisabled
+                      ? "cursor-not-allowed opacity-30"
+                      : "hover:bg-white/5"
                   }`}
                 >
                   <div
@@ -96,7 +104,9 @@ export const FeaturedAdmin = () => {
                   />
                   <div>
                     <p className="text-sm font-bold">{project.title}</p>
-                    <p className="text-xs text-white/40">{project.descriptor} · {project.tags.join(", ")}</p>
+                    <p className="text-xs text-white/40">
+                      {project.descriptor} · {project.tags.join(", ")}
+                    </p>
                   </div>
                 </button>
               )

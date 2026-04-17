@@ -17,10 +17,28 @@ export const ContactInfoAdmin = () => {
         title="Contact Information"
         description="These fields are fixed. You can edit the content but cannot remove the fields."
       />
-      <AdminTextField label="Email" value={info.email} onChange={(v) => set("email", v)} type="email" />
-      <AdminTextField label="Phone" value={info.phone} onChange={(v) => set("phone", v)} type="tel" />
-      <AdminTextField label="Location" value={info.location} onChange={(v) => set("location", v)} />
-      <AdminTextField label="Instagram Handle" value={info.instagram} onChange={(v) => set("instagram", v)} />
+      <AdminTextField
+        label="Email"
+        value={info.email}
+        onChange={(v) => set("email", v)}
+        type="email"
+      />
+      <AdminTextField
+        label="Phone"
+        value={info.phone}
+        onChange={(v) => set("phone", v)}
+        type="tel"
+      />
+      <AdminTextField
+        label="Location"
+        value={info.location}
+        onChange={(v) => set("location", v)}
+      />
+      <AdminTextField
+        label="Instagram Handle"
+        value={info.instagram}
+        onChange={(v) => set("instagram", v)}
+      />
     </div>
   )
 }

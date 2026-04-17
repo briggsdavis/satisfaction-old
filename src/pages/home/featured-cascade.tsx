@@ -143,7 +143,7 @@ const ProjectCard = ({ project }: { project: GridProject }) => (
     <div className="absolute inset-0 bg-black/20 transition-opacity duration-500 group-hover:bg-black/65" />
     {/* Title — centered, fades in on hover */}
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-      <p className="px-6 text-center font-display text-sm uppercase tracking-[0.2em] text-white md:text-base">
+      <p className="px-6 text-center font-display text-sm tracking-[0.2em] text-white uppercase md:text-base">
         {project.title}
       </p>
       <span className="text-[10px] font-bold tracking-[0.3em] text-white/60 uppercase">
@@ -170,7 +170,8 @@ export const FeaturedCascade = () => {
     e.preventDefault()
     const x = e.pageX - (scrollRef.current?.offsetLeft ?? 0)
     const walk = (x - startX.current) * 1.5
-    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeftRef.current - walk
+    if (scrollRef.current)
+      scrollRef.current.scrollLeft = scrollLeftRef.current - walk
   }
 
   const stopDrag = () => {

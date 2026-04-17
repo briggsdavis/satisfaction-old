@@ -28,18 +28,26 @@ export const BrandAdmin = () => {
 
       {/* Current logo preview */}
       <div className="mb-8 border border-white/10 p-6">
-        <p className="mb-4 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">Current Logo</p>
+        <p className="mb-4 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
+          Current Logo
+        </p>
         <img
           src={logo || "/satisfactionlogo.png"}
           alt="Logo preview"
           className="h-14 w-auto"
-          onError={(e) => ((e.target as HTMLImageElement).style.display = "none")}
+          onError={(e) =>
+            ((e.target as HTMLImageElement).style.display = "none")
+          }
         />
         {logo && (
-          <p className="mt-3 text-[10px] text-white/25">Custom logo active — replaces the default.</p>
+          <p className="mt-3 text-[10px] text-white/25">
+            Custom logo active — replaces the default.
+          </p>
         )}
         {!logo && (
-          <p className="mt-3 text-[10px] text-white/25">Showing default logo (satisfactionlogo.png).</p>
+          <p className="mt-3 text-[10px] text-white/25">
+            Showing default logo (satisfactionlogo.png).
+          </p>
         )}
       </div>
 
@@ -48,8 +56,9 @@ export const BrandAdmin = () => {
         <label className="mb-3 block text-xs font-bold tracking-[0.35em] text-white/40 uppercase">
           Upload New Logo
         </label>
-        <p className="mb-4 text-xs text-white/30 leading-relaxed">
-          Upload a PNG, SVG, or WebP. The uploaded image will immediately appear in the nav, footer, admin header, and as the browser favicon.
+        <p className="mb-4 text-xs leading-relaxed text-white/30">
+          Upload a PNG, SVG, or WebP. The uploaded image will immediately appear
+          in the nav, footer, admin header, and as the browser favicon.
         </p>
         <div className="flex items-center gap-3">
           <button
@@ -82,7 +91,9 @@ export const BrandAdmin = () => {
 
       {/* Where it appears */}
       <div className="mt-8">
-        <p className="mb-4 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">Appears In</p>
+        <p className="mb-4 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
+          Appears In
+        </p>
         <div className="space-y-2">
           {[
             "Site navigation (top left)",
@@ -90,7 +101,10 @@ export const BrandAdmin = () => {
             "Admin header (top left)",
             "Browser favicon (tab icon)",
           ].map((loc) => (
-            <div key={loc} className="flex items-center gap-3 border-b border-white/5 py-2.5">
+            <div
+              key={loc}
+              className="flex items-center gap-3 border-b border-white/5 py-2.5"
+            >
               <div className="h-1.5 w-1.5 rounded-full bg-white/30" />
               <span className="text-sm text-white/60">{loc}</span>
             </div>

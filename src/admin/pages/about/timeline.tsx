@@ -25,15 +25,32 @@ export const TimelineAdmin = () => {
           <p className="mb-4 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
             Entry {i + 1}
           </p>
-          <AdminTextField label="Date Range" value={item.date} onChange={(v) => setItem(i, "date", v)} />
-          <AdminTextField label="Client" value={item.client} onChange={(v) => setItem(i, "client", v)} />
+          <AdminTextField
+            label="Date Range"
+            value={item.date}
+            onChange={(v) => setItem(i, "date", v)}
+          />
+          <AdminTextField
+            label="Client"
+            value={item.client}
+            onChange={(v) => setItem(i, "client", v)}
+          />
           <AdminTextField
             label="Campaign (leave blank if none)"
             value={item.campaign ?? ""}
             onChange={(v) => setItem(i, "campaign", v || null)}
           />
-          <AdminTextField label="Role" value={item.role} onChange={(v) => setItem(i, "role", v)} />
-          <AdminTextareaField label="Description" value={item.description} onChange={(v) => setItem(i, "description", v)} rows={4} />
+          <AdminTextField
+            label="Role"
+            value={item.role}
+            onChange={(v) => setItem(i, "role", v)}
+          />
+          <AdminTextareaField
+            label="Description"
+            value={item.description}
+            onChange={(v) => setItem(i, "description", v)}
+            rows={4}
+          />
         </div>
       ))}
     </div>

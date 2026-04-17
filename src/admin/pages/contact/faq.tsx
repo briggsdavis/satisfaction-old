@@ -17,7 +17,10 @@ export const FaqAdmin = () => {
   // Draft state for new section
   const [draftSection, setDraftSection] = useState<FaqSection | null>(null)
   // Draft state for new item within a section: { si, item }
-  const [draftItem, setDraftItem] = useState<{ si: number; item: FaqItem } | null>(null)
+  const [draftItem, setDraftItem] = useState<{
+    si: number
+    item: FaqItem
+  } | null>(null)
 
   const updateSections = (next: FaqSection[]) => update("faqSections", next)
 
@@ -25,7 +28,9 @@ export const FaqAdmin = () => {
     updateSections(sections.map((s, i) => (i === si ? { ...s, ...patch } : s)))
 
   const updateItem = (si: number, ii: number, patch: Partial<FaqItem>) => {
-    const items = sections[si].items.map((item, i) => (i === ii ? { ...item, ...patch } : item))
+    const items = sections[si].items.map((item, i) =>
+      i === ii ? { ...item, ...patch } : item,
+    )
     updateSection(si, { items })
   }
 
@@ -37,7 +42,8 @@ export const FaqAdmin = () => {
     updateSections(next)
   }
 
-  const deleteSection = (si: number) => updateSections(sections.filter((_, i) => i !== si))
+  const deleteSection = (si: number) =>
+    updateSections(sections.filter((_, i) => i !== si))
 
   const confirmSection = () => {
     if (draftSection) {
@@ -80,17 +86,42 @@ export const FaqAdmin = () => {
             {/* Section header row */}
             <div className="flex items-center gap-2 px-4 py-3">
               <button
-                onClick={() => setExpandedSection((e) => (e === si ? null : si))}
+                onClick={() =>
+                  setExpandedSection((e) => (e === si ? null : si))
+                }
                 className="flex flex-1 items-center gap-2 text-left"
               >
-                {expandedSection === si ? <ChevronDown size={14} className="text-white/40" /> : <ChevronUp size={14} className="text-white/40 rotate-180" />}
+                {expandedSection === si ? (
+                  <ChevronDown size={14} className="text-white/40" />
+                ) : (
+                  <ChevronUp size={14} className="rotate-180 text-white/40" />
+                )}
                 <span className="text-sm font-bold">{section.section}</span>
-                <span className="text-xs text-white/30">({section.items.length} items)</span>
+                <span className="text-xs text-white/30">
+                  ({section.items.length} items)
+                </span>
               </button>
-              <div className="flex items-center gap-1 shrink-0">
-                <button onClick={() => moveSection(si, -1)} disabled={si === 0} className="p-1 text-white/30 hover:text-white disabled:opacity-20 transition-colors"><ChevronUp size={13} /></button>
-                <button onClick={() => moveSection(si, 1)} disabled={si === sections.length - 1} className="p-1 text-white/30 hover:text-white disabled:opacity-20 transition-colors"><ChevronDown size={13} /></button>
-                <button onClick={() => deleteSection(si)} className="p-1 text-white/20 hover:text-red-400 transition-colors"><Trash2 size={13} /></button>
+              <div className="flex shrink-0 items-center gap-1">
+                <button
+                  onClick={() => moveSection(si, -1)}
+                  disabled={si === 0}
+                  className="p-1 text-white/30 transition-colors hover:text-white disabled:opacity-20"
+                >
+                  <ChevronUp size={13} />
+                </button>
+                <button
+                  onClick={() => moveSection(si, 1)}
+                  disabled={si === sections.length - 1}
+                  className="p-1 text-white/30 transition-colors hover:text-white disabled:opacity-20"
+                >
+                  <ChevronDown size={13} />
+                </button>
+                <button
+                  onClick={() => deleteSection(si)}
+                  className="p-1 text-white/20 transition-colors hover:text-red-400"
+                >
+                  <Trash2 size={13} />
+                </button>
               </div>
             </div>
 
@@ -110,21 +141,49 @@ export const FaqAdmin = () => {
                       <div key={ii} className="border border-white/10">
                         <div className="flex items-center gap-2 px-3 py-2">
                           <button
-                            onClick={() => setExpandedItem((e) => (e === key ? null : key))}
-                            className="flex-1 text-left text-xs text-white/60 truncate hover:text-white transition-colors"
+                            onClick={() =>
+                              setExpandedItem((e) => (e === key ? null : key))
+                            }
+                            className="flex-1 truncate text-left text-xs text-white/60 transition-colors hover:text-white"
                           >
                             {item.q || "New question"}
                           </button>
-                          <div className="flex items-center gap-1 shrink-0">
-                            <button onClick={() => moveItem(si, ii, -1)} disabled={ii === 0} className="p-1 text-white/20 hover:text-white disabled:opacity-20 transition-colors"><ChevronUp size={12} /></button>
-                            <button onClick={() => moveItem(si, ii, 1)} disabled={ii === section.items.length - 1} className="p-1 text-white/20 hover:text-white disabled:opacity-20 transition-colors"><ChevronDown size={12} /></button>
-                            <button onClick={() => deleteItem(si, ii)} className="p-1 text-white/20 hover:text-red-400 transition-colors"><Trash2 size={12} /></button>
+                          <div className="flex shrink-0 items-center gap-1">
+                            <button
+                              onClick={() => moveItem(si, ii, -1)}
+                              disabled={ii === 0}
+                              className="p-1 text-white/20 transition-colors hover:text-white disabled:opacity-20"
+                            >
+                              <ChevronUp size={12} />
+                            </button>
+                            <button
+                              onClick={() => moveItem(si, ii, 1)}
+                              disabled={ii === section.items.length - 1}
+                              className="p-1 text-white/20 transition-colors hover:text-white disabled:opacity-20"
+                            >
+                              <ChevronDown size={12} />
+                            </button>
+                            <button
+                              onClick={() => deleteItem(si, ii)}
+                              className="p-1 text-white/20 transition-colors hover:text-red-400"
+                            >
+                              <Trash2 size={12} />
+                            </button>
                           </div>
                         </div>
                         {isOpen && (
                           <div className="border-t border-white/10 px-3 pb-3">
-                            <AdminTextField label="Question" value={item.q} onChange={(v) => updateItem(si, ii, { q: v })} />
-                            <AdminTextareaField label="Answer" value={item.a} onChange={(v) => updateItem(si, ii, { a: v })} rows={3} />
+                            <AdminTextField
+                              label="Question"
+                              value={item.q}
+                              onChange={(v) => updateItem(si, ii, { q: v })}
+                            />
+                            <AdminTextareaField
+                              label="Answer"
+                              value={item.a}
+                              onChange={(v) => updateItem(si, ii, { a: v })}
+                              rows={3}
+                            />
                           </div>
                         )}
                       </div>
@@ -135,7 +194,9 @@ export const FaqAdmin = () => {
                   {draftItem?.si === si ? (
                     <div className="border border-dashed border-white/30">
                       <div className="flex items-center justify-between border-b border-white/10 px-3 py-2">
-                        <span className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase">New Question</span>
+                        <span className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase">
+                          New Question
+                        </span>
                         <div className="flex items-center gap-4">
                           <button
                             onClick={() => setDraftItem(null)}
@@ -155,20 +216,32 @@ export const FaqAdmin = () => {
                         <AdminTextField
                           label="Question"
                           value={draftItem.item.q}
-                          onChange={(v) => setDraftItem({ si, item: { ...draftItem.item, q: v } })}
+                          onChange={(v) =>
+                            setDraftItem({
+                              si,
+                              item: { ...draftItem.item, q: v },
+                            })
+                          }
                         />
                         <AdminTextareaField
                           label="Answer"
                           value={draftItem.item.a}
-                          onChange={(v) => setDraftItem({ si, item: { ...draftItem.item, a: v } })}
+                          onChange={(v) =>
+                            setDraftItem({
+                              si,
+                              item: { ...draftItem.item, a: v },
+                            })
+                          }
                           rows={3}
                         />
                       </div>
                     </div>
                   ) : (
                     <button
-                      onClick={() => setDraftItem({ si, item: { q: "", a: "" } })}
-                      className="flex items-center gap-1.5 py-2 text-xs font-bold tracking-[0.2em] text-white/30 uppercase hover:text-white transition-colors"
+                      onClick={() =>
+                        setDraftItem({ si, item: { q: "", a: "" } })
+                      }
+                      className="flex items-center gap-1.5 py-2 text-xs font-bold tracking-[0.2em] text-white/30 uppercase transition-colors hover:text-white"
                     >
                       <Plus size={11} /> Add Question
                     </button>
@@ -184,7 +257,9 @@ export const FaqAdmin = () => {
       {draftSection !== null ? (
         <div className="mt-4 border border-dashed border-white/30">
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-            <span className="text-xs font-bold tracking-[0.25em] text-white/40 uppercase">New Section</span>
+            <span className="text-xs font-bold tracking-[0.25em] text-white/40 uppercase">
+              New Section
+            </span>
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setDraftSection(null)}
@@ -211,7 +286,7 @@ export const FaqAdmin = () => {
       ) : (
         <button
           onClick={() => setDraftSection({ section: "", items: [] })}
-          className="mt-4 flex items-center gap-2 border border-dashed border-white/20 px-4 py-2 text-xs font-bold tracking-[0.25em] text-white/40 uppercase hover:border-white/40 hover:text-white/70 transition-colors"
+          className="mt-4 flex items-center gap-2 border border-dashed border-white/20 px-4 py-2 text-xs font-bold tracking-[0.25em] text-white/40 uppercase transition-colors hover:border-white/40 hover:text-white/70"
         >
           <Plus size={12} /> Add Section
         </button>

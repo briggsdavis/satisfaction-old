@@ -23,9 +23,7 @@ export const SectionHeader = ({
 }) => (
   <div className="mb-8 border-b border-white/10 pb-6">
     <h2 className="text-2xl font-bold tracking-tight uppercase">{title}</h2>
-    {description && (
-      <p className="mt-2 text-sm text-white/50">{description}</p>
-    )}
+    {description && <p className="mt-2 text-sm text-white/50">{description}</p>}
   </div>
 )
 
@@ -48,10 +46,16 @@ export const RouteBadge = ({ routes }: { routes: string[] }) => (
 )
 
 // Read-only frame with label overlay
-export const ReadOnlyFrame = ({ children, label = "READ ONLY" }: { children: React.ReactNode; label?: string }) => (
+export const ReadOnlyFrame = ({
+  children,
+  label = "READ ONLY",
+}: {
+  children: React.ReactNode
+  label?: string
+}) => (
   <div className="relative mb-8 border border-white/10">
     <div className="pointer-events-none absolute inset-0 z-10 bg-black/40" />
-    <div className="absolute top-3 right-3 z-20 bg-black px-2 py-1 text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase border border-white/10">
+    <div className="absolute top-3 right-3 z-20 border border-white/10 bg-black px-2 py-1 text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">
       {label}
     </div>
     <div className="pointer-events-none overflow-hidden">{children}</div>
@@ -69,7 +73,7 @@ export const ConfirmDialog = ({
   onCancel: () => void
 }) => (
   <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80">
-    <div className="border border-white/20 bg-black p-8 max-w-sm w-full mx-4">
+    <div className="mx-4 w-full max-w-sm border border-white/20 bg-black p-8">
       <p className="mb-6 text-sm text-white/70">{message}</p>
       <div className="flex gap-3">
         <button onClick={onConfirm} className="btn-industrial-sm flex-1">

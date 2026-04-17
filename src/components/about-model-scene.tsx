@@ -88,11 +88,7 @@ function Scene({ onReady }: { onReady?: () => void }) {
 }
 
 // ─── Exported Canvas Wrapper ────────────────────────────────────────────────
-export function AboutModelScene({
-  onReady,
-}: {
-  onReady?: () => void
-}) {
+export function AboutModelScene({ onReady }: { onReady?: () => void }) {
   const dpr = Math.min(window.devicePixelRatio, 1.5)
 
   return (

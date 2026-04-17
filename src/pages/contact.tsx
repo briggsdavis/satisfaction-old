@@ -270,12 +270,40 @@ const ServiceSelect = () => {
                 setSelected(option.name)
                 setIsOpen(false)
               }}
-              style={{ display: "flex", width: "100%", alignItems: "center", gap: "12px", padding: "10px 16px", textAlign: "left", fontSize: "14px", color: "rgba(255,255,255,0.6)", background: "none", border: "none", cursor: "pointer" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "rgba(255,255,255,0.05)"; (e.currentTarget as HTMLButtonElement).style.color = "#fff" }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent"; (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.6)" }}
+              style={{
+                display: "flex",
+                width: "100%",
+                alignItems: "center",
+                gap: "12px",
+                padding: "10px 16px",
+                textAlign: "left",
+                fontSize: "14px",
+                color: "rgba(255,255,255,0.6)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+              }}
+              onMouseEnter={(e) => {
+                ;(e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                  "rgba(255,255,255,0.05)"
+                ;(e.currentTarget as HTMLButtonElement).style.color = "#fff"
+              }}
+              onMouseLeave={(e) => {
+                ;(e.currentTarget as HTMLButtonElement).style.backgroundColor =
+                  "transparent"
+                ;(e.currentTarget as HTMLButtonElement).style.color =
+                  "rgba(255,255,255,0.6)"
+              }}
             >
               <span
-                style={{ width: 8, height: 8, borderRadius: "50%", backgroundColor: option.color, flexShrink: 0, display: "inline-block" }}
+                style={{
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  backgroundColor: option.color,
+                  flexShrink: 0,
+                  display: "inline-block",
+                }}
               />
               {option.name}
             </button>
@@ -295,13 +323,16 @@ const ServiceSelect = () => {
           ref={buttonRef}
           type="button"
           onClick={toggleMenu}
-          className="flex w-full items-center justify-between border-b border-white/20 pb-2 text-base outline-none transition-colors focus:border-white/50"
+          className="flex w-full items-center justify-between border-b border-white/20 pb-2 text-base transition-colors outline-none focus:border-white/50"
         >
           {selectedOption ? (
             <span className="flex items-center gap-2.5">
               <span
                 className="h-2 w-2 shrink-0"
-                style={{ backgroundColor: selectedOption.color, borderRadius: "50%" }}
+                style={{
+                  backgroundColor: selectedOption.color,
+                  borderRadius: "50%",
+                }}
               />
               <span className="text-white">{selectedOption.name}</span>
             </span>
@@ -337,14 +368,18 @@ const FaqItem = ({
   onToggle: () => void
   isLight?: boolean
 }) => (
-  <div className={`border-b ${isLight ? "border-black/15" : "border-white/10"}`}>
+  <div
+    className={`border-b ${isLight ? "border-black/15" : "border-white/10"}`}
+  >
     <button
       onClick={onToggle}
       className="group flex w-full items-center justify-between py-5 text-left"
     >
       <span
         className={`pr-8 text-sm font-bold tracking-wide transition-colors ${
-          isLight ? "text-black/80 group-hover:text-black" : "text-white/70 group-hover:text-white"
+          isLight
+            ? "text-black/80 group-hover:text-black"
+            : "text-white/70 group-hover:text-white"
         }`}
       >
         {item.q}
@@ -367,7 +402,7 @@ const FaqItem = ({
           className="overflow-hidden"
         >
           <p
-            className={`pb-5 text-sm font-normal leading-relaxed ${
+            className={`pb-5 text-sm leading-relaxed font-normal ${
               isLight ? "text-black/55" : "text-white/50"
             }`}
           >
@@ -447,7 +482,7 @@ export const Contact = () => {
         {/* Contact details sidebar */}
         <BlurIn
           delay={0.1}
-          className="border-b border-white/10 px-8 py-12 lg:border-r lg:border-b-0 md:px-16 lg:py-16"
+          className="border-b border-white/10 px-8 py-12 md:px-16 lg:border-r lg:border-b-0 lg:py-16"
         >
           <p className="mb-10 text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
             Get In Touch
@@ -549,7 +584,7 @@ export const Contact = () => {
         <div className="grid grid-cols-1 border-b border-white/10 lg:grid-cols-[1fr_2fr]">
           <BlurIn
             delay={0.1}
-            className="border-b border-white/10 px-8 py-12 lg:border-r lg:border-b-0 md:px-16 lg:py-16"
+            className="border-b border-white/10 px-8 py-12 md:px-16 lg:border-r lg:border-b-0 lg:py-16"
           >
             <span className="mb-4 block text-xs font-bold tracking-[0.4em] text-white/30 uppercase">
               Frequently Asked
@@ -581,7 +616,7 @@ export const Contact = () => {
             >
               {/* Left: section label */}
               <div
-                className={`border-b px-8 py-10 lg:border-r lg:border-b-0 md:px-16 ${
+                className={`border-b px-8 py-10 md:px-16 lg:border-r lg:border-b-0 ${
                   isLight ? "border-black/10" : "border-white/10"
                 }`}
               >

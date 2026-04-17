@@ -1,5 +1,9 @@
 import { useState } from "react"
-import { AdminImageField, AdminTextareaField, AdminTextField } from "../components/fields"
+import {
+  AdminImageField,
+  AdminTextareaField,
+  AdminTextField,
+} from "../components/fields"
 import { ItemActions, ListEditor } from "../components/list-editor"
 import type { ItemHelpers } from "../components/list-editor"
 import { RouteBadge, SectionHeader } from "../components/misc"
@@ -39,21 +43,27 @@ const ServiceEditor = ({
   }
 
   const addBullet = () => set("bullets", [...service.bullets, ""])
-  const removeBullet = (i: number) => set("bullets", service.bullets.filter((_, idx) => idx !== i))
+  const removeBullet = (i: number) =>
+    set(
+      "bullets",
+      service.bullets.filter((_, idx) => idx !== i),
+    )
 
   return (
     <div className="border border-white/10">
       <div className="flex items-center justify-between px-4 py-3">
         <div className="min-w-0">
-          <span className="text-sm font-bold truncate block">{service.name || "Untitled Service"}</span>
+          <span className="block truncate text-sm font-bold">
+            {service.name || "Untitled Service"}
+          </span>
           <span className="text-xs text-white/40">{service.tag}</span>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex shrink-0 items-center gap-2">
           {!helpers.isDraft && (
             <>
               <button
                 onClick={() => setOpen((o) => !o)}
-                className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase hover:text-white transition-colors"
+                className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase transition-colors hover:text-white"
               >
                 {open ? "Close" : "Edit"}
               </button>
@@ -71,16 +81,29 @@ const ServiceEditor = ({
 
       {open && (
         <div className="border-t border-white/10 px-4 pb-4">
-          <AdminTextField label="Name" value={service.name} onChange={(v) => set("name", v)} />
-          <AdminTextField label="Tag" value={service.tag} onChange={(v) => set("tag", v)} />
-          <AdminTextareaField label="Description" value={service.desc} onChange={(v) => set("desc", v)} rows={3} />
+          <AdminTextField
+            label="Name"
+            value={service.name}
+            onChange={(v) => set("name", v)}
+          />
+          <AdminTextField
+            label="Tag"
+            value={service.tag}
+            onChange={(v) => set("tag", v)}
+          />
+          <AdminTextareaField
+            label="Description"
+            value={service.desc}
+            onChange={(v) => set("desc", v)}
+            rows={3}
+          />
 
           <div className="border-b border-white/10 py-4">
             <label className="mb-3 block text-xs font-bold tracking-[0.35em] text-white/40 uppercase">
               Bullet Points
             </label>
             {service.bullets.map((bullet, i) => (
-              <div key={i} className="flex items-center gap-2 mb-2">
+              <div key={i} className="mb-2 flex items-center gap-2">
                 <input
                   type="text"
                   value={bullet}
@@ -89,7 +112,7 @@ const ServiceEditor = ({
                 />
                 <button
                   onClick={() => removeBullet(i)}
-                  className="text-white/20 hover:text-red-400 transition-colors text-xs"
+                  className="text-xs text-white/20 transition-colors hover:text-red-400"
                 >
                   ✕
                 </button>
@@ -97,13 +120,17 @@ const ServiceEditor = ({
             ))}
             <button
               onClick={addBullet}
-              className="mt-2 text-xs font-bold tracking-[0.2em] text-white/30 uppercase hover:text-white transition-colors"
+              className="mt-2 text-xs font-bold tracking-[0.2em] text-white/30 uppercase transition-colors hover:text-white"
             >
               + Add Bullet
             </button>
           </div>
 
-          <AdminImageField label="Homepage Grid Image" value={service.gridImg} onChange={(v) => set("gridImg", v)} />
+          <AdminImageField
+            label="Homepage Grid Image"
+            value={service.gridImg}
+            onChange={(v) => set("gridImg", v)}
+          />
 
           <div className="flex gap-4">
             <div className="flex-1">
@@ -124,7 +151,7 @@ const ServiceEditor = ({
             </div>
           </div>
 
-          <div className="flex items-center gap-3 py-4 border-b border-white/10">
+          <div className="flex items-center gap-3 border-b border-white/10 py-4">
             <label className="text-xs font-bold tracking-[0.35em] text-white/40 uppercase">
               Inverted (white bg)
             </label>

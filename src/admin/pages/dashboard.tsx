@@ -5,20 +5,43 @@ export const Dashboard = () => {
   const { content } = useContent()
 
   const stats = [
-    { label: "Categories", count: content.categories.length, to: "/admin/portfolio" },
-    { label: "Projects", count: content.categories.reduce((n, c) => n + c.projects.length, 0), to: "/admin/portfolio" },
-    { label: "Services", count: content.services.length, to: "/admin/services" },
+    {
+      label: "Categories",
+      count: content.categories.length,
+      to: "/admin/portfolio",
+    },
+    {
+      label: "Projects",
+      count: content.categories.reduce((n, c) => n + c.projects.length, 0),
+      to: "/admin/portfolio",
+    },
+    {
+      label: "Services",
+      count: content.services.length,
+      to: "/admin/services",
+    },
     { label: "Brands", count: content.brands.length, to: "/admin/homepage" },
-    { label: "FAQ Sections", count: content.faqSections.length, to: "/admin/contact" },
-    { label: "FAQ Items", count: content.faqSections.reduce((n, s) => n + s.items.length, 0), to: "/admin/contact" },
+    {
+      label: "FAQ Sections",
+      count: content.faqSections.length,
+      to: "/admin/contact",
+    },
+    {
+      label: "FAQ Items",
+      count: content.faqSections.reduce((n, s) => n + s.items.length, 0),
+      to: "/admin/contact",
+    },
   ]
 
   return (
     <div className="max-w-4xl">
       <div className="mb-10 border-b border-white/10 pb-6">
-        <h1 className="text-3xl font-bold tracking-tight uppercase">Dashboard</h1>
+        <h1 className="text-3xl font-bold tracking-tight uppercase">
+          Dashboard
+        </h1>
         <p className="mt-2 text-sm text-white/40">
-          All edits are stored locally in this browser. Changes do not affect the live site until deployed.
+          All edits are stored locally in this browser. Changes do not affect
+          the live site until deployed.
         </p>
       </div>
 
@@ -30,13 +53,17 @@ export const Dashboard = () => {
             className="border border-white/10 p-6 transition-colors hover:border-white/30"
           >
             <p className="text-3xl font-bold">{count}</p>
-            <p className="mt-1 text-xs font-bold tracking-[0.25em] text-white/40 uppercase">{label}</p>
+            <p className="mt-1 text-xs font-bold tracking-[0.25em] text-white/40 uppercase">
+              {label}
+            </p>
           </Link>
         ))}
       </div>
 
       <div className="space-y-2">
-        <p className="text-xs font-bold tracking-[0.3em] text-white/30 uppercase mb-4">Quick Links</p>
+        <p className="mb-4 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
+          Quick Links
+        </p>
         {[
           { to: "/admin/homepage", label: "Homepage Sections" },
           { to: "/admin/about", label: "About Page" },

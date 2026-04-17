@@ -114,7 +114,9 @@ export const AdminImageField = ({
         <img
           src={value}
           alt="preview"
-          onError={(e) => ((e.target as HTMLImageElement).style.display = "none")}
+          onError={(e) =>
+            ((e.target as HTMLImageElement).style.display = "none")
+          }
           className="mt-3 h-24 w-40 border border-white/10 object-cover"
         />
       )}

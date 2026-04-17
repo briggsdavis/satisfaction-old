@@ -18,10 +18,14 @@ export const HeroAdmin = () => {
       />
 
       <div className="mb-6 border border-white/10 bg-black px-6 py-5">
-        <p className="mb-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase">Preview</p>
+        <p className="mb-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase">
+          Preview
+        </p>
         <div className="flex justify-between text-xs font-bold tracking-[0.35em] text-white/30 uppercase">
           <div className="whitespace-pre-line">{hero.topLeft || "—"}</div>
-          <div className="whitespace-pre-line text-right">{hero.topRight || "—"}</div>
+          <div className="text-right whitespace-pre-line">
+            {hero.topRight || "—"}
+          </div>
         </div>
         <div className="mt-6 flex justify-between text-xs font-bold tracking-[0.35em] text-white/15 uppercase">
           <span>{hero.bottomLeft || "—"}</span>

@@ -17,7 +17,11 @@ export type ItemHelpers<T> = {
 type ListEditorProps<T> = {
   items: T[]
   onChange: (items: T[]) => void
-  renderItem: (item: T, index: number, helpers: ItemHelpers<T>) => React.ReactNode
+  renderItem: (
+    item: T,
+    index: number,
+    helpers: ItemHelpers<T>,
+  ) => React.ReactNode
   onAdd: () => T
   addLabel?: string
   canDelete?: boolean
@@ -138,7 +142,7 @@ export const ItemActions = ({
   isLast: boolean
   canDelete?: boolean
 }) => (
-  <div className="flex items-center gap-1 shrink-0">
+  <div className="flex shrink-0 items-center gap-1">
     <button
       onClick={onMoveUp}
       disabled={isFirst}

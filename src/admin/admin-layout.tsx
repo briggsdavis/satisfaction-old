@@ -4,7 +4,7 @@ import { AdminSidebar } from "./admin-sidebar"
 import { AdminTopbar } from "./admin-topbar"
 
 export const AdminLayout = () => (
-  <div className="flex h-screen flex-col bg-black text-white overflow-hidden">
+  <div className="flex h-screen flex-col overflow-hidden bg-black text-white">
     <AdminTopbar />
     <div className="flex flex-1 overflow-hidden">
       <AdminSidebar />

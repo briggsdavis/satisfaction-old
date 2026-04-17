@@ -1,7 +1,11 @@
 import { ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { Link } from "react-router"
-import { AdminImageField, AdminTextareaField, AdminTextField } from "../../components/fields"
+import {
+  AdminImageField,
+  AdminTextareaField,
+  AdminTextField,
+} from "../../components/fields"
 import { ConfirmDialog, SectionHeader } from "../../components/misc"
 import { useContent } from "../../context/content-context"
 import type { AdminContent } from "../../context/content-context"
@@ -40,10 +44,12 @@ export const PortfolioIndex = () => {
   const [draft, setDraft] = useState<Category | null>(null)
 
   const setDraftField = (key: keyof Category, value: unknown) =>
-    setDraft((d) => d ? { ...d, [key]: value } : d)
+    setDraft((d) => (d ? { ...d, [key]: value } : d))
 
   const setDraftOverview = (key: string, value: string) =>
-    setDraft((d) => d ? { ...d, overview: { ...d.overview, [key]: value } } : d)
+    setDraft((d) =>
+      d ? { ...d, overview: { ...d.overview, [key]: value } } : d,
+    )
 
   const setDraftBullet = (i: number, value: string) =>
     setDraft((d) => {
@@ -54,7 +60,7 @@ export const PortfolioIndex = () => {
     })
 
   const handleNameChange = (name: string) =>
-    setDraft((d) => d ? { ...d, name, slug: toSlug(name) } : d)
+    setDraft((d) => (d ? { ...d, name, slug: toSlug(name) } : d))
 
   const confirmCategory = () => {
     if (draft) {
@@ -64,7 +70,10 @@ export const PortfolioIndex = () => {
   }
 
   const deleteCategory = (slug: string) => {
-    update("categories", categories.filter((c) => c.slug !== slug))
+    update(
+      "categories",
+      categories.filter((c) => c.slug !== slug),
+    )
     setDeleteTarget(null)
   }
 
@@ -80,30 +89,34 @@ export const PortfolioIndex = () => {
           <div key={cat.slug} className="border border-white/10">
             <div className="flex items-center gap-3 px-4 py-3">
               <button
-                onClick={() => setExpanded((e) => (e === cat.slug ? null : cat.slug))}
+                onClick={() =>
+                  setExpanded((e) => (e === cat.slug ? null : cat.slug))
+                }
                 className="flex flex-1 items-center gap-3 text-left"
               >
                 {expanded === cat.slug ? (
-                  <ChevronDown size={14} className="text-white/40 shrink-0" />
+                  <ChevronDown size={14} className="shrink-0 text-white/40" />
                 ) : (
-                  <ChevronRight size={14} className="text-white/40 shrink-0" />
+                  <ChevronRight size={14} className="shrink-0 text-white/40" />
                 )}
                 <div>
                   <p className="text-sm font-bold">{cat.name}</p>
                   <p className="text-xs text-white/40">
-                    {cat.projects.length} project{cat.projects.length !== 1 ? "s" : ""} · /portfolio/{cat.slug}
+                    {cat.projects.length} project
+                    {cat.projects.length !== 1 ? "s" : ""} · /portfolio/
+                    {cat.slug}
                   </p>
                 </div>
               </button>
               <Link
                 to={cat.slug}
-                className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase hover:text-white transition-colors shrink-0"
+                className="shrink-0 text-xs font-bold tracking-[0.2em] text-white/40 uppercase transition-colors hover:text-white"
               >
                 Edit
               </Link>
               <button
                 onClick={() => setDeleteTarget(cat.slug)}
-                className="p-1 text-white/20 hover:text-red-400 transition-colors shrink-0"
+                className="shrink-0 p-1 text-white/20 transition-colors hover:text-red-400"
                 title="Delete category"
               >
                 <Trash2 size={14} />
@@ -111,16 +124,21 @@ export const PortfolioIndex = () => {
             </div>
 
             {expanded === cat.slug && (
-              <div className="border-t border-white/10 pl-10 pr-4">
+              <div className="border-t border-white/10 pr-4 pl-10">
                 {cat.projects.map((p) => (
-                  <div key={p.slug} className="flex items-center justify-between border-b border-white/5 py-2.5">
+                  <div
+                    key={p.slug}
+                    className="flex items-center justify-between border-b border-white/5 py-2.5"
+                  >
                     <div>
                       <p className="text-xs font-bold">{p.title}</p>
-                      <p className="text-[10px] text-white/30">/portfolio/{cat.slug}/{p.slug}</p>
+                      <p className="text-[10px] text-white/30">
+                        /portfolio/{cat.slug}/{p.slug}
+                      </p>
                     </div>
                     <Link
                       to={`${cat.slug}/${p.slug}`}
-                      className="text-xs font-bold tracking-[0.2em] text-white/30 uppercase hover:text-white transition-colors"
+                      className="text-xs font-bold tracking-[0.2em] text-white/30 uppercase transition-colors hover:text-white"
                     >
                       Edit
                     </Link>
@@ -128,7 +146,7 @@ export const PortfolioIndex = () => {
                 ))}
                 <Link
                   to={`${cat.slug}?new`}
-                  className="flex items-center gap-1.5 py-3 text-xs font-bold tracking-[0.2em] text-white/30 uppercase hover:text-white transition-colors"
+                  className="flex items-center gap-1.5 py-3 text-xs font-bold tracking-[0.2em] text-white/30 uppercase transition-colors hover:text-white"
                 >
                   <Plus size={11} /> Add Project
                 </Link>
@@ -143,7 +161,9 @@ export const PortfolioIndex = () => {
         <div className="mt-4 border border-dashed border-white/30">
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-            <span className="text-xs font-bold tracking-[0.25em] text-white/40 uppercase">New Category</span>
+            <span className="text-xs font-bold tracking-[0.25em] text-white/40 uppercase">
+              New Category
+            </span>
             <div className="flex items-center gap-4">
               <button
                 onClick={() => setDraft(null)}
@@ -173,7 +193,8 @@ export const PortfolioIndex = () => {
                 URL Slug (auto-generated)
               </p>
               <p className="mt-1 font-mono text-xs text-white/50">
-                /portfolio/<span className="text-white/70">{draft.slug || "…"}</span>
+                /portfolio/
+                <span className="text-white/70">{draft.slug || "…"}</span>
               </p>
             </div>
 
@@ -202,7 +223,9 @@ export const PortfolioIndex = () => {
 
             {/* Overview */}
             <div className="mt-4 mb-2">
-              <p className="text-xs font-bold tracking-[0.3em] text-white/30 uppercase">Overview</p>
+              <p className="text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
+                Overview
+              </p>
             </div>
             <AdminTextField
               label="Headline"

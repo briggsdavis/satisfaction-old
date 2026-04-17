@@ -47,10 +47,10 @@ export const Hero = () => {
       <div className="relative z-10 flex h-screen flex-col">
         {/* Top metadata bar */}
         <div className="flex items-start justify-between px-8 pt-28 pb-4 md:px-16">
-          <div className="whitespace-pre-line text-xs leading-relaxed font-bold tracking-[0.35em] text-white/30 uppercase">
+          <div className="text-xs leading-relaxed font-bold tracking-[0.35em] whitespace-pre-line text-white/30 uppercase">
             {topLeft}
           </div>
-          <div className="whitespace-pre-line text-right text-xs leading-relaxed font-bold tracking-[0.35em] text-white/30 uppercase">
+          <div className="text-right text-xs leading-relaxed font-bold tracking-[0.35em] whitespace-pre-line text-white/30 uppercase">
             {topRight}
           </div>
         </div>

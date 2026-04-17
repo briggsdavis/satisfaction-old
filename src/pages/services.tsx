@@ -212,7 +212,9 @@ const ServiceCell = ({
                         }}
                         className="flex list-none items-start gap-2 text-xs leading-relaxed text-white/80"
                       >
-                        <span className="mt-[3px] shrink-0 text-white/40">–</span>
+                        <span className="mt-[3px] shrink-0 text-white/40">
+                          –
+                        </span>
                         {bullet}
                       </motion.li>
                     ))}
@@ -228,7 +230,7 @@ const ServiceCell = ({
             </AnimatePresence>
 
             {/* Service name — always at bottom */}
-            <span className="block font-display text-3xl leading-[0.85] uppercase text-white md:text-4xl">
+            <span className="block font-display text-3xl leading-[0.85] text-white uppercase md:text-4xl">
               {service.name}
             </span>
           </div>

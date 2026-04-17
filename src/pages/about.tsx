@@ -33,7 +33,11 @@ const BlurInLines = ({
           initial={{ opacity: 0, filter: "blur(10px)", y: 10 }}
           whileInView={{ opacity: 1, filter: "blur(0px)", y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 1, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] }}
+          transition={{
+            duration: 1,
+            delay: i * 0.18,
+            ease: [0.22, 1, 0.36, 1],
+          }}
         >
           {sentence}
         </motion.p>
@@ -117,7 +121,11 @@ const ValueCard = ({ value }: { value: (typeof values)[0] }) => {
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.7, delay: value.delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: 0.7,
+        delay: value.delay,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       onClick={() => setIsOpen((v) => !v)}
     >
       <div className="relative aspect-2/3 w-full overflow-hidden">
@@ -143,7 +151,9 @@ const ValueCard = ({ value }: { value: (typeof values)[0] }) => {
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <p className="pt-4 text-xs leading-relaxed text-white/60">{value.body}</p>
+            <p className="pt-4 text-xs leading-relaxed text-white/60">
+              {value.body}
+            </p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -189,7 +199,11 @@ const WheelPair = ({
 
   // Linear mapping: at progress=0 → rotateX for this item's distance from top,
   //                 at progress=1 → rotateX for this item's distance from bottom
-  const rotateX = useTransform(progress, [0, 1], [center * -110, (center - 1) * -110])
+  const rotateX = useTransform(
+    progress,
+    [0, 1],
+    [center * -110, (center - 1) * -110],
+  )
 
   // Sequential visibility: each section is fully invisible outside its range.
   // The boundary between item i and i+1 is the midpoint of their centers.
@@ -208,7 +222,11 @@ const WheelPair = ({
     index === 0 ? [1, 1, 0] : index === n - 1 ? [0, 1, 1] : [0, 1, 1, 0]
   const opacity = useTransform(progress, opacityInput, opacityOutput)
 
-  const yVal = useTransform(progress, [0, 1], [center * -80, (center - 1) * -80])
+  const yVal = useTransform(
+    progress,
+    [0, 1],
+    [center * -80, (center - 1) * -80],
+  )
 
   return (
     <motion.div
@@ -319,14 +337,16 @@ const WheelSection = () => {
       className="relative"
       style={{ height: `calc(${pinDist}px + 100vh)` }}
     >
-      <motion.div
-        style={{ y: pinY }}
-        className="relative h-screen"
-      >
+      <motion.div style={{ y: pinY }} className="relative h-screen">
         {/* Right-side progress dots */}
-        <div className="pointer-events-none absolute right-8 top-1/2 z-10 flex -translate-y-1/2 flex-col gap-3 md:right-16">
+        <div className="pointer-events-none absolute top-1/2 right-8 z-10 flex -translate-y-1/2 flex-col gap-3 md:right-16">
           {WHEEL_PAIRS.map((_, i) => (
-            <WheelDot key={i} index={i} n={WHEEL_PAIRS.length} progress={progress} />
+            <WheelDot
+              key={i}
+              index={i}
+              n={WHEEL_PAIRS.length}
+              progress={progress}
+            />
           ))}
         </div>
 
@@ -363,7 +383,11 @@ export const About = () => {
   const heroEnd = typeof window !== "undefined" ? window.innerHeight * 0.5 : 0
   const contentOpacity = useTransform(
     activeY,
-    [heroEnd, heroEnd + (typeof window !== "undefined" ? window.innerHeight * 0.3 : 300)],
+    [
+      heroEnd,
+      heroEnd +
+        (typeof window !== "undefined" ? window.innerHeight * 0.3 : 300),
+    ],
     [0, 1],
   )
 
@@ -445,7 +469,6 @@ export const About = () => {
       ))}
 
       <motion.div style={{ opacity: contentOpacity }} className="pt-[62vh]">
-
         {/* ── Wheel section (new) ───────────────────────────────────────── */}
         <WheelSection />
 
@@ -565,7 +588,6 @@ export const About = () => {
 
         {/* ── Featured projects ─────────────────────────────────────────── */}
         <FeaturedCascade />
-
       </motion.div>
     </>
   )

@@ -85,7 +85,9 @@ const ProjectCard = ({
 // For 6+ projects: insert a CTA at every slot where slotIndex % 6 === 5.
 //   (5 % 3 === 2 → always a small slot ✓)
 // For fewer than 6 projects: splice one CTA at index 2 (also a small slot ✓).
-type GridItem = { kind: "project"; project: Project } | { kind: "cta"; copyIndex: number }
+type GridItem =
+  | { kind: "project"; project: Project }
+  | { kind: "cta"; copyIndex: number }
 
 function buildGridItems(projects: Project[]): GridItem[] {
   const items: GridItem[] = []
@@ -133,7 +135,10 @@ const MasonryGrid = ({
     rows.push(
       <div key={`full-${i}`}>
         {fullItem.kind === "cta" ? (
-          <CtaBlock className="h-[62vh] md:h-[68vh]" copyIndex={fullItem.copyIndex} />
+          <CtaBlock
+            className="h-[62vh] md:h-[68vh]"
+            copyIndex={fullItem.copyIndex}
+          />
         ) : (
           <ProjectCard
             project={fullItem.project}
@@ -212,7 +217,10 @@ const CategoryHero = ({ category }: { category: Category }) => {
   useEffect(() => {
     const measure = () => {
       const titleH = centeredRef.current?.offsetHeight ?? 0
-      crossoverRef.current = Math.max(0, (window.innerHeight - titleH) / 2 - NAV_H)
+      crossoverRef.current = Math.max(
+        0,
+        (window.innerHeight - titleH) / 2 - NAV_H,
+      )
     }
     measure()
     window.addEventListener("resize", measure)
@@ -336,7 +344,10 @@ export const CategoryPage = () => {
 
       {/* Project grid with CTA blocks */}
       <div className="flex flex-col gap-8 px-8 py-8 md:px-16">
-        <MasonryGrid projects={category.projects} categorySlug={category.slug} />
+        <MasonryGrid
+          projects={category.projects}
+          categorySlug={category.slug}
+        />
       </div>
 
       {/* Bottom nav */}

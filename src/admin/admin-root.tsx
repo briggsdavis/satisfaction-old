@@ -5,9 +5,10 @@ import { AboutBodyAdmin } from "./pages/about/body"
 import { AboutIndex } from "./pages/about/index"
 import { TimelineAdmin } from "./pages/about/timeline"
 import { ValuesAdmin } from "./pages/about/values"
+import { BrandAdmin } from "./pages/brand"
+import { FaqAdmin } from "./pages/contact/faq"
 import { ContactIndex } from "./pages/contact/index"
 import { ContactInfoAdmin } from "./pages/contact/info"
-import { FaqAdmin } from "./pages/contact/faq"
 import { Dashboard } from "./pages/dashboard"
 import { FooterAdmin } from "./pages/footer"
 import { BrandsAdmin } from "./pages/homepage/brands"
@@ -19,7 +20,6 @@ import { WhatWeDoAdmin } from "./pages/homepage/what-we-do"
 import { CategoryAdmin } from "./pages/portfolio/category"
 import { PortfolioIndex } from "./pages/portfolio/index"
 import { ProjectAdmin } from "./pages/portfolio/project"
-import { BrandAdmin } from "./pages/brand"
 import { SeoAdmin } from "./pages/seo"
 import { ServicesAdmin } from "./pages/services"
 
@@ -48,7 +48,10 @@ const AdminApp = () => {
         <Route path="services" element={<ServicesAdmin />} />
         <Route path="portfolio" element={<PortfolioIndex />} />
         <Route path="portfolio/:categorySlug" element={<CategoryAdmin />} />
-        <Route path="portfolio/:categorySlug/:projectSlug" element={<ProjectAdmin />} />
+        <Route
+          path="portfolio/:categorySlug/:projectSlug"
+          element={<ProjectAdmin />}
+        />
         <Route path="contact" element={<ContactIndex />} />
         <Route path="contact/info" element={<ContactInfoAdmin />} />
         <Route path="contact/faq" element={<FaqAdmin />} />

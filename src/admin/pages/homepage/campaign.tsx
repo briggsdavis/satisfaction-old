@@ -24,7 +24,7 @@ export const CampaignAdmin = () => {
         {words.map((word, i) => (
           <div
             key={i}
-            className={`font-display text-4xl uppercase leading-[0.88] text-white/60 ${
+            className={`font-display text-4xl leading-[0.88] text-white/60 uppercase ${
               i % 2 === 1 ? "text-right" : "text-left"
             }`}
           >

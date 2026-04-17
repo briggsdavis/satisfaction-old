@@ -1,7 +1,11 @@
 import { Plus, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { Link, useNavigate, useParams } from "react-router"
-import { AdminImageField, AdminTextareaField, AdminTextField } from "../../components/fields"
+import {
+  AdminImageField,
+  AdminTextareaField,
+  AdminTextField,
+} from "../../components/fields"
 import { ConfirmDialog, SectionHeader } from "../../components/misc"
 import { useContent } from "../../context/content-context"
 import type { AdminContent } from "../../context/content-context"
@@ -32,13 +36,20 @@ export const CategoryAdmin = () => {
     return (
       <div className="max-w-2xl">
         <p className="text-white/40">Category not found.</p>
-        <Link to="/admin/portfolio" className="mt-4 inline-block btn-industrial-sm">← Back</Link>
+        <Link
+          to="/admin/portfolio"
+          className="btn-industrial-sm mt-4 inline-block"
+        >
+          ← Back
+        </Link>
       </div>
     )
   }
 
   const updateCat = (patch: Partial<typeof cat>) => {
-    const next = content.categories.map((c, i) => (i === catIndex ? { ...c, ...patch } : c))
+    const next = content.categories.map((c, i) =>
+      i === catIndex ? { ...c, ...patch } : c,
+    )
     update("categories", next)
   }
 
@@ -67,7 +78,10 @@ export const CategoryAdmin = () => {
   return (
     <div className="max-w-2xl">
       <div className="mb-6 flex items-center gap-4">
-        <Link to="/admin/portfolio" className="text-xs text-white/40 hover:text-white transition-colors">
+        <Link
+          to="/admin/portfolio"
+          className="text-xs text-white/40 transition-colors hover:text-white"
+        >
           ← Portfolio
         </Link>
         <span className="text-white/20">/</span>
@@ -77,10 +91,26 @@ export const CategoryAdmin = () => {
       <SectionHeader title={cat.name} description={`/portfolio/${cat.slug}`} />
 
       {/* Category metadata */}
-      <AdminTextField label="Name" value={cat.name} onChange={(v) => updateCat({ name: v })} />
-      <AdminTextField label="Slug (URL)" value={cat.slug} onChange={(v) => updateCat({ slug: v })} />
-      <AdminImageField label="Header Image" value={cat.img} onChange={(v) => updateCat({ img: v })} />
-      <AdminTextField label="Height" value={cat.height} onChange={(v) => updateCat({ height: v })} />
+      <AdminTextField
+        label="Name"
+        value={cat.name}
+        onChange={(v) => updateCat({ name: v })}
+      />
+      <AdminTextField
+        label="Slug (URL)"
+        value={cat.slug}
+        onChange={(v) => updateCat({ slug: v })}
+      />
+      <AdminImageField
+        label="Header Image"
+        value={cat.img}
+        onChange={(v) => updateCat({ img: v })}
+      />
+      <AdminTextField
+        label="Height"
+        value={cat.height}
+        onChange={(v) => updateCat({ height: v })}
+      />
 
       <div className="border-b border-white/10 py-4">
         <label className="mb-3 block text-xs font-bold tracking-[0.35em] text-white/40 uppercase">
@@ -99,36 +129,72 @@ export const CategoryAdmin = () => {
       </div>
 
       <div className="mt-6 mb-4">
-        <p className="text-xs font-bold tracking-[0.3em] text-white/30 uppercase">Overview</p>
+        <p className="text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
+          Overview
+        </p>
       </div>
-      <AdminTextField label="Headline" value={cat.overview.headline} onChange={(v) => updateOverview("headline", v)} />
-      <AdminTextareaField label="Description" value={cat.overview.description} onChange={(v) => updateOverview("description", v)} rows={3} />
-      <AdminTextareaField label="Problem" value={cat.overview.problem} onChange={(v) => updateOverview("problem", v)} rows={3} />
-      <AdminTextareaField label="Solution" value={cat.overview.solution} onChange={(v) => updateOverview("solution", v)} rows={3} />
-      <AdminTextareaField label="Execution" value={cat.overview.execution} onChange={(v) => updateOverview("execution", v)} rows={3} />
-      <AdminTextareaField label="Results" value={cat.overview.results} onChange={(v) => updateOverview("results", v)} rows={3} />
+      <AdminTextField
+        label="Headline"
+        value={cat.overview.headline}
+        onChange={(v) => updateOverview("headline", v)}
+      />
+      <AdminTextareaField
+        label="Description"
+        value={cat.overview.description}
+        onChange={(v) => updateOverview("description", v)}
+        rows={3}
+      />
+      <AdminTextareaField
+        label="Problem"
+        value={cat.overview.problem}
+        onChange={(v) => updateOverview("problem", v)}
+        rows={3}
+      />
+      <AdminTextareaField
+        label="Solution"
+        value={cat.overview.solution}
+        onChange={(v) => updateOverview("solution", v)}
+        rows={3}
+      />
+      <AdminTextareaField
+        label="Execution"
+        value={cat.overview.execution}
+        onChange={(v) => updateOverview("execution", v)}
+        rows={3}
+      />
+      <AdminTextareaField
+        label="Results"
+        value={cat.overview.results}
+        onChange={(v) => updateOverview("results", v)}
+        rows={3}
+      />
 
       {/* Projects */}
       <div className="mt-10 mb-4 border-t border-white/10 pt-8">
-        <p className="text-xs font-bold tracking-[0.3em] text-white/30 uppercase mb-4">
+        <p className="mb-4 text-xs font-bold tracking-[0.3em] text-white/30 uppercase">
           Projects ({cat.projects.length})
         </p>
         {cat.projects.map((p) => (
-          <div key={p.slug} className="flex items-center justify-between border-b border-white/10 py-3">
+          <div
+            key={p.slug}
+            className="flex items-center justify-between border-b border-white/10 py-3"
+          >
             <div>
               <p className="text-sm font-bold">{p.title}</p>
-              <p className="text-[10px] text-white/30">/portfolio/{cat.slug}/{p.slug}</p>
+              <p className="text-[10px] text-white/30">
+                /portfolio/{cat.slug}/{p.slug}
+              </p>
             </div>
             <div className="flex items-center gap-3">
               <Link
                 to={`/admin/portfolio/${cat.slug}/${p.slug}`}
-                className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase hover:text-white transition-colors"
+                className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase transition-colors hover:text-white"
               >
                 Edit
               </Link>
               <button
                 onClick={() => setDeleteTarget(p.slug)}
-                className="p-1 text-white/20 hover:text-red-400 transition-colors"
+                className="p-1 text-white/20 transition-colors hover:text-red-400"
               >
                 <Trash2 size={13} />
               </button>
@@ -140,7 +206,9 @@ export const CategoryAdmin = () => {
         {draftProject !== null ? (
           <div className="mt-4 border border-dashed border-white/30">
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5">
-              <span className="text-xs font-bold tracking-[0.25em] text-white/40 uppercase">New Project</span>
+              <span className="text-xs font-bold tracking-[0.25em] text-white/40 uppercase">
+                New Project
+              </span>
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => setDraftProject(null)}
@@ -172,7 +240,9 @@ export const CategoryAdmin = () => {
               <AdminTextField
                 label="Descriptor"
                 value={draftProject.descriptor}
-                onChange={(v) => setDraftProject({ ...draftProject, descriptor: v })}
+                onChange={(v) =>
+                  setDraftProject({ ...draftProject, descriptor: v })
+                }
                 placeholder="e.g. Brand Campaign"
               />
             </div>
@@ -180,7 +250,7 @@ export const CategoryAdmin = () => {
         ) : (
           <button
             onClick={() => setDraftProject(blankProject())}
-            className="mt-4 flex items-center gap-2 border border-dashed border-white/20 px-4 py-2 text-xs font-bold tracking-[0.25em] text-white/40 uppercase hover:border-white/40 hover:text-white/70 transition-colors"
+            className="mt-4 flex items-center gap-2 border border-dashed border-white/20 px-4 py-2 text-xs font-bold tracking-[0.25em] text-white/40 uppercase transition-colors hover:border-white/40 hover:text-white/70"
           >
             <Plus size={12} /> Add Project
           </button>

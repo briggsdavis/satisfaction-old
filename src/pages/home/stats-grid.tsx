@@ -102,7 +102,7 @@ const ServicesGridCard = ({ card }: { card: ServiceCardDef }) => (
         {/* Bottom — service name + rule */}
         <div>
           <div className="mb-3 h-px w-full bg-white/25" />
-          <p className="font-display text-xl leading-tight uppercase text-center md:text-2xl">
+          <p className="text-center font-display text-xl leading-tight uppercase md:text-2xl">
             {card.service}
           </p>
         </div>
@@ -128,7 +128,8 @@ export const StatsGrid = () => {
     e.preventDefault()
     const x = e.pageX - (scrollRef.current?.offsetLeft ?? 0)
     const walk = (x - startX.current) * 1.5
-    if (scrollRef.current) scrollRef.current.scrollLeft = scrollLeft.current - walk
+    if (scrollRef.current)
+      scrollRef.current.scrollLeft = scrollLeft.current - walk
   }
 
   const stopDrag = () => {

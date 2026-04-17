@@ -9,7 +9,7 @@ type Brand = { name: string; logo?: string }
 
 const BrandCard = ({
   brand,
-  index,
+  index: _index,
   helpers,
 }: {
   brand: Brand
@@ -21,23 +21,27 @@ const BrandCard = ({
   return (
     <div className="border border-white/10">
       <div className="flex items-center justify-between px-4 py-3">
-        <div className="flex items-center gap-3 min-w-0">
+        <div className="flex min-w-0 items-center gap-3">
           {brand.logo && (
             <img
               src={brand.logo}
               alt={brand.name}
               className="h-6 w-10 object-contain opacity-60"
-              onError={(e) => ((e.target as HTMLImageElement).style.display = "none")}
+              onError={(e) =>
+                ((e.target as HTMLImageElement).style.display = "none")
+              }
             />
           )}
-          <span className="text-sm font-bold truncate">{brand.name || "Untitled"}</span>
+          <span className="truncate text-sm font-bold">
+            {brand.name || "Untitled"}
+          </span>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex shrink-0 items-center gap-2">
           {!helpers.isDraft && (
             <>
               <button
                 onClick={() => setOpen((o) => !o)}
-                className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase hover:text-white transition-colors"
+                className="text-xs font-bold tracking-[0.2em] text-white/40 uppercase transition-colors hover:text-white"
               >
                 {open ? "Close" : "Edit"}
               </button>
@@ -88,7 +92,12 @@ export const BrandsAdmin = () => {
         onAdd={() => ({ name: "", logo: undefined })}
         addLabel="Add Brand"
         renderItem={(brand, index, helpers) => (
-          <BrandCard key={index} brand={brand} index={index} helpers={helpers} />
+          <BrandCard
+            key={index}
+            brand={brand}
+            index={index}
+            helpers={helpers}
+          />
         )}
       />
     </div>

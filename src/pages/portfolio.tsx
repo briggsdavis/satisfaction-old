@@ -61,7 +61,7 @@ const CategoryCard = ({
                       duration: 0.3,
                       ease: [0.22, 1, 0.36, 1],
                     }}
-                    className="flex list-none items-start gap-2.5 text-xs lowercase leading-relaxed text-white/70"
+                    className="flex list-none items-start gap-2.5 text-xs leading-relaxed text-white/70 lowercase"
                   >
                     <span className="mt-[3px] shrink-0 text-xs text-white/30">
                       -
